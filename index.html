@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nordelta Builders — Comunidad Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d0f;
+    --surface: #111518;
+    --border: #1e2428;
+    --accent: #00e5a0;
+    --accent2: #0096ff;
+    --accent3: #ff4d6d;
+    --text: #e8edf2;
+    --muted: #5a6772;
+    --card: #13181d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(180deg, rgba(10,13,15,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .nav-logo span { color: var(--text); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--bg) !important;
+    padding: 10px 22px;
+    font-weight: 700 !important;
+    color: #000 !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 64px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    padding: 6px 14px;
+    letter-spacing: 0.1em;
+    margin-bottom: 32px;
+    width: fit-content;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 8vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 .line2 { color: var(--accent); }
+  .hero h1 .line3 { 
+    -webkit-text-stroke: 1px var(--text);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 48px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    padding: 14px 32px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .btn-primary:hover {
+    background: #00ffc2;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    color: var(--text);
+    padding: 14px 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ANIMATED GRID */
+  .grid-canvas {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 20s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 40px; }
+  }
+
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    width: 400px;
+    height: 400px;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.3;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .orb-1 {
+    width: 280px; height: 280px;
+    background: var(--accent);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: 0s;
+  }
+
+  .orb-2 {
+    width: 200px; height: 200px;
+    background: var(--accent2);
+    top: 20%; left: 20%;
+    animation-delay: -2s;
+  }
+
+  .orb-3 {
+    width: 150px; height: 150px;
+    background: var(--accent3);
+    bottom: 20%; right: 10%;
+    animation-delay: -4s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -55%) scale(1.05); }
+  }
+
+  .stats-ring {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(0,229,160,0.15);
+    border-radius: 50%;
+    animation: spin 30s linear infinite;
+  }
+
+  .stats-ring::after {
+    content: '';
+    position: absolute;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    top: -4px; left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px var(--accent);
+  }
+
+  @keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .stat-bubble {
+    position: absolute;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px 24px;
+    z-index: 3;
+  }
+
+  .stat-bubble .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-bubble .label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .stat-bubble-1 { top: 5%; right: -20px; }
+  .stat-bubble-2 { bottom: 15%; left: -30px; }
+  .stat-bubble-3 { top: 40%; right: -50px; }
+
+  /* MARQUEE */
+  .marquee-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 25s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .marquee-dot {
+    width: 4px; height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section { padding: 100px 48px; }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  /* ABOUT */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    margin-top: 48px;
+  }
+
+  .feature-card {
+    background: var(--card);
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+
+  .feature-card:hover { background: #161c22; }
+
+  .feature-icon {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .feature-card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .feature-card p {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .terminal {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    overflow: hidden;
+  }
+
+  .terminal-bar {
+    background: var(--surface);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .t-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  .t-dot:nth-child(1) { background: #ff5f57; }
+  .t-dot:nth-child(2) { background: #febc2e; }
+  .t-dot:nth-child(3) { background: #28c840; }
+
+  .terminal-body {
+    padding: 24px;
+    line-height: 2;
+    color: var(--muted);
+  }
+
+  .terminal-body .prompt { color: var(--accent); }
+  .terminal-body .cmd { color: var(--text); }
+  .terminal-body .out { color: #5a9; }
+  .terminal-body .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* EVENTS */
+  .events-section { background: var(--surface); }
+
+  .events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .event-card {
+    background: var(--card);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .event-card:hover { background: #161c22; }
+
+  .event-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .event-card:hover::before { opacity: 1; }
+
+  .event-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid;
+    width: fit-content;
+    margin-bottom: 20px;
+  }
+
+  .event-type.workshop { color: var(--accent); border-color: var(--accent); }
+  .event-type.meetup { color: var(--accent2); border-color: var(--accent2); }
+  .event-type.hackathon { color: var(--accent3); border-color: var(--accent3); }
+  .event-type.demo { color: #f59e0b; border-color: #f59e0b; }
+
+  .event-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .event-card p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .event-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+
+  .event-date { color: var(--accent); }
+
+  /* COMMUNITY */
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .member-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px 20px;
+    text-align: center;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .member-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+
+  .member-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0;
+  }
+
+  .member-card h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .member-role {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .member-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    padding: 3px 8px;
+    background: var(--surface);
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* CTA BAND */
+  .cta-band {
+    background: var(--accent);
+    color: #000;
+    padding: 80px 48px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-band::before {
+    content: 'NORDELTA BUILDERS';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12rem;
+    opacity: 0.08;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .cta-band h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  .cta-band p {
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-top: 12px;
+    max-width: 500px;
+  }
+
+  .btn-dark {
+    background: #000;
+    color: var(--accent);
+    padding: 18px 40px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .btn-dark:hover { background: #111; transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 60px 48px 32px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  .footer-brand .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+
+  .footer-brand p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 260px;
+  }
+
+  .footer-col h5 {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .footer-col a {
+    display: block;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--accent); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 16px;
+  }
+
+  .social-links a {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: all 0.2s;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .social-links a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ANIMATIONS ON LOAD */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-tag { animation: fadeUp 0.6s ease both; }
+  .hero h1 { animation: fadeUp 0.6s ease 0.15s both; }
+  .hero-sub { animation: fadeUp 0.6s ease 0.25s both; }
+  .hero-actions { animation: fadeUp 0.6s ease 0.35s both; }
+  .stat-bubble-1 { animation: fadeUp 0.6s ease 0.5s both; }
+  .stat-bubble-2 { animation: fadeUp 0.6s ease 0.6s both; }
+  .stat-bubble-3 { animation: fadeUp 0.6s ease 0.7s both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 32px 80px; }
+    .about { grid-template-columns: 1fr; }
+    .events-grid { grid-template-columns: 1fr; }
+    .community-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 72px 24px; }
+    .cta-band { grid-template-columns: 1fr; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Nordelta<span>Builders</span></div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#eventos">Eventos</a></li>
+    <li><a href="#comunidad">Comunidad</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Builders%20%F0%9F%9A%80" target="_blank" class="nav-cta">Unirse</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Nordelta · Zona Norte · Recién arrancamos 🚀</div>
+    <h1>
+      BUILD<br>
+      <span class="line2">THE</span><br>
+      <span class="line3">FUTURE</span>
+    </h1>
+    <p class="hero-sub">
+      La comunidad de founders, devs y makers de Nordelta y zona norte. 
+      Construimos startups, compartimos conocimiento y hacemos crecer el ecosistema tech desde el agua.
+    </p>
+    <div class="hero-actions">
+      <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Builders%20%F0%9F%9A%80" target="_blank" class="btn-primary">Unirse a la comunidad</a>
+      <a href="#eventos" class="btn-secondary">Ver próximos eventos →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="grid-canvas"></div>
+    <div class="hero-visual">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="stats-ring"></div>
+      <div class="stat-bubble stat-bubble-1">
+        <div class="num">~40</div>
+        <div class="label">Miembros fundadores</div>
+      </div>
+      <div class="stat-bubble stat-bubble-2">
+        <div class="num">2025</div>
+        <div class="label">Año de inicio</div>
+      </div>
+      <div class="stat-bubble stat-bubble-3">
+        <div class="num">∞</div>
+        <div class="label">Por construir</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="marquee-dot"></span>Inteligencia Artificial</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Fintech</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Open Source</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Web3 & Blockchain</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>SaaS</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Developer Tools</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Networking</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Fundraising</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Proptech</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Healthtech</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Inteligencia Artificial</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Fintech</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Open Source</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Web3 & Blockchain</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>SaaS</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Developer Tools</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Networking</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Fundraising</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Proptech</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Healthtech</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="sobre">
+  <div class="about">
+    <div>
+      <div class="section-label">¿Qué es esto?</div>
+      <h2 class="section-title">TECH NACE<br>EN NORDELTA</h2>
+      <p class="section-sub">
+        Somos un grupo de builders que vive y trabaja en Nordelta y zona norte del Gran Buenos Aires. 
+        Arrancamos en 2025 con ganas de construir el ecosistema tech de la zona — desde cero.
+      </p>
+      <div class="about-features">
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h4>Startups & Proyectos</h4>
+          <p>Conectamos fundadores con co-founders, early hires y primeros usuarios.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h4>Conocimiento Compartido</h4>
+          <p>Workshops técnicos, talks de founders y sesiones de Q&A mensuales.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h4>Red de Contactos</h4>
+          <p>Acceso a inversores, mentores y corporaciones de la zona.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h4>Acción Real</h4>
+          <p>No es otro grupo de WhatsApp. Construimos cosas juntos.</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="t-dot"></div>
+          <div class="t-dot"></div>
+          <div class="t-dot"></div>
+        </div>
+        <div class="terminal-body">
+          <div><span class="prompt">~/nordelta-builders $</span> <span class="cmd">whoami</span></div>
+          <div><span class="out">→ builders, devs, founders, makers</span></div>
+          <div>&nbsp;</div>
+          <div><span class="prompt">~/nordelta-builders $</span> <span class="cmd">ls comunidad/</span></div>
+          <div><span class="out">→ ~40 miembros fundadores</span></div>
+          <div><span class="out">→ recién arrancamos 🚀</span></div>
+          <div><span class="out">→ todo por construir</span></div>
+          <div>&nbsp;</div>
+          <div><span class="prompt">~/nordelta-builders $</span> <span class="cmd">next event</span></div>
+          <div><span class="out">→ Kick-off — fecha a confirmar</span></div>
+          <div><span class="out">→ Nordelta, zona norte BA</span></div>
+          <div>&nbsp;</div>
+          <div><span class="prompt">~/nordelta-builders $</span> <span class="cmd">join<span class="cursor"></span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="eventos" class="events-section">
+  <div class="events-header">
+    <div>
+      <div class="section-label">Agenda</div>
+      <h2 class="section-title">PRÓXIMOS<br>EVENTOS</h2>
+    </div>
+    <a href="#" class="btn-secondary">Ver todos →</a>
+  </div>
+  <div class="events-grid" style="grid-template-columns: 1fr 1fr;">
+    <div class="event-card" style="grid-column: 1 / -1; border: 1px solid rgba(0,229,160,0.3); background: #0f1a16;">
+      <div class="event-type meetup" style="font-size: 0.65rem;">★ Evento fundacional</div>
+      <h3 style="font-size: 1.4rem;">Kick-off Nordelta Builders</h3>
+      <p>El primer encuentro de la comunidad. Nos juntamos para conocernos, contar en qué estamos construyendo y definir juntos el rumbo de Nordelta Builders. Lugar y fecha a confirmar — anotate para que te avisemos.</p>
+      <div class="event-meta">
+        <span class="event-date">Fecha a confirmar · Nordelta</span>
+        <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Builders%20%F0%9F%9A%80" target="_blank" style="color: var(--accent); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.65rem;">Avisame cuando sea →</a>
+      </div>
+    </div>
+    <div class="event-card" style="opacity: 0.45; pointer-events: none;">
+      <div class="event-type workshop">Workshop</div>
+      <h3>Build with AI — TBD</h3>
+      <p>Sesión práctica de vibe coding: de idea a MVP en pocas horas. Fecha a definir por la comunidad.</p>
+      <div class="event-meta">
+        <span class="event-date">Próximamente</span>
+        <span>Nordelta</span>
+      </div>
+    </div>
+    <div class="event-card" style="opacity: 0.45; pointer-events: none;">
+      <div class="event-type hackathon">Hackathon</div>
+      <h3>Nordelta Hack #1 — TBD</h3>
+      <p>El primer hackathon de la comunidad. Track y fecha a definir. ¿Tenés una idea de tema? Sugerilo.</p>
+      <div class="event-meta">
+        <span class="event-date">Próximamente</span>
+        <span>Nordelta</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="comunidad">
+  <div class="section-label">Miembros destacados</div>
+  <h2 class="section-title">LA COMUNIDAD</h2>
+  <p class="section-sub">Los primeros builders que están armando esto desde el día cero.</p>
+  <div class="community-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 600px;">
+    <div class="member-card">
+      <div class="member-avatar" style="background: rgba(0,229,160,0.1); color: var(--accent);">TD</div>
+      <h4>Tomás DeLuca</h4>
+      <div class="member-role">Founder @ <a href="https://huevsite.io" target="_blank" style="color: var(--accent); text-decoration: none;">huevsite.io</a></div>
+      <div class="member-tags">
+        <span class="tag">Founder</span>
+        <span class="tag">Builder</span>
+      </div>
+    </div>
+    <div class="member-card">
+      <div class="member-avatar" style="background: rgba(0,150,255,0.1); color: var(--accent2);">LA</div>
+      <h4>Lucas Argento</h4>
+      <div class="member-role">Founder @ <a href="https://suppl.ai" target="_blank" style="color: var(--accent2); text-decoration: none;">suppl.ai</a></div>
+      <div class="member-tags">
+        <span class="tag">AI</span>
+        <span class="tag">Founder</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div id="join" class="cta-band">
+  <div>
+    <h2>¿LISTO PARA<br>CONSTRUIR?</h2>
+    <p>Sumate a la comunidad de builders de Nordelta. Es gratis, es local y es real.</p>
+  </div>
+  <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Builders%20%F0%9F%9A%80" target="_blank" class="btn-dark">Unirse al grupo →</a>
+</div>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">NordeltaBuilders</div>
+      <p>Comunidad tech de Nordelta y zona norte del Gran Buenos Aires. Construimos juntos.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Comunidad</h5>
+      <a href="#">Sobre nosotros</a>
+      <a href="#">Miembros</a>
+      <a href="#">Proyectos</a>
+      <a href="#">Sponsors</a>
+    </div>
+    <div class="footer-col">
+      <h5>Recursos</h5>
+      <a href="#">Eventos</a>
+      <a href="#">Newsletter</a>
+      <a href="#">Blog</a>
+      <a href="#">Job Board</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contacto</h5>
+      <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Builders%20%F0%9F%9A%80" target="_blank">WhatsApp Community</a>
+      <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Builders%20%F0%9F%9A%80" target="_blank">+54 11 2508-5500</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NordeltaBuilders · Nordelta, Pcia. de Buenos Aires</p>
+    <div class="social-links">
+      <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Builders%20%F0%9F%9A%80" target="_blank">WA</a>
+    </div>
