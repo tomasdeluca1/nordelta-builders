@@ -1,340 +1,383 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nordelta Build — Comunidad Tech</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nordelta Build — Comunidad Tech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<!-- ─── NAV ─────────────────────────────────────────────────── -->
-<nav>
-  <a href="#" class="nav-logo">Nordelta<em> Build</em></a>
+  <!-- ─── NAV ─────────────────────────────────────────────────── -->
+  <nav>
+    <a href="#" class="nav-logo">Nordelta<em> Build</em></a>
 
-  <ul class="nav-center">
-    <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#eventos">Eventos</a></li>
-    <li><a href="#comunidad">Comunidad</a></li>
-  </ul>
+    <ul class="nav-center">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#eventos">Eventos</a></li>
+      <li><a href="#comunidad">Comunidad</a></li>
+    </ul>
 
-  <div class="nav-right">
-    <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80" target="_blank" class="btn btn-green">Unirse</a>
-    <button class="hamburger" id="ham" aria-label="Menú">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- mobile menu -->
-<div class="mobile-menu" id="mob">
-  <a href="#sobre"     onclick="closeMob()">Sobre</a>
-  <a href="#eventos"   onclick="closeMob()">Eventos</a>
-  <a href="#comunidad" onclick="closeMob()">Comunidad</a>
-  <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80" target="_blank" class="btn btn-wa" onclick="closeMob()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.302-1.511A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.503-5.184-1.381l-.371-.22-3.742.897.934-3.617-.242-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-    Unirse al grupo
-  </a>
-</div>
-
-<!-- ─── HERO ──────────────────────────────────────────────────── -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-
-  <div class="hero-left container" style="max-width:none;">
-    <div class="pill"><span class="pill-dot"></span>Nordelta · Zona Norte · Recién arrancamos</div>
-
-    <h1 class="hero-h1 display">
-      BUILD<br>
-      <span class="green">THE</span><br>
-      <span class="stroke">FUTURE</span>
-    </h1>
-
-    <p class="hero-sub">
-      La comunidad de founders, devs y makers de Nordelta y zona norte.
-      Construimos startups, compartimos conocimiento y hacemos crecer el ecosistema tech desde el agua.
-    </p>
-
-    <div class="hero-actions">
-      <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80" target="_blank" class="btn btn-green">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.302-1.511A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.503-5.184-1.381l-.371-.22-3.742.897.934-3.617-.242-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-        Unirse a la comunidad
-      </a>
-      <a href="#eventos" class="btn btn-ghost">Ver eventos →</a>
+    <div class="nav-right">
+      <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80"
+        target="_blank" class="btn btn-green">Unirse</a>
+      <button class="hamburger" id="ham" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </nav>
 
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="val">~40</div>
-        <div class="lbl">Miembros fundadores</div>
-      </div>
-      <div class="hero-stat">
-        <div class="val">2025</div>
-        <div class="lbl">Año de inicio</div>
-      </div>
-      <div class="hero-stat">
-        <div class="val">∞</div>
-        <div class="lbl">Por construir</div>
-      </div>
-    </div>
+  <!-- mobile menu -->
+  <div class="mobile-menu" id="mob">
+    <a href="#sobre" onclick="closeMob()">Sobre</a>
+    <a href="#eventos" onclick="closeMob()">Eventos</a>
+    <a href="#comunidad" onclick="closeMob()">Comunidad</a>
+    <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80"
+      target="_blank" class="btn btn-wa" onclick="closeMob()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+        <path
+          d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.302-1.511A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.503-5.184-1.381l-.371-.22-3.742.897.934-3.617-.242-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+      </svg>
+      Unirse al grupo
+    </a>
   </div>
 
-  <div class="hero-right">
-    <div class="orb-wrap">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="ring ring-2"></div>
-      <div class="ring ring-1"></div>
-      <div class="float-card fc-a">
-        <div class="fc-val">~40</div>
-        <div class="fc-lbl">Miembros fundadores</div>
-      </div>
-      <div class="float-card fc-b">
-        <div class="fc-val">2025</div>
-        <div class="fc-lbl">Año de inicio</div>
-      </div>
-      <div class="float-card fc-c">
-        <div class="fc-val">∞</div>
-        <div class="fc-lbl">Por construir</div>
-      </div>
-    </div>
-  </div>
-</section>
+  <!-- ─── HERO ──────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
 
-<!-- ─── MARQUEE ───────────────────────────────────────────────── -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <div class="m-item"><span></span>Inteligencia Artificial</div>
-    <div class="m-item"><span></span>Fintech</div>
-    <div class="m-item"><span></span>SaaS</div>
-    <div class="m-item"><span></span>Web3</div>
-    <div class="m-item"><span></span>Proptech</div>
-    <div class="m-item"><span></span>Healthtech</div>
-    <div class="m-item"><span></span>EdTech</div>
-    <div class="m-item"><span></span>Developer Tools</div>
-    <div class="m-item"><span></span>E-commerce</div>
-    <div class="m-item"><span></span>Networking</div>
-    <div class="m-item"><span></span>Inteligencia Artificial</div>
-    <div class="m-item"><span></span>Fintech</div>
-    <div class="m-item"><span></span>SaaS</div>
-    <div class="m-item"><span></span>Web3</div>
-    <div class="m-item"><span></span>Proptech</div>
-    <div class="m-item"><span></span>Healthtech</div>
-    <div class="m-item"><span></span>EdTech</div>
-    <div class="m-item"><span></span>Developer Tools</div>
-    <div class="m-item"><span></span>E-commerce</div>
-    <div class="m-item"><span></span>Networking</div>
-  </div>
-</div>
+    <div class="hero-left container" style="max-width:none;">
+      <div class="pill"><span class="pill-dot"></span>Nordelta · Zona Norte · Recién arrancamos</div>
 
-<!-- ─── ABOUT ─────────────────────────────────────────────────── -->
-<section id="sobre" class="section">
-  <div class="about-grid">
-    <div>
-      <div class="eyebrow">¿Qué es esto?</div>
-      <h2 class="sec-title display">TECH NACE<br>EN NORDELTA</h2>
-      <p class="sec-sub">
-        Somos un grupo de builders que vive y trabaja en Nordelta y zona norte del Gran Buenos Aires.
-        Arrancamos en 2025 con ganas de construir el ecosistema tech de la zona — desde cero.
+      <h1 class="hero-h1 display">
+        BUILD<br>
+        <span class="green">THE</span><br>
+        <span class="stroke">FUTURE</span>
+      </h1>
+
+      <p class="hero-sub">
+        La comunidad de founders, devs y makers de Nordelta y zona norte.
+        Construimos startups, compartimos conocimiento y hacemos crecer el ecosistema tech desde el agua.
       </p>
-      <div class="feat-grid">
-        <div class="feat">
-          <div class="feat-icon">🚀</div>
-          <h4>Startups & Proyectos</h4>
-          <p>Conectamos fundadores con co-founders, early hires y primeros usuarios.</p>
+
+      <div class="hero-actions">
+        <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80"
+          target="_blank" class="btn btn-green">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+            <path
+              d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.302-1.511A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.503-5.184-1.381l-.371-.22-3.742.897.934-3.617-.242-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+          </svg>
+          Unirse a la comunidad
+        </a>
+        <a href="#eventos" class="btn btn-ghost">Ver eventos →</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="val">~40</div>
+          <div class="lbl">Miembros fundadores</div>
         </div>
-        <div class="feat">
-          <div class="feat-icon">🧠</div>
-          <h4>Conocimiento</h4>
-          <p>Workshops técnicos, talks de founders y sesiones de Q&A.</p>
+        <div class="hero-stat">
+          <div class="val">2025</div>
+          <div class="lbl">Año de inicio</div>
         </div>
-        <div class="feat">
-          <div class="feat-icon">🤝</div>
-          <h4>Red de Contactos</h4>
-          <p>Inversores, mentores y corporaciones de zona norte.</p>
-        </div>
-        <div class="feat">
-          <div class="feat-icon">⚡</div>
-          <h4>Acción Real</h4>
-          <p>No es otro grupo de WhatsApp. Construimos cosas juntos.</p>
+        <div class="hero-stat">
+          <div class="val">∞</div>
+          <div class="lbl">Por construir</div>
         </div>
       </div>
     </div>
 
-    <div>
-      <div class="terminal">
-        <div class="t-bar">
-          <div class="td"></div><div class="td"></div><div class="td"></div>
-          <span>~/nordelta-build</span>
+    <div class="hero-right">
+      <div class="orb-wrap">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-1"></div>
+        <div class="float-card fc-a">
+          <div class="fc-val">~40</div>
+          <div class="fc-lbl">Miembros fundadores</div>
         </div>
-        <div class="t-body mono">
-          <div><span class="pr">$</span> <span class="cm">whoami</span></div>
-          <div><span class="ou">→ builders, devs, founders, makers</span></div>
-          <div>&nbsp;</div>
-          <div><span class="pr">$</span> <span class="cm">ls comunidad/</span></div>
-          <div><span class="ou">→ ~40 miembros fundadores</span></div>
-          <div><span class="ou">→ recién arrancamos 🚀</span></div>
-          <div><span class="ou">→ todo por construir</span></div>
-          <div>&nbsp;</div>
-          <div><span class="pr">$</span> <span class="cm">next-event</span></div>
-          <div><span class="ou">→ Kick-off — fecha por confirmar</span></div>
-          <div><span class="ou">→ Nordelta, zona norte BA</span></div>
-          <div>&nbsp;</div>
-          <div><span class="pr">$</span> <span class="cm">join<span class="cursor"></span></span></div>
+        <div class="float-card fc-b">
+          <div class="fc-val">2025</div>
+          <div class="fc-lbl">Año de inicio</div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── EVENTS ────────────────────────────────────────────────── -->
-<div class="events-bg">
-  <section id="eventos" class="section">
-    <div class="events-hd">
-      <div>
-        <div class="eyebrow">Agenda</div>
-        <h2 class="sec-title display">PRÓXIMOS<br>EVENTOS</h2>
-      </div>
-      <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80" target="_blank" class="btn btn-ghost">Avisame de nuevos eventos →</a>
-    </div>
-
-    <div class="events-grid">
-      <!-- featured -->
-      <div class="ev-card ev-featured">
-        <div class="ev-badge badge-star">★ Evento fundacional</div>
-        <h3>Kick-off Nordelta Build</h3>
-        <p>El primer encuentro de la comunidad. Nos juntamos para conocernos, contar en qué estamos construyendo y definir juntos el rumbo de Nordelta Build. Lugar y fecha a confirmar — anotate para que te avisemos en cuanto esté todo listo.</p>
-        <div class="ev-meta">
-          <span class="ev-date">Fecha a confirmar · Nordelta</span>
-          <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80" target="_blank" class="ev-link">Avisame cuando sea →</a>
-        </div>
-      </div>
-
-      <!-- coming soon cards -->
-      <div class="ev-card ev-dim">
-        <div class="ev-badge badge-ws">Workshop</div>
-        <h3>Build with AI — TBD</h3>
-        <p>Sesión práctica de vibe coding: de idea a MVP en pocas horas. Fecha a definir por la comunidad.</p>
-        <div class="ev-meta">
-          <span class="ev-date">Próximamente</span>
-          <span>Nordelta</span>
-        </div>
-      </div>
-
-      <div class="ev-card ev-dim">
-        <div class="ev-badge badge-hack">Hackathon</div>
-        <h3>Nordelta Hack #1 — TBD</h3>
-        <p>El primer hackathon de la comunidad. Track y fecha a definir. ¿Tenés idea de tema? Sugerila.</p>
-        <div class="ev-meta">
-          <span class="ev-date">Próximamente</span>
-          <span>Nordelta</span>
+        <div class="float-card fc-c">
+          <div class="fc-val">∞</div>
+          <div class="fc-lbl">Por construir</div>
         </div>
       </div>
     </div>
   </section>
-</div>
 
-<!-- ─── COMMUNITY ─────────────────────────────────────────────── -->
-<section id="comunidad" class="section">
-  <div class="eyebrow">Miembros fundadores</div>
-  <h2 class="sec-title display">LA COMUNIDAD</h2>
-  <p class="sec-sub">Los primeros builders armando esto desde el día cero.</p>
-
-  <div class="members-grid">
-    <div class="member">
-      <div class="avatar" style="background:rgba(0,229,160,.1);color:var(--accent)">TD</div>
-      <h4>Tomás DeLuca</h4>
-      <div class="member-role">Founder @ <a href="https://huevsite.io" target="_blank">huevsite.io</a></div>
-      <div class="tags">
-        <span class="tag">Founder</span>
-        <span class="tag">Builder</span>
-      </div>
-    </div>
-    <div class="member">
-      <div class="avatar" style="background:rgba(33,150,243,.1);color:var(--blue)">LA</div>
-      <h4>Lucas Argento</h4>
-      <div class="member-role">Founder @ <a href="https://suppl.ai" target="_blank" style="color:var(--blue)">suppl.ai</a></div>
-      <div class="tags">
-        <span class="tag">AI</span>
-        <span class="tag">Founder</span>
-      </div>
-    </div>
-    <!-- join card -->
-    <div class="member" style="border-style:dashed;cursor:pointer;opacity:.6;transition:all .2s" onclick="window.open('https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80','_blank')" onmouseenter="this.style.opacity='1';this.style.borderColor='var(--accent)'" onmouseleave="this.style.opacity='.6';this.style.borderColor=''">
-      <div class="avatar" style="background:rgba(255,255,255,.04);color:var(--muted);font-size:2rem;letter-spacing:0">+</div>
-      <h4 style="color:var(--muted2)">¿Sos vos?</h4>
-      <div class="member-role" style="color:var(--muted)">Sumate a la comunidad</div>
-      <div class="tags"><span class="tag">Unirse →</span></div>
+  <!-- ─── MARQUEE ───────────────────────────────────────────────── -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="m-item"><span></span>Inteligencia Artificial</div>
+      <div class="m-item"><span></span>Fintech</div>
+      <div class="m-item"><span></span>SaaS</div>
+      <div class="m-item"><span></span>Web3</div>
+      <div class="m-item"><span></span>Proptech</div>
+      <div class="m-item"><span></span>Healthtech</div>
+      <div class="m-item"><span></span>EdTech</div>
+      <div class="m-item"><span></span>Developer Tools</div>
+      <div class="m-item"><span></span>E-commerce</div>
+      <div class="m-item"><span></span>Networking</div>
+      <div class="m-item"><span></span>Inteligencia Artificial</div>
+      <div class="m-item"><span></span>Fintech</div>
+      <div class="m-item"><span></span>SaaS</div>
+      <div class="m-item"><span></span>Web3</div>
+      <div class="m-item"><span></span>Proptech</div>
+      <div class="m-item"><span></span>Healthtech</div>
+      <div class="m-item"><span></span>EdTech</div>
+      <div class="m-item"><span></span>Developer Tools</div>
+      <div class="m-item"><span></span>E-commerce</div>
+      <div class="m-item"><span></span>Networking</div>
     </div>
   </div>
-</section>
 
-<!-- ─── CTA BAND ──────────────────────────────────────────────── -->
-<div id="join" class="cta-band">
-  <div class="cta-inner">
-    <div>
-      <h2 class="display">¿LISTO PARA<br>CONSTRUIR?</h2>
-      <p>Sumate a Nordelta Build. Es gratis, es local y es real.</p>
+  <!-- ─── ABOUT ─────────────────────────────────────────────────── -->
+  <section id="sobre" class="section">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow">¿Qué es esto?</div>
+        <h2 class="sec-title display">TECH NACE<br>EN NORDELTA</h2>
+        <p class="sec-sub">
+          Somos un grupo de builders que vive y trabaja en Nordelta y zona norte del Gran Buenos Aires.
+          Arrancamos en 2025 con ganas de construir el ecosistema tech de la zona — desde cero.
+        </p>
+        <div class="feat-grid">
+          <div class="feat">
+            <div class="feat-icon">🚀</div>
+            <h4>Startups & Proyectos</h4>
+            <p>Conectamos fundadores con co-founders, early hires y primeros usuarios.</p>
+          </div>
+          <div class="feat">
+            <div class="feat-icon">🧠</div>
+            <h4>Conocimiento</h4>
+            <p>Workshops técnicos, talks de founders y sesiones de Q&A.</p>
+          </div>
+          <div class="feat">
+            <div class="feat-icon">🤝</div>
+            <h4>Red de Contactos</h4>
+            <p>Inversores, mentores y corporaciones de zona norte.</p>
+          </div>
+          <div class="feat">
+            <div class="feat-icon">⚡</div>
+            <h4>Acción Real</h4>
+            <p>No es otro grupo de WhatsApp. Construimos cosas juntos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="terminal">
+          <div class="t-bar">
+            <div class="td"></div>
+            <div class="td"></div>
+            <div class="td"></div>
+            <span>~/nordelta-build</span>
+          </div>
+          <div class="t-body mono">
+            <div><span class="pr">$</span> <span class="cm">whoami</span></div>
+            <div><span class="ou">→ builders, devs, founders, makers</span></div>
+            <div>&nbsp;</div>
+            <div><span class="pr">$</span> <span class="cm">ls comunidad/</span></div>
+            <div><span class="ou">→ ~40 miembros fundadores</span></div>
+            <div><span class="ou">→ recién arrancamos 🚀</span></div>
+            <div><span class="ou">→ todo por construir</span></div>
+            <div>&nbsp;</div>
+            <div><span class="pr">$</span> <span class="cm">next-event</span></div>
+            <div><span class="ou">→ Kick-off — fecha por confirmar</span></div>
+            <div><span class="ou">→ Nordelta, zona norte BA</span></div>
+            <div>&nbsp;</div>
+            <div><span class="pr">$</span> <span class="cm">join<span class="cursor"></span></span></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80" target="_blank" class="btn btn-dark" style="font-size:.9rem;padding:16px 36px">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.302-1.511A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.503-5.184-1.381l-.371-.22-3.742.897.934-3.617-.242-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-      Unirse al grupo
-    </a>
+  </section>
+
+  <!-- ─── EVENTS ────────────────────────────────────────────────── -->
+  <div class="events-bg">
+    <section id="eventos" class="section">
+      <div class="events-hd">
+        <div>
+          <div class="eyebrow">Agenda</div>
+          <h2 class="sec-title display">PRÓXIMOS<br>EVENTOS</h2>
+        </div>
+        <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80"
+          target="_blank" class="btn btn-ghost">Avisame de nuevos eventos →</a>
+      </div>
+
+      <div class="events-grid">
+        <!-- featured -->
+        <div class="ev-card ev-featured">
+          <div class="ev-badge badge-star">★ Evento fundacional</div>
+          <h3>Kick-off Nordelta Build</h3>
+          <p>El primer encuentro de la comunidad. Nos juntamos para conocernos, contar en qué estamos construyendo y
+            definir juntos el rumbo de Nordelta Build. Lugar y fecha a confirmar — anotate para que te avisemos en
+            cuanto esté todo listo.</p>
+          <div class="ev-meta">
+            <span class="ev-date">Fecha a confirmar · Nordelta</span>
+            <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80"
+              target="_blank" class="ev-link">Avisame cuando sea →</a>
+          </div>
+        </div>
+
+        <!-- coming soon cards -->
+        <div class="ev-card ev-dim">
+          <div class="ev-badge badge-ws">Workshop</div>
+          <h3>Build with AI — TBD</h3>
+          <p>Sesión práctica de vibe coding: de idea a MVP en pocas horas. Fecha a definir por la comunidad.</p>
+          <div class="ev-meta">
+            <span class="ev-date">Próximamente</span>
+            <span>Nordelta</span>
+          </div>
+        </div>
+
+        <div class="ev-card ev-dim">
+          <div class="ev-badge badge-hack">Hackathon</div>
+          <h3>Nordelta Hack #1 — TBD</h3>
+          <p>El primer hackathon de la comunidad. Track y fecha a definir. ¿Tenés idea de tema? Sugerila.</p>
+          <div class="ev-meta">
+            <span class="ev-date">Próximamente</span>
+            <span>Nordelta</span>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
-</div>
 
-<!-- ─── FOOTER ────────────────────────────────────────────────── -->
-<footer id="contacto">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="f-brand">
-        <div class="logo">Nordelta Build</div>
-        <p>Comunidad tech de Nordelta y zona norte del Gran Buenos Aires. Construimos juntos desde cero.</p>
+  <!-- ─── COMMUNITY ─────────────────────────────────────────────── -->
+  <section id="comunidad" class="section">
+    <div class="eyebrow">Miembros fundadores</div>
+    <h2 class="sec-title display">LA COMUNIDAD</h2>
+    <p class="sec-sub">Los primeros builders armando esto desde el día cero.</p>
+
+    <div class="members-grid">
+      <div class="member">
+        <div class="avatar" style="background:rgba(0,229,160,.1);color:var(--accent)">TD</div>
+        <h4>Tomás Deluca</h4>
+        <div class="member-role">Founder @ <a href="https://huevsite.io" target="_blank">huevsite.io</a></div>
+        <div class="tags">
+          <span class="tag">Founder</span>
+          <span class="tag">Builder</span>
+        </div>
       </div>
-      <div class="f-col">
-        <h5>Comunidad</h5>
-        <a href="#sobre">Sobre nosotros</a>
-        <a href="#comunidad">Miembros</a>
-        <a href="#eventos">Eventos</a>
+      <div class="member">
+        <div class="avatar" style="background:rgba(33,150,243,.1);color:var(--blue)">LA</div>
+        <h4>Lucas Argento</h4>
+        <div class="member-role">Founder @ <a href="https://trysuppl.ai" target="_blank"
+            style="color:var(--blue)">trysuppl.ai</a></div>
+        <div class="tags">
+          <span class="tag">AI</span>
+          <span class="tag">Founder</span>
+        </div>
       </div>
-      <div class="f-col">
-        <h5>Contacto</h5>
-        <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80" target="_blank">WhatsApp</a>
-        <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80" target="_blank">+54 11 2508-5500</a>
+      <!-- join card -->
+      <div class="member" style="border-style:dashed;cursor:pointer;opacity:.6;transition:all .2s"
+        onclick="window.open('https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80','_blank')"
+        onmouseenter="this.style.opacity='1';this.style.borderColor='var(--accent)'"
+        onmouseleave="this.style.opacity='.6';this.style.borderColor=''">
+        <div class="avatar" style="background:rgba(255,255,255,.04);color:var(--muted);font-size:2rem;letter-spacing:0">
+          +</div>
+        <h4 style="color:var(--muted2)">¿Sos vos?</h4>
+        <div class="member-role" style="color:var(--muted)">Sumate a la comunidad</div>
+        <div class="tags"><span class="tag">Unirse →</span></div>
       </div>
     </div>
+  </section>
 
-    <div class="footer-bottom">
-      <p>© 2025 Nordelta Build · Nordelta, Pcia. de Buenos Aires</p>
-      <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80" target="_blank" class="f-wa">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.302-1.511A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.503-5.184-1.381l-.371-.22-3.742.897.934-3.617-.242-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  <!-- ─── CTA BAND ──────────────────────────────────────────────── -->
+  <div id="join" class="cta-band">
+    <div class="cta-inner">
+      <div>
+        <h2 class="display">¿LISTO PARA<br>CONSTRUIR?</h2>
+        <p>Sumate a Nordelta Build. Es gratis, es local y es real.</p>
+      </div>
+      <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80"
+        target="_blank" class="btn btn-dark" style="font-size:.9rem;padding:16px 36px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+          <path
+            d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.302-1.511A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.503-5.184-1.381l-.371-.22-3.742.897.934-3.617-.242-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+        </svg>
         Unirse al grupo
       </a>
     </div>
   </div>
-</footer>
 
-<script>
-  const ham = document.getElementById('ham');
-  const mob = document.getElementById('mob');
-  ham.addEventListener('click', () => {
-    ham.classList.toggle('open');
-    mob.classList.toggle('open');
-    document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
-  });
-  function closeMob() {
-    ham.classList.remove('open');
-    mob.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  // close on resize
-  window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMob(); });
-</script>
-<script src="js/particles.js"></script>
-<script src="js/form.js"></script>
+  <!-- ─── FOOTER ────────────────────────────────────────────────── -->
+  <footer id="contacto">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="f-brand">
+          <div class="logo">Nordelta Build</div>
+          <p>Comunidad tech de Nordelta y zona norte del Gran Buenos Aires. Construimos juntos desde cero.</p>
+        </div>
+        <div class="f-col">
+          <h5>Comunidad</h5>
+          <a href="#sobre">Sobre nosotros</a>
+          <a href="#comunidad">Miembros</a>
+          <a href="#eventos">Eventos</a>
+        </div>
+        <div class="f-col">
+          <h5>Contacto</h5>
+          <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80"
+            target="_blank">WhatsApp</a>
+          <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80"
+            target="_blank">+54 11 2508-5500</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 Nordelta Build · Nordelta, Pcia. de Buenos Aires</p>
+        <a href="https://wa.me/541125085500?text=Hola%21%20Me%20interesa%20sumarme%20a%20Nordelta%20Build%20%F0%9F%9A%80"
+          target="_blank" class="f-wa">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+            <path
+              d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.302-1.511A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.655-.503-5.184-1.381l-.371-.22-3.742.897.934-3.617-.242-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+          </svg>
+          Unirse al grupo
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const ham = document.getElementById('ham');
+    const mob = document.getElementById('mob');
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      mob.classList.toggle('open');
+      document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMob() {
+      ham.classList.remove('open');
+      mob.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    // close on resize
+    window.addEventListener('resize', () => { if (window.innerWidth > 960) closeMob(); });
+  </script>
+  <script src="js/particles.js"></script>
+  <script src="js/form.js"></script>
 </body>
+
 </html>
