@@ -1,10 +1,8 @@
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from 'next/og';
 
-export const config = {
-  runtime: 'edge',
-};
+export const runtime = 'edge';
 
-export default function () {
+export async function GET() {
   return new ImageResponse(
     (
       <div
