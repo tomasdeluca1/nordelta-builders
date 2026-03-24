@@ -1,0 +1,13 @@
+{
+  "name": "nordelta-builders",
+  "version": "1.0.0",
+  "description": "Nordelta Builders static site with Vercel API routes",
+  "scripts": {
+    "dev": "npx serve ."
+  },
+  "dependencies": {
+    "@vercel/og": "^0.6.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

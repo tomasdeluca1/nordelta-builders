@@ -1,0 +1,38 @@
+# Nordelta Build - Full Context
+
+## What is Nordelta Build?
+Nordelta Build is a community of builders, developers (devs), founders, and makers that live and work in Nordelta and the Northern Zone of Greater Buenos Aires, Argentina. The initiative started in 2025 with the objective of constructing a strong technological ecosystem in the area from scratch.
+
+## Core Mission
+- Foster connections among founders, early hires, and first-time users.
+- Share knowledge through technical workshops, visionary talks by founders, and Q&A sessions.
+- Build a network of investors, mentors, and corporate entities established in the Northern Zone.
+- Emphasize real action and collaboration ("No es otro grupo de WhatsApp. Construimos cosas juntos" / "Not just another WhatsApp group. We build things together").
+
+## Features and Member Profiles
+The community welcomes individuals involved in various tech fields, including:
+- Artificial Intelligence (AI)
+- Fintech
+- SaaS
+- Web3
+- Proptech
+- Healthtech
+- EdTech
+- Developer Tools
+- E-commerce
+- Networking
+
+## Events Outline
+The community organizes several formats of events to keep participants engaged:
+1. **Kick-off Nordelta Build**: The foundational event where members meet, share their projects, and define the future direction of the community.
+2. **Build with AI**: A practical workshop focused on "vibe coding" - taking an idea to an MVP in a few hours.
+3. **Nordelta Hack #1**: The first hackathon organized by the community, encouraging fast-paced building and problem-solving.
+
+## Contact Information
+- **WhatsApp**: +54 11 2508-5500
+- **Location**: Nordelta, Provincia de Buenos Aires, Argentina
+- **Founding Year**: 2025
+- **Members**: ~40 founding members at launch.
+
+## Join Us
+Anyone interested in joining the community can easily do so by reaching out via WhatsApp at the provided number, presenting themselves as builders ready to contribute.
