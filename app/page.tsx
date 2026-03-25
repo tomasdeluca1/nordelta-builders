@@ -85,10 +85,15 @@ export default function Home() {
       });
       if (!res.ok) throw new Error('Error al registrar');
       setFormStatus('success');
-      window.location.href = WHATSAPP_URL;
     } catch (err) {
       setFormStatus('error');
     }
+  };
+
+  const handleAddAnother = () => {
+    setFormData({ name: '', email: '', role: '', company: '', companyUrl: '' });
+    setFormTags([]);
+    setFormStatus('idle');
   };
 
   const openWhatsApp = () => {
@@ -354,9 +359,12 @@ export default function Home() {
             {formStatus === 'success' ? (
               <div style={{ textAlign: 'center', padding: '20px 0' }}>
                 <div style={{ fontSize: '3rem', marginBottom: '16px' }}>✅</div>
-                <h4 style={{ fontSize: '1.2rem', marginBottom: '12px' }}>¡Datos guardados!</h4>
-                <p style={{ color: 'var(--muted2)', fontSize: '0.9rem', marginBottom: '24px' }}>Ya sos parte de la base. Ahora hacé clic abajo para entrar al grupo de WhatsApp oficial y presentarte.</p>
-                <button onClick={openWhatsApp} className="btn btn-wa" style={{ width: '100%', justifyContent: 'center', padding: '16px' }}>Entrar al WhatsApp</button>
+                <h4 style={{ fontSize: '1.2rem', marginBottom: '12px' }}>¡Ya sos parte de Nordelta Build!</h4>
+                <p style={{ color: 'var(--muted2)', fontSize: '0.9rem', marginBottom: '28px' }}>Tus datos quedaron guardados en la base de builders. Podés agregar otro founder o entrar al grupo de WhatsApp ahora.</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <button onClick={openWhatsApp} className="btn btn-wa" style={{ width: '100%', justifyContent: 'center', padding: '16px' }}>Entrar al grupo de WhatsApp →</button>
+                  <button onClick={handleAddAnother} className="btn btn-ghost" style={{ width: '100%', justifyContent: 'center', padding: '14px' }}>Agregar otro founder</button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleJoinSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
