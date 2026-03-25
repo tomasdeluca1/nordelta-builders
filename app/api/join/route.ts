@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
-import clientPromise from '@/lib/mongodb';
+import { getMongoClient } from '@/lib/mongodb';
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 function getInitials(name: string): string {
   return name.trim().split(/\s+/).slice(0, 2).map(n => n[0]?.toUpperCase() ?? '').join('');
@@ -34,7 +37,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const client = await clientPromise;
+    const client = await getMongoClient();
     const collection = client.db('nordelta-build').collection('members');
 
     const existing = await collection.findOne({ email: body.email });

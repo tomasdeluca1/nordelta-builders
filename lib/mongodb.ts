@@ -1,39 +1,47 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
-const uri = process.env.MONGODB_URI || "mongodb://placeholder-for-build";
-const options = {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-};
+function getMongoUri(): string {
+  const uri = process.env.MONGODB_URI?.trim();
 
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
-
-if (!process.env.MONGODB_URI && process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'test') {
-  console.warn('⚠️ Missing MONGODB_URI environment variable');
-}
-
-if (process.env.NODE_ENV === 'development') {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  let globalWithMongo = global as typeof globalThis & {
-    _mongoClientPromise?: Promise<MongoClient>;
-  };
-
-  if (!globalWithMongo._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    globalWithMongo._mongoClientPromise = client.connect();
+  if (!uri) {
+    throw new Error('Missing MONGODB_URI environment variable');
   }
-  clientPromise = globalWithMongo._mongoClientPromise;
-} else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
-  clientPromise = client.connect();
+
+  return uri;
 }
 
-// Export a module-scoped MongoClient promise. By doing this in a
-// separate module, the client can be shared across functions.
-export default clientPromise;
+function createClient(): MongoClient {
+  return new MongoClient(getMongoUri(), {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
+  });
+}
+
+let client: MongoClient | undefined;
+let clientPromise: Promise<MongoClient> | undefined;
+
+export function getMongoClient(): Promise<MongoClient> {
+  if (process.env.NODE_ENV === 'development') {
+    const globalWithMongo = global as typeof globalThis & {
+      _mongoClient?: MongoClient;
+      _mongoClientPromise?: Promise<MongoClient>;
+    };
+
+    if (!globalWithMongo._mongoClientPromise) {
+      globalWithMongo._mongoClient = createClient();
+      globalWithMongo._mongoClientPromise = globalWithMongo._mongoClient.connect();
+    }
+
+    return globalWithMongo._mongoClientPromise;
+  }
+
+  if (!clientPromise) {
+    client = createClient();
+    clientPromise = client.connect();
+  }
+
+  return clientPromise;
+}
