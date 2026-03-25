@@ -39,10 +39,14 @@ export default function Home() {
 
   const closeMob = () => setIsMobOpen(false);
 
-  useEffect(() => {
+  const fetchMembers = () => {
     fetch('/api/members')
       .then(r => r.json())
       .then(data => setMembers(data.members ?? []));
+  };
+
+  useEffect(() => {
+    fetchMembers();
   }, []);
 
   useEffect(() => {
@@ -85,6 +89,7 @@ export default function Home() {
       });
       if (!res.ok) throw new Error('Error al registrar');
       setFormStatus('success');
+      fetchMembers();
     } catch (err) {
       setFormStatus('error');
     }
