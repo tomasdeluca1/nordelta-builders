@@ -50,7 +50,8 @@ export default function LoginPage() {
 
       <div className="auth-card">
         <a href="/" className="auth-logo">
-          NORDELTA<em> BUILD</em>
+          <img src="/assets/logo.png" alt="" width={28} height={28} />
+          NORDELTA<em> TECH</em>
         </a>
         <div className="auth-eyebrow">nordelta.tech</div>
         <h1 className="auth-title display">INICIÁ<br />SESIÓN</h1>

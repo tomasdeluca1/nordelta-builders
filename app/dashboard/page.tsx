@@ -147,7 +147,10 @@ export default function DashboardPage() {
   return (
     <main className="dash-shell">
       <nav className="dash-nav">
-        <a href="/" className="nav-logo">NORDELTA<em> TECH</em></a>
+        <a href="/" className="nav-logo">
+          <img src="/assets/logo.png" alt="" width={28} height={28} />
+          NORDELTA<em> TECH</em>
+        </a>
         <div className="dash-nav-right">
           <span className="dash-domain">nordelta.tech</span>
           <button onClick={handleLogout} className="btn btn-ghost dash-logout">Salir</button>

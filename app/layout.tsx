@@ -3,34 +3,38 @@ import './globals.css';
 
 const siteUrl = process.env.APP_URL?.trim() || 'https://nordelta.tech';
 
+const TITLE = 'Nordelta Tech · Comunidad de founders, devs y makers';
+const DESCRIPTION =
+  'Comunidad tech de Nordelta y Zona Norte BA: founders, devs y makers construyendo startups, compartiendo conocimiento y armando red. Eventos y dashboard.';
+const OG_DESCRIPTION =
+  'Founders, devs y makers de Nordelta y Zona Norte construyendo el ecosistema tech desde el agua. Sumate al kick-off, conocé a los builders y empezá a buildear.';
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Nordelta Tech — Comunidad Tech · nordelta.tech',
-  description:
-    'La comunidad de founders, devs y makers de Nordelta y zona norte. Construimos startups, compartimos conocimiento y hacemos crecer el ecosistema tech desde el agua.',
+  title: TITLE,
+  description: DESCRIPTION,
   keywords:
     'Nordelta, Tech, Comunidad, Startups, Builders, Founders, Developers, Makers, Buenos Aires, Zona Norte, nordelta.tech',
   authors: [{ name: 'Nordelta Tech' }],
   alternates: { canonical: siteUrl },
   openGraph: {
-    title: 'Nordelta Tech — Comunidad Tech',
-    description:
-      'Founders, devs y makers de Nordelta y zona norte construyendo el ecosistema tech desde el agua.',
+    title: 'Nordelta Tech · Comunidad de founders, devs y makers',
+    description: OG_DESCRIPTION,
     url: siteUrl,
     siteName: 'Nordelta Tech',
     images: [
-      { url: '/api/og', width: 1200, height: 630, alt: 'Nordelta Tech · nordelta.tech' },
+      { url: '/og.png', width: 1200, height: 630, alt: 'Nordelta Tech · nordelta.tech', type: 'image/png' },
     ],
     type: 'website',
     locale: 'es_AR',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nordelta Tech — Comunidad Tech',
-    description: 'Founders, devs y makers construyendo el ecosistema tech desde Nordelta.',
-    images: ['/api/og'],
+    title: 'Nordelta Tech · Comunidad de founders, devs y makers',
+    description: OG_DESCRIPTION,
+    images: ['/og.png'],
   },
-  icons: { icon: '/assets/favicon.svg' },
+  // Favicon + Apple icon are auto-detected from app/icon.png and app/apple-icon.png
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

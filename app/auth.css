@@ -54,6 +54,14 @@
   letter-spacing: 0.08em;
   color: #00e5a0;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.auth-logo img {
+  width: 28px; height: 28px;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(0,229,160,0.35));
 }
 .auth-logo em { color: #fff; font-style: normal; }
 

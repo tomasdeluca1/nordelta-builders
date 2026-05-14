@@ -24,10 +24,13 @@ export function welcomeEmailHtml(params: {
           <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="560" style="max-width:560px;width:100%;background:#0e1215;border:1px solid #1c2328;border-radius:16px;overflow:hidden;">
             <tr>
               <td style="padding:32px 40px 0 40px;">
-                <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:28px;letter-spacing:0.06em;color:#00e5a0;">
-                  NORDELTA <span style="color:#dde4ea;">BUILD</span>
-                </div>
-                <div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#7a8f9e;margin-top:4px;">nordelta.tech</div>
+                <table cellpadding="0" cellspacing="0" border="0" role="presentation"><tr>
+                  <td style="padding-right:12px;vertical-align:middle;"><img src="${appUrl}/assets/logo.png" width="40" height="40" alt="" style="display:block;border:0;outline:0;text-decoration:none;"/></td>
+                  <td style="vertical-align:middle;">
+                    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:28px;letter-spacing:0.06em;color:#00e5a0;line-height:1;">NORDELTA <span style="color:#dde4ea;">TECH</span></div>
+                    <div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#7a8f9e;margin-top:4px;">nordelta.tech</div>
+                  </td>
+                </tr></table>
               </td>
             </tr>
             <tr>

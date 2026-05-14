@@ -112,7 +112,10 @@ export default function Home() {
   return (
     <>
       <nav>
-        <a href="#" className="nav-logo">Nordelta<em> Tech</em></a>
+        <a href="#" className="nav-logo">
+          <img src="/assets/logo.png" alt="" width={32} height={32} />
+          Nordelta<em> Tech</em>
+        </a>
         <ul className="nav-center">
           <li><a href="#sobre">Sobre</a></li>
           <li><a href="#eventos">Eventos</a></li>
@@ -344,7 +347,10 @@ export default function Home() {
         <div className="footer-inner">
           <div className="footer-top">
             <div className="f-brand">
-              <div className="logo">Nordelta Tech</div>
+              <div className="logo">
+                <img src="/assets/logo.png" alt="" width={40} height={40} />
+                Nordelta Tech
+              </div>
               <div className="domain-tag">→ nordelta.tech</div>
               <p>Comunidad tech de Nordelta y zona norte del Gran Buenos Aires. Construimos juntos desde cero.</p>
             </div>
