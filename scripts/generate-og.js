@@ -1,18 +1,16 @@
 /* eslint-disable */
-// Generates a static 1200x630 OG image at public/og.png.
-// Run: node scripts/generate-og.js
+// Generates a static 1200x630 OG image at public/og.png using brand fonts.
+//   • Bebas Neue (display)  · headlines
+//   • Space Mono (mono)     · stamps, pills
+//   • DM Sans (body)        · subtitle
 //
-// Layout (respects 100px safe-zone margin on all sides):
-//   • Dark gradient background with subtle dot grid
-//   • Logomark at left
-//   • "BUILD THE FUTURE." headline center-right
-//   • "nordelta.tech" wordmark below
-//   • Tag pills bottom-right (Founders · Devs · Makers)
-//   • Corner stamps top-left & top-right
+// Layout respects the 1000x540 safe zone (centered).
+// Run: node scripts/generate-og.js
 
 const fs = require('fs');
 const path = require('path');
-const sharp = require('sharp');
+const satori = require('satori').default;
+const { Resvg } = require('@resvg/resvg-js');
 
 const W = 1200;
 const H = 630;
@@ -22,98 +20,249 @@ const SURF = '#0E1215';
 const BORDER = '#1C2328';
 const MUTED = '#7A8F9E';
 const TEXT = '#E6EDF3';
+const DIM = '#52626E';
 
-const logoPath = path.join(__dirname, '..', 'public', 'assets', 'logo.png');
-const outPath = path.join(__dirname, '..', 'public', 'og.png');
+const root = path.join(__dirname, '..');
+const fontsDir = path.join(root, 'public', 'assets', 'fonts');
+const logoPath = path.join(root, 'public', 'assets', 'logo.png');
+const outPath = path.join(root, 'public', 'og.png');
+
+function loadFont(name) {
+  return fs.readFileSync(path.join(fontsDir, name));
+}
 
 async function main() {
-  const logoBuf = fs.readFileSync(logoPath);
-  const logoB64 = logoBuf.toString('base64');
+  const bebas = loadFont('BebasNeue-Regular.ttf');
+  const monoR = loadFont('SpaceMono-Regular.ttf');
+  const monoB = loadFont('SpaceMono-Bold.ttf');
+  const dmSans = loadFont('DMSans-Regular.ttf');
+  const logoB64 = fs.readFileSync(logoPath).toString('base64');
   const logoDataUri = `data:image/png;base64,${logoB64}`;
 
-  const svg = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="${W}" y2="${H}" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="${BG}"/>
-      <stop offset="1" stop-color="#0a1014"/>
-    </linearGradient>
-    <radialGradient id="glow1" cx="78%" cy="22%" r="55%">
-      <stop offset="0" stop-color="${ACCENT}" stop-opacity="0.18"/>
-      <stop offset="1" stop-color="${ACCENT}" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="glow2" cx="12%" cy="86%" r="55%">
-      <stop offset="0" stop-color="#2196F3" stop-opacity="0.10"/>
-      <stop offset="1" stop-color="#2196F3" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="dots" x="0" y="0" width="36" height="36" patternUnits="userSpaceOnUse">
-      <circle cx="1.2" cy="1.2" r="1.2" fill="${ACCENT}" fill-opacity="0.06"/>
-    </pattern>
-  </defs>
+  const node = {
+    type: 'div',
+    props: {
+      style: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        background: `radial-gradient(60% 50% at 78% 20%, rgba(0,229,160,0.18) 0%, transparent 60%), radial-gradient(60% 50% at 12% 88%, rgba(33,150,243,0.12) 0%, transparent 60%), linear-gradient(135deg, ${BG} 0%, #0a1014 100%)`,
+        fontFamily: 'DM Sans',
+        color: TEXT,
+      },
+      children: [
+        // Top scanline
+        {
+          type: 'div',
+          props: {
+            style: {
+              position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+              background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`,
+              opacity: 0.5,
+            },
+          },
+        },
+        // Top bar
+        {
+          type: 'div',
+          props: {
+            style: {
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              padding: '56px 80px 0 80px',
+            },
+            children: [
+              {
+                type: 'div',
+                props: {
+                  style: { display: 'flex', alignItems: 'center', gap: 14, fontFamily: 'Space Mono', fontSize: 18, letterSpacing: '0.28em', color: MUTED },
+                  children: [
+                    { type: 'div', props: { style: { width: 8, height: 8, borderRadius: 4, background: ACCENT, boxShadow: `0 0 12px ${ACCENT}` } } },
+                    'NORDELTA TECH',
+                  ],
+                },
+              },
+              {
+                type: 'div',
+                props: {
+                  style: { fontFamily: 'Space Mono', fontSize: 18, letterSpacing: '0.16em', color: MUTED, display: 'flex' },
+                  children: [
+                    { type: 'span', props: { style: { color: ACCENT, marginRight: 8 }, children: '$' } },
+                    'cd ~/nordelta.tech',
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        // Hero row
+        {
+          type: 'div',
+          props: {
+            style: {
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              padding: '0 80px',
+              gap: 56,
+            },
+            children: [
+              // Logo card
+              {
+                type: 'div',
+                props: {
+                  style: {
+                    width: 240, height: 240,
+                    background: SURF,
+                    border: `1px solid ${BORDER}`,
+                    borderRadius: 32,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    boxShadow: `0 30px 80px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(0,229,160,0.05)`,
+                  },
+                  children: [
+                    { type: 'img', props: { src: logoDataUri, width: 200, height: 200, style: { display: 'block' } } },
+                  ],
+                },
+              },
+              // Text block
+              {
+                type: 'div',
+                props: {
+                  style: { display: 'flex', flexDirection: 'column', flex: 1 },
+                  children: [
+                    {
+                      type: 'div',
+                      props: {
+                        style: {
+                          fontFamily: 'Bebas Neue',
+                          fontSize: 152,
+                          lineHeight: 0.92,
+                          letterSpacing: '0.02em',
+                          color: TEXT,
+                          display: 'flex',
+                        },
+                        children: 'BUILD THE',
+                      },
+                    },
+                    {
+                      type: 'div',
+                      props: {
+                        style: {
+                          fontFamily: 'Bebas Neue',
+                          fontSize: 152,
+                          lineHeight: 0.92,
+                          letterSpacing: '0.02em',
+                          color: ACCENT,
+                          display: 'flex',
+                          marginTop: 4,
+                          textShadow: `0 0 40px rgba(0,229,160,0.45)`,
+                        },
+                        children: 'FUTURE.',
+                      },
+                    },
+                    {
+                      type: 'div',
+                      props: {
+                        style: {
+                          fontFamily: 'DM Sans',
+                          fontSize: 22,
+                          color: MUTED,
+                          marginTop: 18,
+                          display: 'flex',
+                          lineHeight: 1.4,
+                          maxWidth: 640,
+                        },
+                        children: 'Comunidad tech de Nordelta y Zona Norte BA. Founders, devs y makers buildeando en serio.',
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        // Bottom row
+        {
+          type: 'div',
+          props: {
+            style: {
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '0 80px 56px 80px',
+            },
+            children: [
+              // Domain pill
+              {
+                type: 'div',
+                props: {
+                  style: {
+                    display: 'flex', alignItems: 'center', gap: 12,
+                    padding: '10px 22px',
+                    borderRadius: 100,
+                    background: 'rgba(0,229,160,0.10)',
+                    border: `1px solid rgba(0,229,160,0.45)`,
+                    fontFamily: 'Space Mono', fontWeight: 700,
+                    fontSize: 16, letterSpacing: '0.22em', color: ACCENT,
+                  },
+                  children: [
+                    { type: 'div', props: { style: { width: 8, height: 8, borderRadius: 4, background: ACCENT, boxShadow: `0 0 10px ${ACCENT}` } } },
+                    'NORDELTA.TECH',
+                  ],
+                },
+              },
+              // Tag pills
+              {
+                type: 'div',
+                props: {
+                  style: { display: 'flex', gap: 10 },
+                  children: ['FOUNDERS', 'DEVS', 'MAKERS'].map(t => ({
+                    type: 'div',
+                    props: {
+                      style: {
+                        padding: '10px 20px', borderRadius: 100,
+                        background: SURF, border: `1px solid ${BORDER}`,
+                        fontFamily: 'Space Mono', fontSize: 15,
+                        letterSpacing: '0.22em', color: TEXT,
+                      },
+                      children: t,
+                    },
+                  })),
+                },
+              },
+            ],
+          },
+        },
+        // Bottom scanline
+        {
+          type: 'div',
+          props: {
+            style: {
+              position: 'absolute', bottom: 0, left: 0, right: 0, height: 1,
+              background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`,
+              opacity: 0.3,
+            },
+          },
+        },
+      ],
+    },
+  };
 
-  <!-- background -->
-  <rect width="${W}" height="${H}" fill="url(#bg)"/>
-  <rect width="${W}" height="${H}" fill="url(#dots)"/>
-  <rect width="${W}" height="${H}" fill="url(#glow1)"/>
-  <rect width="${W}" height="${H}" fill="url(#glow2)"/>
+  const svg = await satori(node, {
+    width: W,
+    height: H,
+    fonts: [
+      { name: 'Bebas Neue', data: bebas, weight: 400, style: 'normal' },
+      { name: 'Space Mono', data: monoR, weight: 400, style: 'normal' },
+      { name: 'Space Mono', data: monoB, weight: 700, style: 'normal' },
+      { name: 'DM Sans',    data: dmSans, weight: 400, style: 'normal' },
+    ],
+  });
 
-  <!-- top scanline -->
-  <line x1="0" y1="0.5" x2="${W}" y2="0.5" stroke="${ACCENT}" stroke-opacity="0.35" stroke-width="1"/>
-
-  <!-- top-left corner stamp -->
-  <g font-family="'SF Mono','Menlo','Consolas',monospace" font-size="18" letter-spacing="3" fill="${MUTED}" text-transform="uppercase">
-    <circle cx="80" cy="80" r="4" fill="${ACCENT}"/>
-    <text x="100" y="86">NORDELTA TECH</text>
-  </g>
-
-  <!-- top-right corner stamp -->
-  <g font-family="'SF Mono','Menlo','Consolas',monospace" font-size="18" letter-spacing="3" fill="${MUTED}">
-    <text x="${W - 80}" y="86" text-anchor="end"><tspan fill="${ACCENT}">$</tspan> cd ~/nordelta.tech</text>
-  </g>
-
-  <!-- logo card -->
-  <g transform="translate(108, 215)">
-    <rect x="-22" y="-22" width="244" height="244" rx="32" fill="${SURF}" stroke="${BORDER}" stroke-width="1.5"/>
-    <image x="0" y="0" width="200" height="200" href="${logoDataUri}" preserveAspectRatio="xMidYMid meet"/>
-  </g>
-
-  <!-- headline + wordmark -->
-  <g transform="translate(400, 235)">
-    <text font-family="'Bebas Neue','Impact','Arial Narrow',sans-serif" font-size="130" font-weight="700" letter-spacing="2" fill="${TEXT}" y="0">BUILD THE</text>
-    <text font-family="'Bebas Neue','Impact','Arial Narrow',sans-serif" font-size="130" font-weight="700" letter-spacing="2" fill="${ACCENT}" y="125">FUTURE.</text>
-  </g>
-
-  <!-- domain pill (bottom-left) -->
-  <g transform="translate(108, 510)">
-    <rect x="0" y="0" width="240" height="44" rx="22" fill="${ACCENT}" fill-opacity="0.10" stroke="${ACCENT}" stroke-opacity="0.45" stroke-width="1.5"/>
-    <circle cx="22" cy="22" r="4" fill="${ACCENT}"/>
-    <text x="42" y="28" font-family="'SF Mono','Menlo','Consolas',monospace" font-size="16" letter-spacing="3" fill="${ACCENT}">NORDELTA.TECH</text>
-  </g>
-
-  <!-- tags pills (bottom-right) -->
-  <g transform="translate(${W - 108}, 510)" font-family="'SF Mono','Menlo','Consolas',monospace" font-size="15" letter-spacing="3">
-    <g transform="translate(-130, 0)">
-      <rect x="0" y="0" width="130" height="44" rx="22" fill="${SURF}" stroke="${BORDER}"/>
-      <text x="65" y="28" text-anchor="middle" fill="${TEXT}">MAKERS</text>
-    </g>
-    <g transform="translate(-272, 0)">
-      <rect x="0" y="0" width="130" height="44" rx="22" fill="${SURF}" stroke="${BORDER}"/>
-      <text x="65" y="28" text-anchor="middle" fill="${TEXT}">DEVS</text>
-    </g>
-    <g transform="translate(-422, 0)">
-      <rect x="0" y="0" width="140" height="44" rx="22" fill="${SURF}" stroke="${BORDER}"/>
-      <text x="70" y="28" text-anchor="middle" fill="${TEXT}">FOUNDERS</text>
-    </g>
-  </g>
-
-  <!-- bottom scanline -->
-  <line x1="0" y1="${H - 0.5}" x2="${W}" y2="${H - 0.5}" stroke="${ACCENT}" stroke-opacity="0.2" stroke-width="1"/>
-</svg>`;
-
-  await sharp(Buffer.from(svg))
-    .png({ compressionLevel: 9 })
-    .toFile(outPath);
-
+  const png = new Resvg(svg, { fitTo: { mode: 'width', value: W } }).render().asPng();
+  fs.writeFileSync(outPath, png);
   const stat = fs.statSync(outPath);
   console.log(`✓ Wrote ${outPath} (${(stat.size / 1024).toFixed(1)} KB, ${W}x${H})`);
 }
