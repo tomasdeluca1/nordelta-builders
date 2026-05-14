@@ -1,19 +1,41 @@
-const { MongoClient } = require('mongodb');
+/* eslint-disable */
+// Seed initial founder members into Neon Postgres.
+// Usage:
+//   DATABASE_URL=... node scripts/seed.js
+//
+// Idempotent: upserts by email. Each seed user gets a random temp password.
+
 const fs = require('fs');
 const path = require('path');
+const bcrypt = require('bcryptjs');
+const { neon } = require('@neondatabase/serverless');
 
-const envPath = path.join(__dirname, '..', '.env.local');
-const uri = fs.readFileSync(envPath, 'utf8').match(/MONGODB_URI=(.+)/)?.[1]?.trim();
+function loadDotEnv() {
+  const envPath = path.join(__dirname, '..', '.env.local');
+  if (!fs.existsSync(envPath)) return;
+  for (const line of fs.readFileSync(envPath, 'utf8').split(/\r?\n/)) {
+    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.+)\s*$/i);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^['"]|['"]$/g, '');
+  }
+}
 
-if (!uri) {
-  console.error('MONGODB_URI not found in .env.local');
-  process.exit(1);
+function slugifyName(name) {
+  return (name || '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+function defaultPasswordFor(name) {
+  const slug = slugifyName(name) || 'builder';
+  return `${slug}.nordelta.tech`;
 }
 
 const MEMBERS = [
   {
     name: 'Tomás Deluca',
-    email: '_seed_tomas@nordeltabuild',
+    email: 'tomasdelucaa@gmail.com',
     initials: 'TD',
     role: 'Founder/CEO',
     jobTitle: 'Founder',
@@ -21,12 +43,10 @@ const MEMBERS = [
     companyUrl: 'https://huevsite.io',
     tags: ['Founder', 'Builder'],
     colorIndex: 0,
-    status: 'active',
-    createdAt: new Date('2025-01-01T00:00:00Z'),
   },
   {
     name: 'Lucas Argento',
-    email: '_seed_lucas@nordeltabuild',
+    email: 'lucas@trysupplai.com',
     initials: 'LA',
     role: 'Founder/CEO',
     jobTitle: 'Founder',
@@ -34,30 +54,43 @@ const MEMBERS = [
     companyUrl: 'https://trysupplai.com',
     tags: ['AI', 'Founder'],
     colorIndex: 1,
-    status: 'active',
-    createdAt: new Date('2025-01-02T00:00:00Z'),
   },
 ];
 
-async function seed() {
-  const client = new MongoClient(uri);
-  try {
-    await client.connect();
-    const col = client.db('nordelta-build').collection('members');
-    for (const m of MEMBERS) {
-      const exists = await col.findOne({ name: m.name });
-      if (exists) {
-        await col.updateOne({ name: m.name }, { $set: m });
-        console.log(`✓ Updated: ${m.name}`);
-      } else {
-        await col.insertOne(m);
-        console.log(`✓ Inserted: ${m.name}`);
-      }
+async function main() {
+  loadDotEnv();
+  const url = process.env.DATABASE_URL;
+  if (!url) throw new Error('Missing DATABASE_URL');
+  const sql = neon(url);
+
+  const credentials = [];
+  for (const m of MEMBERS) {
+    const tempPwd = defaultPasswordFor(m.name);
+    const hash = await bcrypt.hash(tempPwd, 10);
+    const existing = await sql`SELECT id FROM members WHERE email = ${m.email} LIMIT 1`;
+    if (existing.length) {
+      await sql`
+        UPDATE members SET
+          name = ${m.name}, initials = ${m.initials}, role = ${m.role},
+          job_title = ${m.jobTitle}, company = ${m.company}, company_url = ${m.companyUrl},
+          tags = ${m.tags}, color_index = ${m.colorIndex}, updated_at = now()
+        WHERE email = ${m.email}
+      `;
+      console.log(`✓ Updated: ${m.name}`);
+    } else {
+      await sql`
+        INSERT INTO members (name, email, password_hash, must_change_password, initials, role, job_title, company, company_url, tags, color_index)
+        VALUES (${m.name}, ${m.email}, ${hash}, true, ${m.initials}, ${m.role}, ${m.jobTitle}, ${m.company}, ${m.companyUrl}, ${m.tags}, ${m.colorIndex})
+      `;
+      credentials.push({ email: m.email, password: tempPwd });
+      console.log(`✓ Inserted: ${m.name}`);
     }
-    console.log('\nSeed complete.');
-  } finally {
-    await client.close();
+  }
+
+  if (credentials.length) {
+    console.log('\nTemporary passwords (share securely):');
+    for (const c of credentials) console.log(`  ${c.email} → ${c.password}`);
   }
 }
 
-seed().catch(err => { console.error(err); process.exit(1); });
+main().catch(err => { console.error(err); process.exit(1); });

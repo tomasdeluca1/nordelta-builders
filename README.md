@@ -1,93 +1,92 @@
-# Nordelta Builders
+# Nordelta Tech · nordelta.tech
 
-**Nordelta Builders** es una comunidad digital diseñada para conectar a los profesionales, emprendedores y entusiastas de la tecnología que viven o trabajan en Nordelta. El objetivo es crear un espacio de networking, colaboración y crecimiento profesional dentro de la comunidad.
+Comunidad de founders, devs y makers de Nordelta y zona norte (Buenos Aires).
+Next.js 14 (App Router) · Neon Postgres + Drizzle · Iron Session + bcrypt · Resend · `@vercel/og`.
 
-## 🚀 Características Principales
+## Stack
 
-- **Diseño Moderno y Profesional**: Interfaz limpia con estética "Tech/Builder", utilizando una paleta de colores oscuros (Negro, Gris, Verde Neón) y tipografía moderna.
-- **Landing Page Interactiva**: Sección de "Hero" con animaciones CSS, efectos de partículas y un grid interactivo.
-- **Formulario de Registro**: Integración con Google Sheets para capturar leads y miembros de la comunidad.
-- **Sección de Proyectos**: Galería para mostrar proyectos desarrollados por los miembros.
-- **Eventos y Meetups**: Calendario para organizar encuentros presenciales y virtuales.
-- **Blog/News**: Artículos y noticias relevantes para la comunidad tech de Nordelta.
-- **Responsive Design**: Optimizado para móviles, tablets y escritorios.
+- **Framework**: Next.js 14 (App Router, TypeScript, server actions/routes)
+- **DB**: Neon Postgres via `@neondatabase/serverless` + Drizzle ORM
+- **Auth**: `iron-session` + `bcryptjs` (email + password, default password emailed on signup)
+- **Email**: Resend with a branded HTML template
+- **OG image**: `@vercel/og` (1200×630, safe-zone respected)
 
-## 🛠️ Tecnologías Utilizadas
-
-- **HTML5**: Estructura semántica.
-- **CSS3**: Estilos avanzados, animaciones y diseño responsivo.
-- **JavaScript (Vanilla)**: Lógica del formulario, validaciones y efectos interactivos.
-- **Google Sheets API**: Backend para almacenamiento de datos del formulario.
-
-## 📂 Estructura del Proyecto
-
-```
-/nordelta-builders
-├── index.html              # Página principal (Landing Page)
-├── css/
-│   └── style.css           # Estilos globales y animaciones
-├── js/
-│   ├── form.js             # Lógica del formulario y Google Sheets API
-│   └── particles.js        # (Opcional) Script para partículas avanzadas
-├── assets/
-│   ├── images/             # Imágenes y logos
-│   └── fonts/              # Fuentes personalizadas (si aplica)
-└── README.md               # Documentación del proyecto
-```
-
-## ⚙️ Configuración
-
-### 1. Configurar Google Sheets
-
-Para que el formulario funcione, necesitas crear un Google Sheet y habilitar la API.
-
-1.  **Crear Google Sheet**: Crea una hoja con las siguientes columnas:
-    `Timestamp`, `Nombre`, `Email`, `Rol`, `Skills`, `Proyecto`, `Referido`, `Fecha Registro`.
-2.  **Habilitar Google Sheets API**:
-    - Ve a Google Cloud Console.
-    - Crea un nuevo proyecto.
-    - Busca "Google Sheets API" y habilítala.
-    - Crea credenciales (API Key o OAuth 2.0).
-3.  **Configurar `form.js`**:
-    - Reemplaza `YOUR_API_KEY` en `form.js` con tu API Key.
-    - Asegúrate de que la URL de la API apunte a tu hoja de cálculo.
-
-### 2. Instalar Dependencias
-
-Este proyecto es principalmente "vanilla", pero si usas herramientas de desarrollo:
+## Setup
 
 ```bash
-# Si usas npm para gestión de paquetes
+cp .env.example .env.local
+# fill in DATABASE_URL, SESSION_PASSWORD (32+ chars), RESEND_API_KEY, EMAIL_FROM, APP_URL
 npm install
 ```
 
-## 🏃‍♂️ Ejecución
-
-Para probar el proyecto localmente:
+### 1. Create the schema in Neon
 
 ```bash
-# Opción 1: Abrir index.html directamente en el navegador
-# Opción 2: Usar un servidor local (recomendado)
-python -m http.server 8000
-# o
-npx serve .
+npm run db:push          # applies lib/db/schema.ts to your Neon DB
+# or manually:  psql "$DATABASE_URL" -f drizzle/0000_init.sql
 ```
 
-Luego abre `http://localhost:8000` en tu navegador.
+### 2. Seed (optional)
 
-## 🎨 Personalización
+```bash
+npm run seed
+```
 
-- **Colores**: Edita las variables CSS en `css/style.css` para cambiar la paleta.
-- **Tipografía**: Ajusta las fuentes en la sección `:root`.
-- **Animaciones**: Modifica los keyframes en `style.css` para ajustar tiempos y efectos.
+### 3. Migrate from legacy MongoDB (optional)
 
-## 🤝 Contribuir
+If you have an existing MongoDB collection at `nordelta-build.members`:
 
-1.  Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`).
-2.  Haz commit de tus cambios (`git commit -m 'Add some AmazingFeature'`).
-3.  Push a la rama (`git push origin feature/AmazingFeature`).
-4.  Abre un Pull Request.
+```bash
+MONGODB_URI="..." DATABASE_URL="..." npm run migrate:mongo -- --dry   # preview
+MONGODB_URI="..." DATABASE_URL="..." npm run migrate:mongo            # write
+```
 
-## 📄 Licencia
+The script generates a temporary password per migrated user (bcrypt-hashed in DB) and writes a `migrated-credentials.csv` with `email,temp_password` so you can email those out manually (or feed them into Resend with a small script).
 
-Este proyecto es de código abierto y está disponible bajo la licencia MIT.
+### 4. Run
+
+```bash
+npm run dev      # http://localhost:3000
+npm run build && npm run start
+```
+
+## Auth flow
+
+- **Signup** (`POST /api/join`): registers a new member, generates a random default password, hashes it, persists with `must_change_password=true`, and sends a Resend email with the credentials and login link.
+- **Login** (`/login` → `POST /api/auth/login`): sets an `iron-session` cookie.
+- **Dashboard** (`/dashboard`): shows profile + “Change password” form. Banner nags users with `must_change_password=true` until they update.
+- **Change password** (`POST /api/auth/change-password`): validates current password, sets new hash, clears the flag.
+- **Logout** (`POST /api/auth/logout`).
+
+Session cookie: `nordelta_session`, HttpOnly, SameSite=Lax, 30-day max-age.
+
+## Project layout
+
+```
+app/
+├── api/
+│   ├── auth/{login,logout,me,change-password}/route.ts
+│   ├── join/route.ts          # signup + welcome email
+│   ├── members/route.ts       # public list
+│   └── og/route.tsx           # OG image (safe-zone aware)
+├── dashboard/page.tsx
+├── login/page.tsx
+├── layout.tsx
+├── page.tsx                   # landing
+├── globals.css
+└── auth.css                   # login + dashboard styles
+
+lib/
+├── auth.ts                    # iron-session
+├── db/{index.ts, schema.ts}   # Neon + Drizzle
+├── email.ts                   # Resend wrapper
+├── email-templates/welcome.ts # branded HTML email
+└── password.ts                # bcrypt + default password generator
+
+drizzle/0000_init.sql
+scripts/{seed.js, migrate-from-mongo.js}
+```
+
+## Domain
+
+Production: **https://nordelta.tech**. All metadata, OG, and emails use this host (override via `APP_URL`).

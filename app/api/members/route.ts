@@ -1,28 +1,40 @@
 import { NextResponse } from 'next/server';
-import { getMongoClient } from '@/lib/mongodb';
+import { asc, eq, sql } from 'drizzle-orm';
+import { getDb, schema } from '@/lib/db';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const client = await getMongoClient();
-    const docs = await client
-      .db('nordelta-build')
-      .collection('members')
-      .find({ status: 'active' })
-      .sort({ createdAt: 1 })
-      .limit(11)
-      .project({ email: 0 })
-      .toArray();
+    const db = getDb();
+    const [rows, totalResult] = await Promise.all([
+      db
+        .select({
+          id: schema.members.id,
+          name: schema.members.name,
+          initials: schema.members.initials,
+          role: schema.members.role,
+          jobTitle: schema.members.jobTitle,
+          company: schema.members.company,
+          companyUrl: schema.members.companyUrl,
+          tags: schema.members.tags,
+          colorIndex: schema.members.colorIndex,
+          createdAt: schema.members.createdAt,
+        })
+        .from(schema.members)
+        .where(eq(schema.members.status, 'active'))
+        .orderBy(asc(schema.members.createdAt))
+        .limit(11),
+      db
+        .select({ count: sql<number>`count(*)::int` })
+        .from(schema.members)
+        .where(eq(schema.members.status, 'active')),
+    ]);
 
-    const members = docs.map(doc => ({
-      ...doc,
-      _id: doc._id.toString(),
-      createdAt: doc.createdAt instanceof Date ? doc.createdAt.toISOString() : doc.createdAt,
-    }));
-
-    return NextResponse.json({ members });
+    const members = rows.map(r => ({ ...r, _id: String(r.id) }));
+    const total = totalResult[0]?.count ?? members.length;
+    return NextResponse.json({ members, total });
   } catch (error) {
     console.error('Error fetching members:', error);
     return NextResponse.json({ error: 'Failed to fetch members' }, { status: 500 });

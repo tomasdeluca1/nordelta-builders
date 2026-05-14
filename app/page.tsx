@@ -30,6 +30,7 @@ export default function Home() {
   const [showJoinModal, setShowJoinModal] = useState(false);
 
   const [members, setMembers] = useState<Member[]>([]);
+  const [memberTotal, setMemberTotal] = useState<number | null>(null);
   const [formData, setFormData] = useState({ name: '', email: '', role: '', company: '', companyUrl: '' });
   const [formTags, setFormTags] = useState<string[]>([]);
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -42,7 +43,10 @@ export default function Home() {
   const fetchMembers = () => {
     fetch('/api/members')
       .then(r => r.json())
-      .then(data => setMembers(data.members ?? []));
+      .then(data => {
+        setMembers(data.members ?? []);
+        if (typeof data.total === 'number') setMemberTotal(data.total);
+      });
   };
 
   useEffect(() => {
@@ -52,7 +56,7 @@ export default function Home() {
   useEffect(() => {
     const handleResize = () => { if (window.innerWidth > 960) closeMob(); };
     window.addEventListener('resize', handleResize);
-    
+
     // Particles parallax effect
     const orbs = document.querySelectorAll('.orb') as NodeListOf<HTMLElement>;
     const handleMouseMove = (e: MouseEvent) => {
@@ -102,19 +106,20 @@ export default function Home() {
   };
 
   const openWhatsApp = () => {
-    window.open('https://chat.whatsapp.com/BCjkNIAfX5k157xVl28NCT', '_blank');
+    window.open(WHATSAPP_URL, '_blank');
   };
 
   return (
     <>
       <nav>
-        <a href="#" className="nav-logo">Nordelta<em> Build</em></a>
+        <a href="#" className="nav-logo">Nordelta<em> Tech</em></a>
         <ul className="nav-center">
           <li><a href="#sobre">Sobre</a></li>
           <li><a href="#eventos">Eventos</a></li>
           <li><a href="#comunidad">Comunidad</a></li>
         </ul>
         <div className="nav-right">
+          <a href="/login" className="btn btn-outline">Iniciar sesión</a>
           <button onClick={() => setShowJoinModal(true)} className="btn btn-green">Unirse</button>
           <button className={`hamburger ${isMobOpen ? 'open' : ''}`} onClick={() => setIsMobOpen(!isMobOpen)} aria-label="Menú">
             <span></span><span></span><span></span>
@@ -126,8 +131,9 @@ export default function Home() {
         <a href="#sobre" onClick={closeMob}>Sobre</a>
         <a href="#eventos" onClick={closeMob}>Eventos</a>
         <a href="#comunidad" onClick={closeMob}>Comunidad</a>
-        <button className="btn btn-wa" onClick={() => { closeMob(); setShowJoinModal(true); }}>
-          Unirse al grupo
+        <a href="/login" onClick={closeMob}>Iniciar sesión</a>
+        <button className="btn btn-green" onClick={() => { closeMob(); setShowJoinModal(true); }}>
+          Unirse a la comunidad
         </button>
       </div>
 
@@ -136,15 +142,23 @@ export default function Home() {
         <div className="hero-grid"></div>
 
         <div className="hero-left container" style={{ maxWidth: 'none' }}>
-          <div className="pill"><span className="pill-dot"></span>Nordelta · Zona Norte · Recién arrancamos</div>
+          <div className="pill">
+            <span className="pill-dot"></span>
+            nordelta.tech
+            <span className="pill-sep">/</span>
+            Zona Norte BA
+            <span className="pill-sep">/</span>
+            v0.1 beta
+          </div>
           <h1 className="hero-h1 display">
             BUILD<br />
             <span className="green">THE</span><br />
-            <span className="stroke">FUTURE</span>
+            <span className="stroke">FUTURE.</span>
           </h1>
           <p className="hero-sub">
-            La comunidad de founders, devs y makers de Nordelta y zona norte.
-            Construimos startups, compartimos conocimiento y hacemos crecer el ecosistema tech desde el agua.
+            La comunidad tech de founders, devs y makers de Nordelta y zona norte.
+            Construimos startups, compartimos conocimiento y hacemos crecer el ecosistema
+            desde el agua. Ahora en <span className="domain">nordelta.tech</span>.
           </p>
           <div className="hero-actions">
             <button onClick={() => setShowJoinModal(true)} className="btn btn-green">
@@ -154,7 +168,7 @@ export default function Home() {
           </div>
           <div className="hero-stats">
             <div className="hero-stat">
-              <div className="val">~40</div>
+              <div className="val">{memberTotal ?? '—'}</div>
               <div className="lbl">Miembros fundadores</div>
             </div>
             <div className="hero-stat">
@@ -176,8 +190,8 @@ export default function Home() {
             <div className="ring ring-2"></div>
             <div className="ring ring-1"></div>
             <div className="float-card fc-a">
-              <div className="fc-val">~40</div>
-              <div className="fc-lbl">Miembros fundadores</div>
+              <div className="fc-val">{memberTotal ?? '—'}</div>
+              <div className="fc-lbl">Founding members</div>
             </div>
             <div className="float-card fc-b">
               <div className="fc-val">2025</div>
@@ -194,7 +208,7 @@ export default function Home() {
       <div className="marquee-wrap">
         <div className="marquee-track">
           {Array(20).fill([
-            'Inteligencia Artificial', 'Fintech', 'SaaS', 'Web3', 'Proptech', 
+            'Inteligencia Artificial', 'Fintech', 'SaaS', 'Web3', 'Proptech',
             'Healthtech', 'EdTech', 'Developer Tools', 'E-commerce', 'Networking'
           ]).flat().map((item, i) => (
             <div key={i} className="m-item"><span></span>{item}</div>
@@ -209,7 +223,7 @@ export default function Home() {
             <h2 className="sec-title display">TECH NACE<br />EN NORDELTA</h2>
             <p className="sec-sub">
               Somos un grupo de builders que vive y trabaja en Nordelta y zona norte del Gran Buenos Aires.
-              Arrancamos en 2025 con ganas de construir el ecosistema tech de la zona — desde cero.
+              Arrancamos en 2025 con ganas de construir el ecosistema tech de la zona — desde cero, sin humo.
             </p>
             <div className="feat-grid">
               <div className="feat"><div className="feat-icon">🚀</div><h4>Startups & Proyectos</h4><p>Conectamos fundadores con co-founders, early hires y primeros usuarios.</p></div>
@@ -222,16 +236,17 @@ export default function Home() {
             <div className="terminal">
               <div className="t-bar">
                 <div className="td"></div><div className="td"></div><div className="td"></div>
-                <span>~/nordelta-build</span>
+                <span>~/nordelta.tech</span>
               </div>
               <div className="t-body mono">
                 <div><span className="pr">$</span> <span className="cm">whoami</span></div>
                 <div><span className="ou">→ builders, devs, founders, makers</span></div>
                 <div>&nbsp;</div>
-                <div><span className="pr">$</span> <span className="cm">ls comunidad/</span></div>
-                <div><span className="ou">→ ~40 miembros fundadores</span></div>
-                <div><span className="ou">→ recién arrancamos 🚀</span></div>
-                <div><span className="ou">→ todo por construir</span></div>
+                <div><span className="pr">$</span> <span className="cm">cat ./manifest.json</span></div>
+                <div><span className="ou">{`{ "domain": "nordelta.tech",`}</span></div>
+                <div><span className="ou">&nbsp;&nbsp;{`"members": 40,`}</span></div>
+                <div><span className="ou">&nbsp;&nbsp;{`"year": 2025,`}</span></div>
+                <div><span className="ou">&nbsp;&nbsp;{`"status": "shipping" }`}</span></div>
                 <div>&nbsp;</div>
                 <div><span className="pr">$</span> <span className="cm">next-event</span></div>
                 <div><span className="ou">→ Kick-off — fecha por confirmar</span></div>
@@ -256,8 +271,8 @@ export default function Home() {
           <div className="events-grid">
             <div className="ev-card ev-featured">
               <div className="ev-badge badge-star">★ Evento fundacional</div>
-              <h3>Kick-off Nordelta Build</h3>
-              <p>El primer encuentro de la comunidad. Nos juntamos para conocernos, contar en qué estamos construyendo y definir juntos el rumbo de Nordelta Build. Lugar y fecha a confirmar — anotate para que te avisemos en cuanto esté todo listo.</p>
+              <h3>Kick-off Nordelta Tech</h3>
+              <p>El primer encuentro de la comunidad. Nos juntamos para conocernos, contar en qué estamos construyendo y definir juntos el rumbo de Nordelta Tech. Lugar y fecha a confirmar — anotate para que te avisemos en cuanto esté todo listo.</p>
               <div className="ev-meta">
                 <span className="ev-date">Fecha a confirmar · Nordelta</span>
                 <button onClick={() => setShowJoinModal(true)} className="ev-link" style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit' }}>Avisame cuando sea →</button>
@@ -282,7 +297,7 @@ export default function Home() {
       <section id="comunidad" className="section">
         <div className="eyebrow">Miembros fundadores</div>
         <h2 className="sec-title display">LA COMUNIDAD</h2>
-        <p className="sec-sub">Los primeros builders armando esto desde el día cero.</p>
+        <p className="sec-sub">Los primeros builders armando esto desde el día cero. Si todavía no estás, estás a un clic.</p>
         <div className="members-grid">
           {members.map((m) => {
             const c = PALETTE[m.colorIndex % PALETTE.length];
@@ -317,7 +332,7 @@ export default function Home() {
         <div className="cta-inner">
           <div>
             <h2 className="display">¿LISTO PARA<br />CONSTRUIR?</h2>
-            <p>Sumate a Nordelta Build. Es gratis, es local y es real.</p>
+            <p>Sumate a Nordelta Tech. Es gratis, es local y es real. Nos vemos en nordelta.tech.</p>
           </div>
           <button onClick={() => setShowJoinModal(true)} className="btn btn-dark" style={{ fontSize: '.9rem', padding: '16px 36px' }}>
             Unirse al grupo
@@ -329,7 +344,8 @@ export default function Home() {
         <div className="footer-inner">
           <div className="footer-top">
             <div className="f-brand">
-              <div className="logo">Nordelta Build</div>
+              <div className="logo">Nordelta Tech</div>
+              <div className="domain-tag">→ nordelta.tech</div>
               <p>Comunidad tech de Nordelta y zona norte del Gran Buenos Aires. Construimos juntos desde cero.</p>
             </div>
             <div className="f-col">
@@ -337,16 +353,18 @@ export default function Home() {
               <a href="#sobre">Sobre nosotros</a>
               <a href="#comunidad">Miembros</a>
               <a href="#eventos">Eventos</a>
+              <a href="/login">Iniciar sesión</a>
             </div>
             <div className="f-col">
               <h5>Contacto</h5>
-              <a href="https://chat.whatsapp.com/BCjkNIAfX5k157xVl28NCT" target="_blank">WhatsApp</a>
-              <a href="https://chat.whatsapp.com/BCjkNIAfX5k157xVl28NCT" target="_blank">+54 11 2508-5500</a>
+              <a href={WHATSAPP_URL} target="_blank">WhatsApp</a>
+              <a href={WHATSAPP_URL} target="_blank">+54 11 2508-5500</a>
+              <a href="https://nordelta.tech" target="_blank">nordelta.tech</a>
             </div>
           </div>
           <div className="footer-bottom">
-            <p>© 2025 Nordelta Build · Nordelta, Pcia. de Buenos Aires</p>
-            <a href="https://chat.whatsapp.com/BCjkNIAfX5k157xVl28NCT" target="_blank" className="f-wa">
+            <p>© 2025 Nordelta Tech · nordelta.tech · Nordelta, Pcia. de Buenos Aires</p>
+            <a href={WHATSAPP_URL} target="_blank" className="f-wa">
               Unirse al grupo
             </a>
           </div>
@@ -355,73 +373,81 @@ export default function Home() {
 
       {/* JOIN MODAL */}
       {showJoinModal && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)', padding: '20px' }}>
-          <div style={{ background: 'var(--surf)', padding: '40px', borderRadius: '16px', maxWidth: '480px', width: '100%', border: '1px solid var(--border2)', position: 'relative' }}>
-            <button onClick={() => setShowJoinModal(false)} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', color: 'var(--muted)', fontSize: '1.5rem', cursor: 'pointer' }}>&times;</button>
-            <h3 style={{ fontFamily: 'Bebas Neue', fontSize: '2.5rem', color: 'var(--accent)', marginBottom: '8px', lineHeight: 1 }}>SUMATE A LA COMUNIDAD</h3>
-            <p style={{ color: 'var(--muted2)', fontSize: '0.9rem', marginBottom: '24px' }}>Completá tus datos para sumarte a la base de builders y acceder al grupo de WhatsApp exclusivo.</p>
-            
+        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowJoinModal(false); }}>
+          <div className="modal-card">
+            <button onClick={() => setShowJoinModal(false)} className="modal-close" aria-label="Cerrar">&times;</button>
+
             {formStatus === 'success' ? (
-              <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                <div style={{ fontSize: '3rem', marginBottom: '16px' }}>✅</div>
-                <h4 style={{ fontSize: '1.2rem', marginBottom: '12px' }}>¡Ya sos parte de Nordelta Build!</h4>
-                <p style={{ color: 'var(--muted2)', fontSize: '0.9rem', marginBottom: '28px' }}>Tus datos quedaron guardados en la base de builders. Podés agregar otro founder o entrar al grupo de WhatsApp ahora.</p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <button onClick={openWhatsApp} className="btn btn-wa" style={{ width: '100%', justifyContent: 'center', padding: '16px' }}>Entrar al grupo de WhatsApp →</button>
-                  <button onClick={handleAddAnother} className="btn btn-ghost" style={{ width: '100%', justifyContent: 'center', padding: '14px' }}>Agregar otro founder</button>
+              <div className="modal-success">
+                <div className="success-badge">✓</div>
+                <h3 className="success-title">¡Ya sos parte de <span style={{ color: 'var(--accent)' }}>nordelta.tech</span>!</h3>
+                <p className="success-text">Tus datos quedaron guardados en la base de builders.</p>
+                <div className="success-note">
+                  <strong>$ welcome_email --sent</strong><br />
+                  En los próximos minutos te llega un mail con tu <strong>contraseña por defecto</strong> para iniciar sesión en nordelta.tech. Revisá el inbox (y el spam, por las dudas).
+                </div>
+                <div className="success-actions">
+                  <button onClick={openWhatsApp} className="btn btn-wa">Entrar al grupo de WhatsApp →</button>
+                  <a href="/login" className="btn btn-ghost">Ir al login →</a>
+                  <button onClick={handleAddAnother} className="btn btn-outline">+ Agregar otro founder</button>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleJoinSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Nombre completo</label>
-                  <input required placeholder="Ej. Ada Lovelace" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '12px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} />
-                </div>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>E-mail</label>
-                  <input required type="email" placeholder="ada@ejemplo.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} style={{ width: '100%', padding: '12px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} />
-                </div>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>¿A qué te dedicás?</label>
-                  <select required value={formData.role} onChange={e => setFormData({...formData, role: e.target.value})} style={{ width: '100%', padding: '12px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem', appearance: 'none' }}>
-                    <option value="" disabled>Seleccioná tu rol...</option>
-                    <option value="Founder/CEO">Founder / CEO</option>
-                    <option value="Developer/Engineer">Developer / Engineer</option>
-                    <option value="Product/Design">Product / Design</option>
-                    <option value="Marketing/Growth">Marketing / Growth</option>
-                    <option value="Inversor">Inversor / VC</option>
-                    <option value="Otro">Otro</option>
-                  </select>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Empresa / Proyecto</label>
-                    <input placeholder="Ej. huevsite.io" value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} style={{ width: '100%', padding: '12px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} />
+              <>
+                <div className="modal-eyebrow">$ join --community</div>
+                <h3 className="modal-title">Sumate a <span className="green">nordelta.tech</span></h3>
+                <p className="modal-sub">Completá tus datos para sumarte a la base de builders, acceder al grupo de WhatsApp y recibir tu acceso a nordelta.tech.</p>
+
+                <form onSubmit={handleJoinSubmit} className="modal-form">
+                  <div className="field">
+                    <label>Nombre completo</label>
+                    <input required placeholder="Ej. Ada Lovelace" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
                   </div>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--muted)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>URL</label>
-                    <input type="url" placeholder="https://..." value={formData.companyUrl} onChange={e => setFormData({...formData, companyUrl: e.target.value})} style={{ width: '100%', padding: '12px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} />
+                  <div className="field">
+                    <label>E-mail</label>
+                    <input required type="email" placeholder="ada@ejemplo.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
                   </div>
-                </div>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--muted)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tags <span style={{ color: 'var(--muted)', fontStyle: 'normal', textTransform: 'none', letterSpacing: 0, fontSize: '0.75rem' }}>(opcional)</span></label>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                    {AVAILABLE_TAGS.map(tag => (
-                      <button key={tag} type="button" onClick={() => toggleTag(tag)} style={{
-                        fontFamily: 'Space Mono, monospace', fontSize: '0.62rem', padding: '5px 12px',
-                        borderRadius: '4px', cursor: 'pointer', letterSpacing: '0.04em', transition: 'all .15s',
-                        background: formTags.includes(tag) ? 'rgba(0,229,160,.15)' : 'var(--surf2)',
-                        color: formTags.includes(tag) ? 'var(--accent)' : 'var(--muted2)',
-                        border: formTags.includes(tag) ? '1px solid rgba(0,229,160,.5)' : '1px solid var(--border)',
-                      }}>{tag}</button>
-                    ))}
+                  <div className="field">
+                    <label>¿A qué te dedicás?</label>
+                    <select required value={formData.role} onChange={e => setFormData({...formData, role: e.target.value})}>
+                      <option value="" disabled>Seleccioná tu rol...</option>
+                      <option value="Founder/CEO">Founder / CEO</option>
+                      <option value="Developer/Engineer">Developer / Engineer</option>
+                      <option value="Product/Design">Product / Design</option>
+                      <option value="Marketing/Growth">Marketing / Growth</option>
+                      <option value="Inversor">Inversor / VC</option>
+                      <option value="Otro">Otro</option>
+                    </select>
                   </div>
-                </div>
-                <button type="submit" disabled={formStatus === 'loading'} className="btn btn-green" style={{ width: '100%', justifyContent: 'center', padding: '16px', marginTop: '4px' }}>
-                  {formStatus === 'loading' ? 'Guardando...' : 'Unirme y ver WhatsApp →'}
-                </button>
-                {formStatus === 'error' && <p style={{ color: 'var(--red)', fontSize: '0.8rem', textAlign: 'center' }}>Hubo un error al guardar. Intentá de nuevo.</p>}
-              </form>
+                  <div className="form-grid">
+                    <div className="field">
+                      <label>Empresa / Proyecto</label>
+                      <input placeholder="Ej. huevsite.io" value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} />
+                    </div>
+                    <div className="field">
+                      <label>URL</label>
+                      <input type="url" placeholder="https://..." value={formData.companyUrl} onChange={e => setFormData({...formData, companyUrl: e.target.value})} />
+                    </div>
+                  </div>
+                  <div className="field">
+                    <label>Tags <span className="opt">(opcional)</span></label>
+                    <div className="tag-picker">
+                      {AVAILABLE_TAGS.map(tag => (
+                        <button
+                          key={tag}
+                          type="button"
+                          onClick={() => toggleTag(tag)}
+                          className={`tag-btn${formTags.includes(tag) ? ' active' : ''}`}
+                        >{tag}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <button type="submit" disabled={formStatus === 'loading'} className="btn btn-green">
+                    {formStatus === 'loading' ? 'Guardando...' : 'Unirme a nordelta.tech →'}
+                  </button>
+                  {formStatus === 'error' && <p className="form-error">Hubo un error al guardar. Intentá de nuevo.</p>}
+                </form>
+              </>
             )}
           </div>
         </div>
