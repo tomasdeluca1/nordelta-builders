@@ -17,8 +17,12 @@ interface User {
   colorIndex: number;
   mustChangePassword: boolean;
   isAdmin?: boolean;
+  huevsiteUsername?: string | null;
+  huevsiteApproved?: boolean;
   createdAt: string;
 }
+
+const HUEVSITE_URL = 'https://huevsite.io';
 
 const PALETTE = [
   { bg: 'rgba(0,229,160,.12)',  color: '#00e5a0' },
@@ -52,6 +56,10 @@ export default function DashboardPage() {
   const [pwdStatus, setPwdStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [pwdMessage, setPwdMessage] = useState('');
 
+  const [huevInput, setHuevInput] = useState('');
+  const [huevStatus, setHuevStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [huevMessage, setHuevMessage] = useState('');
+
   function hydrateFormFromUser(u: User) {
     setProfile({
       name: u.name,
@@ -70,6 +78,7 @@ export default function DashboardPage() {
         if (!d.user) { router.replace('/login'); return; }
         setUser(d.user);
         hydrateFormFromUser(d.user);
+        setHuevInput(d.user.huevsiteUsername ?? '');
       })
       .finally(() => setLoading(false));
   }, [router]);
@@ -133,6 +142,31 @@ export default function DashboardPage() {
     setPwdMessage('Contraseña actualizada ✓');
     setCurrentPwd(''); setNewPwd(''); setConfirmPwd('');
     setUser(u => u ? { ...u, mustChangePassword: false } : u);
+  }
+
+  async function handleConnectHuevsite(e: React.FormEvent) {
+    e.preventDefault();
+    setHuevMessage('');
+    setHuevStatus('loading');
+    const res = await fetch('/api/huevsite/connect', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ huevsiteUsername: huevInput }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setHuevStatus('error');
+      setHuevMessage(data.error || 'Error al conectar tu huevsite');
+      return;
+    }
+    setHuevStatus('success');
+    setHuevMessage(
+      data.huevsiteUsername
+        ? '¡huevsite conectado! Queda pendiente de aprobación para verse en la landing.'
+        : 'huevsite desconectado.',
+    );
+    setHuevInput(data.huevsiteUsername ?? '');
+    setUser(u => (u ? { ...u, huevsiteUsername: data.huevsiteUsername, huevsiteApproved: false } : u));
   }
 
   if (loading || !user) {
@@ -271,6 +305,45 @@ export default function DashboardPage() {
               <div><strong>Miembro desde:</strong> {new Date(user.createdAt).toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' })}</div>
             </div>
           </div>
+        </div>
+
+        <div className="dash-card" style={{ marginTop: 24 }}>
+          <div className="eyebrow">Tu portfolio</div>
+          <h3 className="dash-card-title">Conectá tu huevsite.io</h3>
+          <p className="dash-meta" style={{ marginBottom: 16 }}>
+            Mostrá tu huevsite en la landing de Nordelta Tech. Pegá tu usuario o la URL de tu perfil.
+            {' '}<span style={{ color: 'var(--muted)' }}>Un admin lo aprueba antes de que se vea públicamente.</span>
+          </p>
+          <form onSubmit={handleConnectHuevsite} className="auth-form">
+            <label className="auth-label">
+              <span>Tu huevsite</span>
+              <input
+                value={huevInput}
+                onChange={e => setHuevInput(e.target.value)}
+                placeholder="tu-usuario · tu-usuario.huevsite.io"
+              />
+            </label>
+            {user.huevsiteUsername && (
+              <div className="dash-meta" style={{ marginTop: -4 }}>
+                Conectado: <a href={`${HUEVSITE_URL}/${user.huevsiteUsername}`} target="_blank" rel="noopener" style={{ color: 'var(--accent)' }}>@{user.huevsiteUsername}</a>
+                {' · '}
+                {user.huevsiteApproved
+                  ? <span style={{ color: 'var(--accent)' }}>aprobado ✓</span>
+                  : <span style={{ color: '#ffb020' }}>pendiente de aprobación</span>}
+              </div>
+            )}
+            {huevMessage && (
+              <div className={huevStatus === 'success' ? 'auth-success' : 'auth-error'}>{huevMessage}</div>
+            )}
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              <button type="submit" disabled={huevStatus === 'loading'} className="btn btn-green auth-submit" style={{ flex: 1, minWidth: 160 }}>
+                {huevStatus === 'loading' ? 'Conectando…' : (user.huevsiteUsername ? 'Actualizar huevsite' : 'Conectar huevsite')}
+              </button>
+              <a href={HUEVSITE_URL} target="_blank" rel="noopener" className="btn btn-ghost auth-submit" style={{ flex: 1, minWidth: 160, textAlign: 'center' }}>
+                {user.huevsiteUsername ? 'Editar mi huevsite →' : 'Armá tu huevsite →'}
+              </a>
+            </div>
+          </form>
         </div>
       </section>
     </main>

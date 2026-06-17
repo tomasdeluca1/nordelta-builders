@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { asc, eq, sql } from 'drizzle-orm';
+import { asc, desc, eq, sql } from 'drizzle-orm';
 import { getDb, schema } from '@/lib/db';
+import { fetchHuevsiteProfile, getHuevsiteBaseUrl } from '@/lib/huevsite';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -8,7 +9,7 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   try {
     const db = getDb();
-    const [rows, totalResult] = await Promise.all([
+    const [rows, totalResult, huevsiteUrl] = await Promise.all([
       db
         .select({
           id: schema.members.id,
@@ -20,21 +21,53 @@ export async function GET() {
           companyUrl: schema.members.companyUrl,
           tags: schema.members.tags,
           colorIndex: schema.members.colorIndex,
+          huevsiteUsername: schema.members.huevsiteUsername,
+          huevsiteApproved: schema.members.huevsiteApproved,
+          huevsiteFeatured: schema.members.huevsiteFeatured,
           createdAt: schema.members.createdAt,
         })
         .from(schema.members)
         .where(eq(schema.members.status, 'active'))
-        .orderBy(asc(schema.members.createdAt))
-        .limit(11),
+        // Surface approved/featured huevsites first, then by seniority.
+        .orderBy(desc(schema.members.huevsiteFeatured), desc(schema.members.huevsiteApproved), asc(schema.members.createdAt))
+        .limit(12),
       db
         .select({ count: sql<number>`count(*)::int` })
         .from(schema.members)
         .where(eq(schema.members.status, 'active')),
+      getHuevsiteBaseUrl(),
     ]);
 
-    const members = rows.map(r => ({ ...r, _id: String(r.id) }));
-    const total = totalResult[0]?.count ?? members.length;
-    return NextResponse.json({ members, total });
+    // Enrich approved huevsites with their public profile (avatar, accent, score).
+    const enriched = await Promise.all(
+      rows.map(async (r) => {
+        const showHuevsite = Boolean(r.huevsiteApproved && r.huevsiteUsername);
+        let huevsite = null;
+        if (showHuevsite && r.huevsiteUsername) {
+          const p = await fetchHuevsiteProfile(r.huevsiteUsername);
+          if (p) {
+            huevsite = {
+              username: p.username,
+              avatar: p.avatar,
+              accentColor: p.accentColor,
+              builderScore: p.builderScore,
+              headline: p.headline,
+              url: p.url,
+            };
+          }
+        }
+        return {
+          ...r,
+          _id: String(r.id),
+          huevsiteUsername: showHuevsite ? r.huevsiteUsername : null,
+          huevsiteFeatured: showHuevsite ? r.huevsiteFeatured : false,
+          huevsite,
+        };
+      }),
+    );
+
+    const total = totalResult[0]?.count ?? enriched.length;
+    return NextResponse.json({ members: enriched, total, huevsiteUrl });
   } catch (error) {
     console.error('Error fetching members:', error);
     return NextResponse.json({ error: 'Failed to fetch members' }, { status: 500 });

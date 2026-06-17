@@ -2,6 +2,15 @@
 
 import { useEffect, useState } from 'react';
 
+interface HuevsiteData {
+  username: string;
+  avatar: string | null;
+  accentColor: string | null;
+  builderScore: number | null;
+  headline: string | null;
+  url: string;
+}
+
 interface Member {
   _id: string;
   name: string;
@@ -12,6 +21,9 @@ interface Member {
   companyUrl?: string;
   tags?: string[];
   colorIndex: number;
+  huevsiteUsername?: string | null;
+  huevsiteFeatured?: boolean;
+  huevsite?: HuevsiteData | null;
 }
 
 const PALETTE = [
@@ -31,6 +43,8 @@ export default function Home() {
 
   const [members, setMembers] = useState<Member[]>([]);
   const [memberTotal, setMemberTotal] = useState<number | null>(null);
+  const [huevsiteUrl, setHuevsiteUrl] = useState('https://huevsite.io');
+  const [huevView, setHuevView] = useState<{ username: string; name: string } | null>(null);
   const [formData, setFormData] = useState({ name: '', email: '', role: '', company: '', companyUrl: '' });
   const [formTags, setFormTags] = useState<string[]>([]);
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -46,6 +60,7 @@ export default function Home() {
       .then(data => {
         setMembers(data.members ?? []);
         if (typeof data.total === 'number') setMemberTotal(data.total);
+        if (typeof data.huevsiteUrl === 'string') setHuevsiteUrl(data.huevsiteUrl);
       });
   };
 
@@ -76,9 +91,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (isMobOpen || showJoinModal) document.body.style.overflow = 'hidden';
+    if (isMobOpen || showJoinModal || huevView) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = '';
-  }, [isMobOpen, showJoinModal]);
+  }, [isMobOpen, showJoinModal, huevView]);
 
   const WHATSAPP_URL = 'https://chat.whatsapp.com/BCjkNIAfX5k157xVl28NCT';
 
@@ -297,21 +312,44 @@ export default function Home() {
         <div className="eyebrow">Miembros fundadores</div>
         <h2 className="sec-title display">LA COMUNIDAD</h2>
         <p className="sec-sub">Los primeros builders armando esto desde el día cero. Si todavía no estás, estás a un clic.</p>
+        <div className="huev-powered">
+          <span className="huev-powered-by">Perfiles <strong>Powered by</strong> <a href={huevsiteUrl} target="_blank" rel="noopener">huevsite.io</a></span>
+          <a href={huevsiteUrl} target="_blank" rel="noopener" className="btn btn-green huev-cta">Armá tu huevsite →</a>
+        </div>
         <div className="members-grid">
           {members.map((m) => {
             const c = PALETTE[m.colorIndex % PALETTE.length];
+            const huev = m.huevsite;
+            const accent = huev?.accentColor || c.color;
             return (
-              <div key={m._id} className="member">
-                <div className="avatar" style={{ background: c.bg, color: c.color }}>{m.initials}</div>
+              <div key={m._id} className={`member${huev ? ' member-huev' : ''}${m.huevsiteFeatured ? ' member-feat' : ''}`}>
+                {m.huevsiteFeatured && <span className="member-feat-badge">★ destacado</span>}
+                <div
+                  className="avatar"
+                  style={huev?.avatar
+                    ? { backgroundImage: `url(${huev.avatar})`, backgroundSize: 'cover', backgroundPosition: 'center', color: 'transparent', border: `2px solid ${accent}` }
+                    : { background: c.bg, color: c.color }}
+                >
+                  {huev?.avatar ? '' : m.initials}
+                </div>
                 <h4>{m.name}</h4>
                 <div className="member-role">
                   {m.jobTitle && m.company
-                    ? <>{m.jobTitle} @ <a href={m.companyUrl} target="_blank" rel="noopener" style={{ color: c.color }}>{m.company}</a></>
+                    ? <>{m.jobTitle} @ <a href={m.companyUrl} target="_blank" rel="noopener" style={{ color: accent }}>{m.company}</a></>
                     : m.role}
                 </div>
                 <div className="tags">
                   {m.tags?.map(tag => <span key={tag} className="tag">{tag}</span>)}
                 </div>
+                {huev && (
+                  <button
+                    className="member-huev-btn"
+                    style={{ color: accent, borderColor: `${accent}55` }}
+                    onClick={() => setHuevView({ username: huev.username, name: m.name })}
+                  >
+                    {typeof huev.builderScore === 'number' ? `Ver huevsite · ${huev.builderScore} pts →` : 'Ver huevsite →'}
+                  </button>
+                )}
               </div>
             );
           })}
@@ -449,6 +487,27 @@ export default function Home() {
                 </form>
               </>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* HUEVSITE IFRAME MODAL */}
+      {huevView && (
+        <div className="modal-overlay huev-modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setHuevView(null); }}>
+          <div className="huev-modal">
+            <div className="huev-modal-bar">
+              <span className="huev-modal-title">{huevView.name} · <span className="green">@{huevView.username}</span></span>
+              <div className="huev-modal-actions">
+                <a href={`${huevsiteUrl}/${huevView.username}`} target="_blank" rel="noopener" className="btn btn-ghost">Abrir ↗</a>
+                <button onClick={() => setHuevView(null)} className="modal-close huev-modal-close" aria-label="Cerrar">&times;</button>
+              </div>
+            </div>
+            <iframe
+              className="huev-iframe"
+              src={`${huevsiteUrl}/${huevView.username}?embed=1`}
+              title={`huevsite de ${huevView.name}`}
+              loading="lazy"
+            />
           </div>
         </div>
       )}
