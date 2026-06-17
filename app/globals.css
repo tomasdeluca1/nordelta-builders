@@ -1265,34 +1265,46 @@ nav.scrolled {
   animation: spinPlain .9s linear infinite;
 }
 
-/* ═══ MEMBERS SLIDER (2 rows, seamless loop) ══════════════════ */
+/* ═══ MEMBERS SLIDER — 2 independent rows, full-bleed, seamless ══ */
 .members-slider {
   /* Full-bleed: break out of the max-width section to span the whole viewport */
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  margin-top: 12px;
+  margin-top: clamp(20px, 3vw, 36px);
   overflow: hidden;
+  display: flex; flex-direction: column; gap: 16px;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
 }
+.members-row { overflow: hidden; }
 .members-track {
   display: flex; width: max-content;
   animation-name: membersScroll; animation-timing-function: linear; animation-iteration-count: infinite;
 }
-.members-track:hover { animation-play-state: paused; }
-.members-col { display: flex; flex-direction: column; gap: 16px; margin-right: 16px; width: 256px; flex: 0 0 256px; }
-.members-slider .member { width: 100%; height: 226px; padding: 18px; gap: 8px; justify-content: center; }
+.members-track-2 { animation-direction: reverse; }
+.members-slider:hover .members-track { animation-play-state: paused; }
+
+.members-slider .member,
+.member-skel {
+  flex: 0 0 256px; width: 256px; height: 226px; margin-right: 16px;
+}
+.members-slider .member { padding: 18px; gap: 8px; justify-content: center; }
 .members-slider .avatar { width: 52px; height: 52px; font-size: 1.3rem; }
 .members-slider .member h4 { font-size: .95rem; }
 @keyframes membersScroll { to { transform: translateX(-50%); } }
 
-.members-skeleton { display: flex; }
+.members-skeleton .members-row { display: flex; }
 .member-skel {
-  height: 226px; width: 100%; border: 1px solid var(--border); border-radius: var(--r);
+  border: 1px solid var(--border); border-radius: var(--r);
   background: linear-gradient(110deg, var(--surf) 25%, var(--surf2) 50%, var(--surf) 75%);
   background-size: 200% 100%; animation: shimmer 1.4s linear infinite;
 }
+
+/* Join CTA lives OUTSIDE the slider */
+.members-join { text-align: center; margin-top: clamp(28px, 4vw, 48px); }
+
 @media (max-width: 640px) {
-  .members-col { width: 218px; flex-basis: 218px; }
+  .members-slider .member,
+  .member-skel { flex-basis: 218px; width: 218px; }
 }

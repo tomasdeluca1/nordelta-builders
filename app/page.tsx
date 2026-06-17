@@ -109,10 +109,10 @@ export default function Home() {
     };
   }, []);
 
-  // Split members into columns of 2 for the 2-row slider (duplicated in render
-  // so the marquee loops seamlessly).
-  const memberColumns: Member[][] = [];
-  for (let i = 0; i < members.length; i += 2) memberColumns.push(members.slice(i, i + 2));
+  // Two independent rows (even/odd split) for the 2-row slider; each row is its
+  // own seamless marquee, so odd member counts never leave an empty slot.
+  const memberRow1 = members.filter((_, i) => i % 2 === 0);
+  const memberRow2 = members.filter((_, i) => i % 2 === 1);
 
   const renderMemberCard = (m: Member, key: string) => {
     const c = PALETTE[m.colorIndex % PALETTE.length];
@@ -451,27 +451,32 @@ export default function Home() {
         </div>
         {membersLoading ? (
           <div className="members-slider members-skeleton">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <div key={`mc-${i}`} className="members-col">
-                <div className="member member-skel" />
-                <div className="member member-skel" />
+            {[0, 1].map((r) => (
+              <div className="members-row" key={r}>
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="member member-skel" />
+                ))}
               </div>
             ))}
           </div>
         ) : (
           <div className="members-slider">
-            <div
-              className="members-track"
-              style={{ animationDuration: `${Math.max(34, members.length * 4.5)}s` }}
-            >
-              {[...memberColumns, ...memberColumns].map((col, idx) => (
-                <div className="members-col" key={idx} aria-hidden={idx >= memberColumns.length}>
-                  {col.map((m) => renderMemberCard(m, `${idx}-${m._id}`))}
-                </div>
-              ))}
+            <div className="members-row">
+              <div className="members-track" style={{ animationDuration: `${Math.max(24, memberRow1.length * 6)}s` }}>
+                {[...memberRow1, ...memberRow1].map((m, i) => renderMemberCard(m, `r1-${i}-${m._id}`))}
+              </div>
+            </div>
+            <div className="members-row">
+              <div className="members-track members-track-2" style={{ animationDuration: `${Math.max(24, memberRow2.length * 6)}s` }}>
+                {[...memberRow2, ...memberRow2].map((m, i) => renderMemberCard(m, `r2-${i}-${m._id}`))}
+              </div>
             </div>
           </div>
         )}
+
+        <div className="members-join">
+          <button onClick={() => setShowJoinModal(true)} className="btn btn-green">Sumate a la comunidad →</button>
+        </div>
       </section>
 
       <div id="join" className="cta-band">
