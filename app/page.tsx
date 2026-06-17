@@ -309,12 +309,20 @@ export default function Home() {
       </div>
 
       <section id="comunidad" className="section">
-        <div className="eyebrow">Miembros fundadores</div>
-        <h2 className="sec-title display">LA COMUNIDAD</h2>
-        <p className="sec-sub">Los primeros builders armando esto desde el día cero. Si todavía no estás, estás a un clic.</p>
-        <div className="huev-powered">
-          <span className="huev-powered-by">Perfiles <strong>Powered by</strong> <a href={huevsiteUrl} target="_blank" rel="noopener">huevsite.io</a></span>
-          <a href={huevsiteUrl} target="_blank" rel="noopener" className="btn btn-green huev-cta">Armá tu huevsite →</a>
+        <div className="comunidad-head">
+          <div className="comunidad-head-main">
+            <div className="eyebrow">Miembros fundadores</div>
+            <h2 className="sec-title display">LA COMUNIDAD</h2>
+            <p className="sec-sub">Los primeros builders armando esto desde el día cero. Cada perfil es un huevsite vivo. Si todavía no estás, estás a un clic.</p>
+          </div>
+          <aside className="huev-badge">
+            <span className="huev-badge-label">Perfiles en vivo</span>
+            <a href={huevsiteUrl} target="_blank" rel="noopener" className="pill huev-pill">
+              <span className="pill-dot" />
+              powered by <span className="huev-wm">huev<span>site</span>.io</span>
+            </a>
+            <a href={huevsiteUrl} target="_blank" rel="noopener" className="huev-badge-cta">Armá el tuyo →</a>
+          </aside>
         </div>
         <div className="members-grid">
           {members.map((m) => {

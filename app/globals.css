@@ -990,18 +990,41 @@ footer {
 }
 
 /* ─── HUEVSITE INTEGRATION ────────────────────────────────── */
-.huev-powered {
-  display: flex; align-items: center; justify-content: center;
-  flex-wrap: wrap; gap: 16px; margin: 4px 0 28px;
+.comunidad-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  flex-wrap: wrap; gap: 24px; margin-bottom: clamp(28px, 4vw, 44px);
 }
-.huev-powered-by {
-  font-family: 'Space Mono', monospace; font-size: 0.72rem;
-  letter-spacing: 0.04em; color: var(--muted2);
+.comunidad-head-main { flex: 1 1 380px; }
+.comunidad-head-main .sec-sub { margin-bottom: 0; }
+.huev-badge {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  flex: 0 0 auto; padding-bottom: 4px;
 }
-.huev-powered-by strong { color: var(--text-d); font-weight: 700; }
-.huev-powered-by a { color: var(--accent); text-decoration: none; }
-.huev-powered-by a:hover { text-decoration: underline; }
-.huev-cta { font-size: 0.78rem; padding: 10px 20px; }
+.huev-badge-label {
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted2);
+}
+.huev-pill {
+  margin-bottom: 0; text-transform: none; letter-spacing: 0.08em;
+  text-decoration: none; transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.huev-pill:hover {
+  transform: translateY(-1px);
+  border-color: rgba(0,229,160,.7);
+  box-shadow: inset 0 0 0 1px rgba(0,229,160,.1), 0 0 28px rgba(0,229,160,.14);
+}
+.huev-wm { font-weight: 700; color: var(--accent); }
+.huev-wm span { color: var(--text-d); }
+.huev-badge-cta {
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  letter-spacing: 0.06em; color: var(--muted2); text-decoration: none;
+  border-bottom: 1px solid transparent; transition: color .2s, border-color .2s;
+}
+.huev-badge-cta:hover { color: var(--accent); border-bottom-color: var(--accent); }
+@media (max-width: 720px) {
+  .comunidad-head { align-items: flex-start; }
+  .huev-badge { align-items: flex-start; }
+}
 
 .member-huev { border-color: var(--border2); }
 .member-feat { box-shadow: 0 0 0 1px rgba(245,158,11,.25); }
