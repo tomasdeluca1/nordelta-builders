@@ -84,7 +84,7 @@ export default function Home() {
     root.classList.add('reveal-ready');
     const targets = Array.from(
       document.querySelectorAll<HTMLElement>(
-        '[data-reveal], .about-grid > div, .feat, .terminal, .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-slider, .cta-inner',
+        '[data-reveal], .about-grid > div, .feat, .terminal, .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .cta-inner',
       ),
     );
     const io = new IntersectionObserver(

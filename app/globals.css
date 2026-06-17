@@ -1137,7 +1137,7 @@ nav.scrolled {
 /* ── Scroll reveal (progressive enhancement) ───────────────────── */
 .reveal-ready :is(
   [data-reveal], .about-grid > div, .feat, .terminal,
-  .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-slider, .cta-inner
+  .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .cta-inner
 ) {
   opacity: 0;
   transform: translateY(30px);
@@ -1147,7 +1147,7 @@ nav.scrolled {
 }
 .reveal-ready :is(
   [data-reveal], .about-grid > div, .feat, .terminal,
-  .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-slider, .cta-inner
+  .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .cta-inner
 ).in {
   opacity: 1;
   transform: none;
@@ -1155,7 +1155,7 @@ nav.scrolled {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-bg::after { animation: none; }
-  .reveal-ready :is([data-reveal], .about-grid > div, .feat, .terminal, .events-hd, .ev-card, .comunidad-head, .members-slider, .cta-inner) {
+  .reveal-ready :is([data-reveal], .about-grid > div, .feat, .terminal, .events-hd, .ev-card, .comunidad-head, .cta-inner) {
     opacity: 1 !important; transform: none !important; transition: none !important;
   }
 }
