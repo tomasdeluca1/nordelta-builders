@@ -178,8 +178,6 @@ export default function Home() {
     else document.body.style.overflow = '';
   }, [isMobOpen, showJoinModal, huevView]);
 
-  const WHATSAPP_URL = 'https://chat.whatsapp.com/BCjkNIAfX5k157xVl28NCT';
-
   const handleJoinSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('loading');
@@ -511,15 +509,15 @@ export default function Home() {
             </div>
             <div className="f-col">
               <h5>Contacto</h5>
-              <a href={WHATSAPP_URL} target="_blank">WhatsApp</a>
-              <a href={WHATSAPP_URL} target="_blank">+54 11 2508-5500</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setShowJoinModal(true); }}>Unirse a la comunidad</a>
+              <a href="tel:+541125085500">+54 11 2508-5500</a>
               <a href="https://nordelta.tech" target="_blank">nordelta.tech</a>
             </div>
           </div>
           <div className="footer-bottom">
             <p>© 2025 Nordelta Tech · nordelta.tech · Nordelta, Pcia. de Buenos Aires</p>
-            <a href={WHATSAPP_URL} target="_blank" className="f-wa">
-              Unirse al grupo
+            <a href="#" onClick={(e) => { e.preventDefault(); setShowJoinModal(true); }} className="f-wa">
+              Unirse a la comunidad
             </a>
           </div>
         </div>
