@@ -15,7 +15,10 @@ const globalForDb = global as typeof globalThis & {
 
 function getSql() {
   if (!globalForDb._neonSql) {
-    globalForDb._neonSql = neon(getDatabaseUrl());
+    // cache: 'no-store' so Next.js never caches the underlying HTTP query — DB
+    // reads (members list, admin, etc.) must always reflect the live DB, even on
+    // force-dynamic routes (otherwise the landing shows stale data until redeploy).
+    globalForDb._neonSql = neon(getDatabaseUrl(), { fetchOptions: { cache: 'no-store' } });
   }
   return globalForDb._neonSql;
 }
