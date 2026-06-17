@@ -265,26 +265,47 @@ export default function Home() {
         </div>
 
         <div className="hero-right">
-          <div className="orb-wrap">
+          <div className="hero-orbit">
             <div className="orb orb-1"></div>
             <div className="orb orb-2"></div>
             <div className="orb orb-3"></div>
             <div className="ring ring-2"></div>
             <div className="ring ring-1"></div>
-            <div className="float-card fc-a">
-              <div className="fc-val">{memberTotal ?? '—'}</div>
-              <div className="fc-lbl">Founding members</div>
+            <div className="orbit-core">
+              <span className="orbit-core-pulse" />
+              <span className="orbit-core-val">{memberTotal ?? '—'}</span>
+              <span className="orbit-core-lbl">builders</span>
             </div>
-            <div className="float-card fc-b">
-              <div className="fc-val">2025</div>
-              <div className="fc-lbl">Año de inicio</div>
-            </div>
-            <div className="float-card fc-c">
-              <div className="fc-val">∞</div>
-              <div className="fc-lbl">Por construir</div>
-            </div>
+            {members.slice(0, 8).map((m, i, arr) => {
+              const c = PALETTE[m.colorIndex % PALETTE.length];
+              const accent = m.huevsite?.accentColor || c.color;
+              const angle = (360 / Math.max(arr.length, 1)) * i;
+              const hasImg = Boolean(m.huevsite?.avatar);
+              return (
+                <div key={m._id} className="orbit-node" style={{ ['--a']: `${angle}deg` } as React.CSSProperties}>
+                  <div
+                    className="orbit-avatar"
+                    title={m.name}
+                    style={{
+                      borderColor: accent,
+                      color: hasImg ? 'transparent' : accent,
+                      background: hasImg ? undefined : `${accent}1f`,
+                      backgroundImage: hasImg ? `url(${m.huevsite!.avatar})` : undefined,
+                      animationDelay: `${(i * -0.8).toFixed(1)}s`,
+                    }}
+                  >
+                    {hasImg ? '' : m.initials}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
+
+        <a href="#sobre" className="hero-scroll" aria-label="Bajar">
+          <span className="hero-scroll-dot" />
+          scroll
+        </a>
       </section>
 
       <div className="marquee-wrap">

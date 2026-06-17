@@ -269,8 +269,8 @@ nav {
 
 .hero-h1 {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3rem, min(7.5vw, 14vh), 6.4rem);
-  line-height: 0.9; letter-spacing: 0.01em;
+  font-size: clamp(3.4rem, min(9vw, 15.5vh), 8rem);
+  line-height: 0.86; letter-spacing: 0.005em;
   margin-bottom: clamp(12px, 2vh, 22px);
 }
 .hero-h1 .stroke {
@@ -1158,3 +1158,69 @@ nav.scrolled {
     opacity: 1 !important; transform: none !important; transition: none !important;
   }
 }
+
+/* ═══ HERO ORBIT — la comunidad real girando alrededor del contador ═══ */
+.hero-orbit {
+  position: relative;
+  width: min(380px, 40vw);
+  height: min(380px, 40vw);
+  margin: 48px;
+  --orbit-r: min(168px, 18.5vw);
+}
+.hero-orbit .orb-1 { width: 70%; height: 70%; top: 14%; left: 15%; }
+.hero-orbit .orb-2 { width: 50%; height: 50%; top: 6%; right: 6%; }
+.hero-orbit .orb-3 { width: 42%; height: 42%; bottom: 8%; left: 8%; }
+
+.orbit-core {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 122px; height: 122px; border-radius: 50%; z-index: 4;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  background: radial-gradient(circle at 50% 32%, rgba(0,229,160,.16), rgba(13,18,23,.92));
+  border: 1px solid rgba(0,229,160,.32);
+  box-shadow: 0 0 48px rgba(0,229,160,.2), inset 0 1px 0 rgba(255,255,255,.07);
+  backdrop-filter: blur(8px);
+}
+.orbit-core-val { font-family: 'Bebas Neue', sans-serif; font-size: 2.7rem; line-height: 1; color: #fff; }
+.orbit-core-lbl { font-family: 'Space Mono', monospace; font-size: .55rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+.orbit-core-pulse {
+  position: absolute; inset: -1px; border-radius: 50%;
+  border: 1px solid rgba(0,229,160,.5); animation: orbitPulse 2.8s ease-out infinite;
+}
+@keyframes orbitPulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.55); opacity: 0; } }
+
+.orbit-node {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--a)) translateX(var(--orbit-r)) rotate(calc(var(--a) * -1));
+  z-index: 3;
+}
+.orbit-avatar {
+  width: 54px; height: 54px; border-radius: 50%; border: 2px solid;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .02em;
+  background-size: cover; background-position: center;
+  box-shadow: 0 10px 26px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter: blur(4px);
+  animation: floatY 6s ease-in-out infinite;
+}
+
+/* Scroll cue */
+.hero-scroll {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 3;
+  display: inline-flex; flex-direction: column; align-items: center; gap: 8px;
+  font-family: 'Space Mono', monospace; font-size: .55rem; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--muted2); text-decoration: none; transition: color .2s;
+}
+.hero-scroll:hover { color: var(--accent); }
+.hero-scroll-dot { width: 22px; height: 34px; border: 1px solid var(--border3); border-radius: 12px; position: relative; }
+.hero-scroll-dot::after {
+  content: ''; position: absolute; top: 6px; left: 50%; width: 3px; height: 7px;
+  border-radius: 2px; background: var(--accent); transform: translateX(-50%);
+  animation: scrollCue 1.9s ease-in-out infinite;
+}
+@keyframes scrollCue {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  35% { opacity: 1; }
+  65% { opacity: 1; transform: translate(-50%, 11px); }
+  100% { opacity: 0; transform: translate(-50%, 11px); }
+}
+@media (max-width: 960px) { .hero-scroll { display: none; } }
