@@ -8,7 +8,7 @@ import { dirname, join } from "node:path";
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dir, "..", "..");
-const OUT = join(__dir, "..", "assets");
+const OUT = join(ROOT, "public", "marketing", "assets");
 const TMP = join(__dir, ".tmp");
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 

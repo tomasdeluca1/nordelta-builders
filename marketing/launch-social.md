@@ -399,9 +399,11 @@ Secuencia sugerida para el Día 1–2:
 
 ---
 
-## 6b. Piezas gráficas generadas (`marketing/assets/`)
+## 6b. Piezas gráficas generadas (`public/marketing/assets/`)
 
-Renderizadas con tus fuentes y colores reales (HTML/CSS → PNG, todas a 2x para máxima nitidez). **No usan IA de imágenes** → matchean la web 1:1.
+> **Panel en vivo:** https://nordelta.tech/marketing/launch.html — para revisar todo, copiar textos y exportar las imágenes desde el navegador.
+
+Renderizadas con tus fuentes y colores reales (HTML/CSS → PNG, todas a 2x para máxima nitidez). **No usan IA de imágenes** → matchean la web 1:1. Viven en `public/` para que Next.js/Vercel las sirva en prod.
 
 | Archivo | Pieza | Tamaño (px) |
 |---|---|---|
