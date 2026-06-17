@@ -241,7 +241,8 @@ nav {
 .hero-left {
   display: flex; flex-direction: column; justify-content: center;
   padding: clamp(16px, 3vh, 40px) clamp(24px, 5vw, 64px);
-  padding-top: clamp(76px, 10vh, 100px);
+  padding-top: clamp(84px, 11vh, 112px);
+  padding-bottom: clamp(76px, 12vh, 140px);
   position: relative; z-index: 2;
   min-height: 0;
   animation: fadeup .8s ease both;
@@ -269,8 +270,8 @@ nav {
 
 .hero-h1 {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3.4rem, min(9vw, 15.5vh), 8rem);
-  line-height: 0.86; letter-spacing: 0.005em;
+  font-size: clamp(3.1rem, min(7.4vw, 12vh), 6.6rem);
+  line-height: 0.88; letter-spacing: 0.005em;
   margin-bottom: clamp(12px, 2vh, 22px);
 }
 .hero-h1 .stroke {
@@ -1136,7 +1137,7 @@ nav.scrolled {
 /* ── Scroll reveal (progressive enhancement) ───────────────────── */
 .reveal-ready :is(
   [data-reveal], .about-grid > div, .feat, .terminal,
-  .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-grid, .cta-inner
+  .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-slider, .cta-inner
 ) {
   opacity: 0;
   transform: translateY(30px);
@@ -1146,7 +1147,7 @@ nav.scrolled {
 }
 .reveal-ready :is(
   [data-reveal], .about-grid > div, .feat, .terminal,
-  .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-grid, .cta-inner
+  .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-slider, .cta-inner
 ).in {
   opacity: 1;
   transform: none;
@@ -1154,7 +1155,7 @@ nav.scrolled {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-bg::after { animation: none; }
-  .reveal-ready :is([data-reveal], .about-grid > div, .feat, .terminal, .events-hd, .ev-card, .comunidad-head, .members-grid, .cta-inner) {
+  .reveal-ready :is([data-reveal], .about-grid > div, .feat, .terminal, .events-hd, .ev-card, .comunidad-head, .members-slider, .cta-inner) {
     opacity: 1 !important; transform: none !important; transition: none !important;
   }
 }
@@ -1224,3 +1225,69 @@ nav.scrolled {
   100% { opacity: 0; transform: translate(-50%, 11px); }
 }
 @media (max-width: 960px) { .hero-scroll { display: none; } }
+
+/* ═══ ORBIT MOTION + LOADING + NAME TOOLTIP ═══════════════════ */
+@keyframes spinPlain { to { transform: rotate(360deg); } }
+
+.orbit-spin { position: absolute; inset: 0; animation: spinPlain 72s linear infinite; }
+.orbit-spin.is-loading { animation-duration: 9s; }
+.orbit-counter { position: relative; animation: spinPlain 72s linear infinite reverse; }
+
+/* Pause the whole orbit on hover so names are easy to read */
+.hero-orbit:hover .orbit-spin,
+.hero-orbit:hover .orbit-counter,
+.hero-orbit:hover .orbit-avatar { animation-play-state: paused; }
+
+.orbit-avatar { cursor: default; }
+.orbit-name {
+  position: absolute; bottom: calc(100% + 9px); left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  white-space: nowrap; background: rgba(10,14,18,.96);
+  border: 1px solid var(--border2); color: var(--text);
+  font-family: 'Space Mono', monospace; font-size: .62rem; letter-spacing: .03em;
+  padding: 5px 10px; border-radius: 6px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+  box-shadow: 0 10px 24px rgba(0,0,0,.45); z-index: 12;
+}
+.orbit-counter:hover .orbit-name { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+/* Loading state */
+.orbit-avatar.orbit-avatar-skel {
+  border-color: var(--border2); color: transparent;
+  background: linear-gradient(110deg, var(--surf2) 25%, var(--surf3) 50%, var(--surf2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite, floatY 6s ease-in-out infinite;
+}
+.orbit-core-spinner {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid rgba(0,229,160,.22); border-top-color: var(--accent);
+  animation: spinPlain .9s linear infinite;
+}
+
+/* ═══ MEMBERS SLIDER (2 rows, seamless loop) ══════════════════ */
+.members-slider {
+  overflow: hidden; margin-top: 8px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+.members-track {
+  display: flex; width: max-content;
+  animation-name: membersScroll; animation-timing-function: linear; animation-iteration-count: infinite;
+}
+.members-track:hover { animation-play-state: paused; }
+.members-col { display: flex; flex-direction: column; gap: 16px; margin-right: 16px; width: 256px; flex: 0 0 256px; }
+.members-slider .member { width: 100%; height: 226px; padding: 18px; gap: 8px; justify-content: center; }
+.members-slider .avatar { width: 52px; height: 52px; font-size: 1.3rem; }
+.members-slider .member h4 { font-size: .95rem; }
+@keyframes membersScroll { to { transform: translateX(-50%); } }
+
+.members-skeleton { display: flex; }
+.member-skel {
+  height: 226px; width: 100%; border: 1px solid var(--border); border-radius: var(--r);
+  background: linear-gradient(110deg, var(--surf) 25%, var(--surf2) 50%, var(--surf) 75%);
+  background-size: 200% 100%; animation: shimmer 1.4s linear infinite;
+}
+@media (max-width: 640px) {
+  .members-col { width: 218px; flex-basis: 218px; }
+}

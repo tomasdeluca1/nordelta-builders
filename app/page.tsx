@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface HuevsiteData {
   username: string;
@@ -47,11 +47,7 @@ export default function Home() {
   const [huevView, setHuevView] = useState<{ username: string; name: string } | null>(null);
 
   const [navScrolled, setNavScrolled] = useState(false);
-
-  // Members shown in at most 2 rows; if there are more, rotate through everyone.
-  const membersGridRef = useRef<HTMLDivElement>(null);
-  const [memberCols, setMemberCols] = useState(4);
-  const [memberPage, setMemberPage] = useState(0);
+  const [membersLoading, setMembersLoading] = useState(true);
   const [formData, setFormData] = useState({ name: '', email: '', role: '', company: '', companyUrl: '' });
   const [formTags, setFormTags] = useState<string[]>([]);
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -68,7 +64,9 @@ export default function Home() {
         setMembers(data.members ?? []);
         if (typeof data.total === 'number') setMemberTotal(data.total);
         if (typeof data.huevsiteUrl === 'string') setHuevsiteUrl(data.huevsiteUrl);
-      });
+      })
+      .catch(() => {})
+      .finally(() => setMembersLoading(false));
   };
 
   useEffect(() => {
@@ -86,7 +84,7 @@ export default function Home() {
     root.classList.add('reveal-ready');
     const targets = Array.from(
       document.querySelectorAll<HTMLElement>(
-        '[data-reveal], .about-grid > div, .feat, .terminal, .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-grid, .cta-inner',
+        '[data-reveal], .about-grid > div, .feat, .terminal, .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-slider, .cta-inner',
       ),
     );
     const io = new IntersectionObserver(
@@ -111,30 +109,47 @@ export default function Home() {
     };
   }, []);
 
-  // Measure how many columns the members grid renders (matches the CSS
-  // auto-fit minmax(240px,1fr)), so we can cap the display at 2 rows.
-  useEffect(() => {
-    const measure = () => {
-      const w = membersGridRef.current?.offsetWidth ?? 0;
-      if (w > 0) setMemberCols(Math.max(1, Math.floor((w + 16) / (240 + 16))));
-    };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, [members.length]);
+  // Split members into columns of 2 for the 2-row slider (duplicated in render
+  // so the marquee loops seamlessly).
+  const memberColumns: Member[][] = [];
+  for (let i = 0; i < members.length; i += 2) memberColumns.push(members.slice(i, i + 2));
 
-  // 2 rows max; reserve the last slot for the "¿Sos vos?" card.
-  const memberPerPage = Math.max(1, memberCols * 2 - 1);
-  const memberPages = Math.max(1, Math.ceil(members.length / memberPerPage));
-  const memberPageIdx = memberPage % memberPages;
-  const visibleMembers = members.slice(memberPageIdx * memberPerPage, memberPageIdx * memberPerPage + memberPerPage);
-
-  // Rotate through all members when they don't fit in 2 rows.
-  useEffect(() => {
-    if (memberPages <= 1) return;
-    const id = setInterval(() => setMemberPage(p => p + 1), 5000);
-    return () => clearInterval(id);
-  }, [memberPages]);
+  const renderMemberCard = (m: Member, key: string) => {
+    const c = PALETTE[m.colorIndex % PALETTE.length];
+    const huev = m.huevsite;
+    const accent = huev?.accentColor || c.color;
+    return (
+      <div key={key} className={`member${huev ? ' member-huev' : ''}${m.huevsiteFeatured ? ' member-feat' : ''}`}>
+        {m.huevsiteFeatured && <span className="member-feat-badge">★ destacado</span>}
+        <div
+          className="avatar"
+          style={huev?.avatar
+            ? { backgroundImage: `url(${huev.avatar})`, backgroundSize: 'cover', backgroundPosition: 'center', color: 'transparent', border: `2px solid ${accent}` }
+            : { background: c.bg, color: c.color }}
+        >
+          {huev?.avatar ? '' : m.initials}
+        </div>
+        <h4>{m.name}</h4>
+        <div className="member-role">
+          {m.jobTitle && m.company
+            ? <>{m.jobTitle} @ <a href={m.companyUrl} target="_blank" rel="noopener" style={{ color: accent }}>{m.company}</a></>
+            : m.role}
+        </div>
+        <div className="tags">
+          {m.tags?.slice(0, 3).map(tag => <span key={tag} className="tag">{tag}</span>)}
+        </div>
+        {huev && (
+          <button
+            className="member-huev-btn"
+            style={{ color: accent, borderColor: `${accent}55` }}
+            onClick={() => setHuevView({ username: huev.username, name: m.name })}
+          >
+            {typeof huev.builderScore === 'number' ? `Ver huevsite · ${huev.builderScore} pts →` : 'Ver huevsite →'}
+          </button>
+        )}
+      </div>
+    );
+  };
 
   useEffect(() => {
     const handleResize = () => { if (window.innerWidth > 960) closeMob(); };
@@ -271,34 +286,55 @@ export default function Home() {
             <div className="orb orb-3"></div>
             <div className="ring ring-2"></div>
             <div className="ring ring-1"></div>
-            <div className="orbit-core">
+            <div className={`orbit-core${membersLoading ? ' is-loading' : ''}`}>
               <span className="orbit-core-pulse" />
-              <span className="orbit-core-val">{memberTotal ?? '—'}</span>
-              <span className="orbit-core-lbl">builders</span>
+              {membersLoading ? (
+                <span className="orbit-core-spinner" aria-label="Cargando" />
+              ) : (
+                <>
+                  <span className="orbit-core-val">{memberTotal ?? '—'}</span>
+                  <span className="orbit-core-lbl">builders</span>
+                </>
+              )}
             </div>
-            {members.slice(0, 8).map((m, i, arr) => {
-              const c = PALETTE[m.colorIndex % PALETTE.length];
-              const accent = m.huevsite?.accentColor || c.color;
-              const angle = (360 / Math.max(arr.length, 1)) * i;
-              const hasImg = Boolean(m.huevsite?.avatar);
-              return (
-                <div key={m._id} className="orbit-node" style={{ ['--a']: `${angle}deg` } as React.CSSProperties}>
-                  <div
-                    className="orbit-avatar"
-                    title={m.name}
-                    style={{
-                      borderColor: accent,
-                      color: hasImg ? 'transparent' : accent,
-                      background: hasImg ? undefined : `${accent}1f`,
-                      backgroundImage: hasImg ? `url(${m.huevsite!.avatar})` : undefined,
-                      animationDelay: `${(i * -0.8).toFixed(1)}s`,
-                    }}
-                  >
-                    {hasImg ? '' : m.initials}
+            <div className={`orbit-spin${membersLoading ? ' is-loading' : ''}`}>
+              {(membersLoading ? Array.from({ length: 8 }) : members.slice(0, 8)).map((m: unknown, i: number, arr: unknown[]) => {
+                const angle = (360 / Math.max(arr.length, 1)) * i;
+                if (membersLoading) {
+                  return (
+                    <div key={`sk-${i}`} className="orbit-node" style={{ ['--a']: `${angle}deg` } as React.CSSProperties}>
+                      <div className="orbit-counter">
+                        <div className="orbit-avatar orbit-avatar-skel" style={{ animationDelay: `${(i * -0.15).toFixed(2)}s` }} />
+                      </div>
+                    </div>
+                  );
+                }
+                const mem = m as Member;
+                const c = PALETTE[mem.colorIndex % PALETTE.length];
+                const accent = mem.huevsite?.accentColor || c.color;
+                const hasImg = Boolean(mem.huevsite?.avatar);
+                return (
+                  <div key={mem._id} className="orbit-node" style={{ ['--a']: `${angle}deg` } as React.CSSProperties}>
+                    <div className="orbit-counter">
+                      <div
+                        className="orbit-avatar"
+                        aria-label={mem.name}
+                        style={{
+                          borderColor: accent,
+                          color: hasImg ? 'transparent' : accent,
+                          background: hasImg ? undefined : `${accent}1f`,
+                          backgroundImage: hasImg ? `url(${mem.huevsite!.avatar})` : undefined,
+                          animationDelay: `${(i * -0.8).toFixed(1)}s`,
+                        }}
+                      >
+                        {hasImg ? '' : mem.initials}
+                      </div>
+                      <span className="orbit-name">{mem.name}</span>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -413,55 +449,29 @@ export default function Home() {
             <a href={huevsiteUrl} target="_blank" rel="noopener" className="huev-badge-cta">Armá el tuyo →</a>
           </aside>
         </div>
-        <div className="members-grid" ref={membersGridRef}>
-          <div style={{ display: 'contents' }} key={memberPageIdx}>
-          {visibleMembers.map((m) => {
-            const c = PALETTE[m.colorIndex % PALETTE.length];
-            const huev = m.huevsite;
-            const accent = huev?.accentColor || c.color;
-            return (
-              <div key={m._id} className={`member${huev ? ' member-huev' : ''}${m.huevsiteFeatured ? ' member-feat' : ''}`}>
-                {m.huevsiteFeatured && <span className="member-feat-badge">★ destacado</span>}
-                <div
-                  className="avatar"
-                  style={huev?.avatar
-                    ? { backgroundImage: `url(${huev.avatar})`, backgroundSize: 'cover', backgroundPosition: 'center', color: 'transparent', border: `2px solid ${accent}` }
-                    : { background: c.bg, color: c.color }}
-                >
-                  {huev?.avatar ? '' : m.initials}
-                </div>
-                <h4>{m.name}</h4>
-                <div className="member-role">
-                  {m.jobTitle && m.company
-                    ? <>{m.jobTitle} @ <a href={m.companyUrl} target="_blank" rel="noopener" style={{ color: accent }}>{m.company}</a></>
-                    : m.role}
-                </div>
-                <div className="tags">
-                  {m.tags?.map(tag => <span key={tag} className="tag">{tag}</span>)}
-                </div>
-                {huev && (
-                  <button
-                    className="member-huev-btn"
-                    style={{ color: accent, borderColor: `${accent}55` }}
-                    onClick={() => setHuevView({ username: huev.username, name: m.name })}
-                  >
-                    {typeof huev.builderScore === 'number' ? `Ver huevsite · ${huev.builderScore} pts →` : 'Ver huevsite →'}
-                  </button>
-                )}
+        {membersLoading ? (
+          <div className="members-slider members-skeleton">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={`mc-${i}`} className="members-col">
+                <div className="member member-skel" />
+                <div className="member member-skel" />
               </div>
-            );
-          })}
+            ))}
           </div>
-          <div className="member" style={{ borderStyle: 'dashed', cursor: 'pointer', opacity: 0.6, transition: 'all .2s' }}
-            onClick={() => setShowJoinModal(true)}
-            onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.borderColor = 'var(--accent)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.6'; e.currentTarget.style.borderColor = ''; }}>
-            <div className="avatar" style={{ background: 'rgba(255,255,255,.04)', color: 'var(--muted)', fontSize: '2rem' }}>+</div>
-            <h4 style={{ color: 'var(--muted2)' }}>¿Sos vos?</h4>
-            <div className="member-role" style={{ color: 'var(--muted)' }}>Sumate a la comunidad</div>
-            <div className="tags"><span className="tag">Unirse →</span></div>
+        ) : (
+          <div className="members-slider">
+            <div
+              className="members-track"
+              style={{ animationDuration: `${Math.max(34, members.length * 4.5)}s` }}
+            >
+              {[...memberColumns, ...memberColumns].map((col, idx) => (
+                <div className="members-col" key={idx} aria-hidden={idx >= memberColumns.length}>
+                  {col.map((m) => renderMemberCard(m, `${idx}-${m._id}`))}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       <div id="join" className="cta-band">
