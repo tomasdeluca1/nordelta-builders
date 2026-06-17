@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { eq, sql } from 'drizzle-orm';
 import { getDb, schema } from '@/lib/db';
 import { defaultPasswordFor, hashPassword } from '@/lib/password';
-import { sendWelcomeEmail } from '@/lib/email';
+import { sendRegistrationReceivedEmail, sendAdminNewRegistrationEmail } from '@/lib/email';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -53,8 +53,11 @@ export async function POST(request: Request) {
     const [{ count }] = await db.select({ count: sql<number>`count(*)::int` }).from(schema.members);
     const tags = Array.isArray(body.tags) && body.tags.length > 0 ? body.tags.slice(0, 12).map(String) : (ROLE_TAGS[role] ?? ['Builder']);
 
+    // Password is generated now (deterministic) but credentials are only emailed
+    // once an admin approves the member.
     const defaultPwd = defaultPasswordFor(name);
     const passwordHash = await hashPassword(defaultPwd);
+    const company = body.company?.toString().trim() || null;
 
     const [inserted] = await db.insert(schema.members).values({
       name,
@@ -64,20 +67,27 @@ export async function POST(request: Request) {
       initials: getInitials(name),
       role,
       jobTitle: ROLE_TITLE[role] ?? role,
-      company: body.company?.toString().trim() || null,
+      company,
       companyUrl: body.companyUrl?.toString().trim() || null,
       tags,
       colorIndex: count % 8,
-      status: 'active',
+      status: 'pending',
     }).returning({ id: schema.members.id });
 
+    // Confirmation to the builder + heads-up to the admin. Failures here must not
+    // break the registration itself.
     try {
-      await sendWelcomeEmail({ to: email, name, defaultPassword: defaultPwd });
+      await sendRegistrationReceivedEmail({ to: email, name });
     } catch (mailErr) {
-      console.error('Welcome email failed:', mailErr);
+      console.error('Registration-received email failed:', mailErr);
+    }
+    try {
+      await sendAdminNewRegistrationEmail({ name, email, role, company });
+    } catch (mailErr) {
+      console.error('Admin notification email failed:', mailErr);
     }
 
-    return NextResponse.json({ success: true, id: inserted.id, emailSent: true }, { status: 201 });
+    return NextResponse.json({ success: true, id: inserted.id, pending: true }, { status: 201 });
   } catch (error) {
     console.error('Error inserting member:', error);
     return NextResponse.json({ error: 'Internal server error while saving to database' }, { status: 500 });

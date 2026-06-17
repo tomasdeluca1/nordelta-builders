@@ -16,6 +16,7 @@ interface User {
   tags: string[];
   colorIndex: number;
   mustChangePassword: boolean;
+  isAdmin?: boolean;
   createdAt: string;
 }
 
@@ -152,6 +153,7 @@ export default function DashboardPage() {
           NORDELTA<em> TECH</em>
         </a>
         <div className="dash-nav-right">
+          {user.isAdmin && <a href="/admin" className="btn btn-ghost dash-logout">Admin</a>}
           <span className="dash-domain">nordelta.tech</span>
           <button onClick={handleLogout} className="btn btn-ghost dash-logout">Salir</button>
         </div>

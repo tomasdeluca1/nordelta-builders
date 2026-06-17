@@ -105,10 +105,6 @@ export default function Home() {
     setFormStatus('idle');
   };
 
-  const openWhatsApp = () => {
-    window.open(WHATSAPP_URL, '_blank');
-  };
-
   return (
     <>
       <nav>
@@ -386,23 +382,21 @@ export default function Home() {
             {formStatus === 'success' ? (
               <div className="modal-success">
                 <div className="success-badge">✓</div>
-                <h3 className="success-title">¡Ya sos parte de <span style={{ color: 'var(--accent)' }}>nordelta.tech</span>!</h3>
-                <p className="success-text">Tus datos quedaron guardados en la base de builders.</p>
+                <h3 className="success-title">¡Recibimos tu <span style={{ color: 'var(--accent)' }}>registro</span>!</h3>
+                <p className="success-text">Tu solicitud para sumarte a nordelta.tech quedó registrada.</p>
                 <div className="success-note">
-                  <strong>$ welcome_email --sent</strong><br />
-                  En los próximos minutos te llega un mail con tu <strong>contraseña por defecto</strong> para iniciar sesión en nordelta.tech. Revisá el inbox (y el spam, por las dudas).
+                  <strong>$ status --pending</strong><br />
+                  Un admin va a revisar tu solicitud. Cuando te <strong>aceptemos</strong> te llega un email con tu acceso al dashboard y la <strong>invitación al grupo de WhatsApp</strong>. Revisá el inbox (y el spam, por las dudas).
                 </div>
                 <div className="success-actions">
-                  <button onClick={openWhatsApp} className="btn btn-wa">Entrar al grupo de WhatsApp →</button>
-                  <a href="/login" className="btn btn-ghost">Ir al login →</a>
-                  <button onClick={handleAddAnother} className="btn btn-outline">+ Agregar otro founder</button>
+                  <button onClick={handleAddAnother} className="btn btn-outline">+ Registrar a otro builder</button>
                 </div>
               </div>
             ) : (
               <>
                 <div className="modal-eyebrow">$ join --community</div>
                 <h3 className="modal-title">Sumate a <span className="green">nordelta.tech</span></h3>
-                <p className="modal-sub">Completá tus datos para sumarte a la base de builders, acceder al grupo de WhatsApp y recibir tu acceso a nordelta.tech.</p>
+                <p className="modal-sub">Completá tus datos para pedir el ingreso a la comunidad. Un admin revisa tu solicitud y, si te acepta, te llega el acceso y la invitación al grupo de WhatsApp por email.</p>
 
                 <form onSubmit={handleJoinSubmit} className="modal-form">
                   <div className="field">

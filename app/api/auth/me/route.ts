@@ -25,6 +25,9 @@ export async function GET() {
       tags: schema.members.tags,
       colorIndex: schema.members.colorIndex,
       mustChangePassword: schema.members.mustChangePassword,
+      isAdmin: schema.members.isAdmin,
+      huevsiteUsername: schema.members.huevsiteUsername,
+      huevsiteApproved: schema.members.huevsiteApproved,
       createdAt: schema.members.createdAt,
     })
     .from(schema.members)
