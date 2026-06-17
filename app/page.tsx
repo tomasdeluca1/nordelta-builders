@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface HuevsiteData {
   username: string;
@@ -45,6 +45,11 @@ export default function Home() {
   const [memberTotal, setMemberTotal] = useState<number | null>(null);
   const [huevsiteUrl, setHuevsiteUrl] = useState('https://huevsite.io');
   const [huevView, setHuevView] = useState<{ username: string; name: string } | null>(null);
+
+  // Members shown in at most 2 rows; if there are more, rotate through everyone.
+  const membersGridRef = useRef<HTMLDivElement>(null);
+  const [memberCols, setMemberCols] = useState(4);
+  const [memberPage, setMemberPage] = useState(0);
   const [formData, setFormData] = useState({ name: '', email: '', role: '', company: '', companyUrl: '' });
   const [formTags, setFormTags] = useState<string[]>([]);
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -67,6 +72,31 @@ export default function Home() {
   useEffect(() => {
     fetchMembers();
   }, []);
+
+  // Measure how many columns the members grid renders (matches the CSS
+  // auto-fit minmax(240px,1fr)), so we can cap the display at 2 rows.
+  useEffect(() => {
+    const measure = () => {
+      const w = membersGridRef.current?.offsetWidth ?? 0;
+      if (w > 0) setMemberCols(Math.max(1, Math.floor((w + 16) / (240 + 16))));
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [members.length]);
+
+  // 2 rows max; reserve the last slot for the "¿Sos vos?" card.
+  const memberPerPage = Math.max(1, memberCols * 2 - 1);
+  const memberPages = Math.max(1, Math.ceil(members.length / memberPerPage));
+  const memberPageIdx = memberPage % memberPages;
+  const visibleMembers = members.slice(memberPageIdx * memberPerPage, memberPageIdx * memberPerPage + memberPerPage);
+
+  // Rotate through all members when they don't fit in 2 rows.
+  useEffect(() => {
+    if (memberPages <= 1) return;
+    const id = setInterval(() => setMemberPage(p => p + 1), 5000);
+    return () => clearInterval(id);
+  }, [memberPages]);
 
   useEffect(() => {
     const handleResize = () => { if (window.innerWidth > 960) closeMob(); };
@@ -324,8 +354,9 @@ export default function Home() {
             <a href={huevsiteUrl} target="_blank" rel="noopener" className="huev-badge-cta">Armá el tuyo →</a>
           </aside>
         </div>
-        <div className="members-grid">
-          {members.map((m) => {
+        <div className="members-grid" ref={membersGridRef}>
+          <div style={{ display: 'contents' }} key={memberPageIdx}>
+          {visibleMembers.map((m) => {
             const c = PALETTE[m.colorIndex % PALETTE.length];
             const huev = m.huevsite;
             const accent = huev?.accentColor || c.color;
@@ -361,6 +392,7 @@ export default function Home() {
               </div>
             );
           })}
+          </div>
           <div className="member" style={{ borderStyle: 'dashed', cursor: 'pointer', opacity: 0.6, transition: 'all .2s' }}
             onClick={() => setShowJoinModal(true)}
             onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.borderColor = 'var(--accent)'; }}

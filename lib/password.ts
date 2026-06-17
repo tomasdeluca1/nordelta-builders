@@ -1,6 +1,12 @@
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 const ROUNDS = 10;
+
+/** Random, readable one-time password for password recovery (must be changed after). */
+export function generateTempPassword(): string {
+  return `nt-${crypto.randomBytes(6).toString('hex')}`;
+}
 
 export async function hashPassword(plain: string): Promise<string> {
   return bcrypt.hash(plain, ROUNDS);

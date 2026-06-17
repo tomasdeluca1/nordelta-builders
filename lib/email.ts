@@ -4,6 +4,7 @@ import { registrationReceivedHtml } from './email-templates/registration-receive
 import { acceptedEmailHtml } from './email-templates/accepted';
 import { rejectedEmailHtml } from './email-templates/rejected';
 import { adminNewRegistrationHtml } from './email-templates/admin-notification';
+import { passwordResetHtml } from './email-templates/password-reset';
 
 let resendClient: Resend | undefined;
 
@@ -76,6 +77,27 @@ export async function sendAcceptedEmail(params: {
       password: params.defaultPassword,
       loginUrl: `${appUrl}/login`,
       whatsappUrl,
+      appUrl,
+    }),
+  });
+}
+
+/** Recuperación de contraseña → nueva contraseña temporal. */
+export async function sendPasswordResetEmail(params: {
+  to: string;
+  name: string;
+  tempPassword: string;
+}): Promise<void> {
+  const appUrl = getAppUrl();
+  await getResend().emails.send({
+    from: getFromAddress(),
+    to: params.to,
+    subject: 'Recuperá tu acceso a Nordelta Tech 🔑',
+    html: passwordResetHtml({
+      name: params.name,
+      email: params.to,
+      password: params.tempPassword,
+      loginUrl: `${appUrl}/login`,
       appUrl,
     }),
   });

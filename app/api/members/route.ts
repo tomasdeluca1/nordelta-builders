@@ -30,7 +30,7 @@ export async function GET() {
         .where(eq(schema.members.status, 'active'))
         // Surface approved/featured huevsites first, then by seniority.
         .orderBy(desc(schema.members.huevsiteFeatured), desc(schema.members.huevsiteApproved), asc(schema.members.createdAt))
-        .limit(12),
+        .limit(60),
       db
         .select({ count: sql<number>`count(*)::int` })
         .from(schema.members)
