@@ -46,6 +46,8 @@ export default function Home() {
   const [huevsiteUrl, setHuevsiteUrl] = useState('https://huevsite.io');
   const [huevView, setHuevView] = useState<{ username: string; name: string } | null>(null);
 
+  const [navScrolled, setNavScrolled] = useState(false);
+
   // Members shown in at most 2 rows; if there are more, rotate through everyone.
   const membersGridRef = useRef<HTMLDivElement>(null);
   const [memberCols, setMemberCols] = useState(4);
@@ -71,6 +73,42 @@ export default function Home() {
 
   useEffect(() => {
     fetchMembers();
+  }, []);
+
+  // Nav condenses on scroll + scroll-reveal for sections (progressive
+  // enhancement: hidden state only applies once JS marks the doc ready).
+  useEffect(() => {
+    const onScroll = () => setNavScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const root = document.documentElement;
+    root.classList.add('reveal-ready');
+    const targets = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        '[data-reveal], .about-grid > div, .feat, .terminal, .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-grid, .cta-inner',
+      ),
+    );
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+    );
+    targets.forEach((t, i) => {
+      t.style.setProperty('--reveal-i', String(i % 6));
+      io.observe(t);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      io.disconnect();
+    };
   }, []);
 
   // Measure how many columns the members grid renders (matches the CSS
@@ -152,7 +190,7 @@ export default function Home() {
 
   return (
     <>
-      <nav>
+      <nav className={navScrolled ? 'scrolled' : ''}>
         <a href="#" className="nav-logo">
           <img src="/assets/logo.png" alt="" width={32} height={32} />
           Nordelta<em> Tech</em>

@@ -1070,3 +1070,91 @@ footer {
 /* Members rotation: subtle fade when the visible batch changes (2-row cap) */
 @keyframes memberFade { from { opacity: 0; } to { opacity: 1; } }
 .members-grid .member { animation: memberFade .4s ease; }
+
+/* ═══════════════════════════════════════════════════════════════
+   S-TIER POLISH — depth, motion, scroll-reveal, refined chrome
+   ═══════════════════════════════════════════════════════════════ */
+
+html { scroll-padding-top: 84px; }
+
+/* Refined scrollbar */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: var(--bg); }
+*::-webkit-scrollbar-thumb {
+  background: var(--border3); border-radius: 10px;
+  border: 2px solid var(--bg);
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--accent-d); }
+html { scrollbar-color: var(--border3) var(--bg); }
+
+/* Accessible focus ring */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* Buttons: tactile press */
+.btn:active { transform: translateY(0) scale(0.985); }
+
+/* Nav: condense + lift on scroll */
+nav { transition: height .35s cubic-bezier(.16,1,.3,1), background .35s ease, border-color .35s ease, box-shadow .35s ease; }
+nav.scrolled {
+  height: 56px;
+  background: rgba(5,7,10,0.9);
+  border-bottom-color: var(--border2);
+  box-shadow: 0 10px 34px rgba(0,0,0,.4);
+}
+
+/* Hero: slow aurora behind the gradients for extra depth */
+.hero-bg::after {
+  content: ''; position: absolute; inset: -25%;
+  background: conic-gradient(from 0deg at 68% 42%,
+    transparent 0deg, rgba(0,229,160,.10) 60deg, transparent 140deg,
+    rgba(33,150,243,.07) 220deg, transparent 320deg);
+  filter: blur(70px); opacity: .55;
+  animation: auroraSpin 44s linear infinite;
+}
+@keyframes auroraSpin { to { transform: rotate(360deg); } }
+
+/* Depth: inner top highlight + smoother hover lift on cards */
+.member, .feat, .ev-card, .float-card, .terminal, .dash-card {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+}
+.feat, .ev-card { transition: background .25s ease, transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease; }
+.feat:hover, .ev-card:not(.ev-dim):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.member:hover {
+  box-shadow: 0 18px 50px rgba(0,229,160,.12), 0 0 0 1px rgba(0,229,160,.22), inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+/* Members with a connected huevsite glow in their accent on hover */
+.member-huev:hover { border-color: rgba(0,229,160,.45); }
+.member-huev-btn { backdrop-filter: blur(6px); }
+
+/* Section titles: subtle gradient sheen */
+.sec-title, .hero-h1 { text-wrap: balance; }
+
+/* ── Scroll reveal (progressive enhancement) ───────────────────── */
+.reveal-ready :is(
+  [data-reveal], .about-grid > div, .feat, .terminal,
+  .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-grid, .cta-inner
+) {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
+  transition-delay: calc(var(--reveal-i, 0) * 70ms);
+  will-change: opacity, transform;
+}
+.reveal-ready :is(
+  [data-reveal], .about-grid > div, .feat, .terminal,
+  .events-hd, .ev-card:not(.ev-dim), .comunidad-head, .members-grid, .cta-inner
+).in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg::after { animation: none; }
+  .reveal-ready :is([data-reveal], .about-grid > div, .feat, .terminal, .events-hd, .ev-card, .comunidad-head, .members-grid, .cta-inner) {
+    opacity: 1 !important; transform: none !important; transition: none !important;
+  }
+}
