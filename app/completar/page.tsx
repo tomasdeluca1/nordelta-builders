@@ -76,6 +76,23 @@ export default async function CompletarPage({ searchParams }: { searchParams: { 
     );
   }
 
+  // Ya completó la presentación → mostramos el estado "completado", no el form.
+  if (member.profileSubmittedAt) {
+    return (
+      <Shell>
+        <div className="modal-success">
+          <div className="success-badge">✓</div>
+          <h3 className="success-title">Ya completaste tu <span style={{ color: 'var(--accent)' }}>presentación</span></h3>
+          <p className="success-text">Hola, {member.name.split(' ')[0]}. Tu presentación ya está enviada y en revisión.</p>
+          <div className="success-note">
+            <strong>$ status --pending</strong><br />
+            Un admin la revisa y, cuando te acepte, te llega el acceso al dashboard y la <strong>invitación al grupo de WhatsApp</strong> por email.
+          </div>
+        </div>
+      </Shell>
+    );
+  }
+
   const huevsiteBaseUrl = await getSetting('huevsite_url');
 
   const initial = {

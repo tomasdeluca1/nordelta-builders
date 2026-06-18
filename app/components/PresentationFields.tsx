@@ -140,7 +140,7 @@ export default function PresentationFields({ value, onChange, huevsiteBaseUrl = 
       <div className="field">
         <label>LinkedIn <span className="opt" style={{ color: 'var(--accent)' }}>* requerido</span></label>
         <input
-          type="url"
+          type="text"
           required
           placeholder="linkedin.com/in/…"
           value={value.linkedinUrl}
@@ -152,7 +152,7 @@ export default function PresentationFields({ value, onChange, huevsiteBaseUrl = 
         <div className="field">
           <label>X / Twitter <span className="opt">(opcional)</span></label>
           <input
-            type="url"
+            type="text"
             placeholder="x.com/…"
             value={value.twitterUrl}
             onChange={(e) => onChange({ twitterUrl: e.target.value })}
@@ -161,7 +161,7 @@ export default function PresentationFields({ value, onChange, huevsiteBaseUrl = 
         <div className="field">
           <label>Instagram <span className="opt">(opcional)</span></label>
           <input
-            type="url"
+            type="text"
             placeholder="instagram.com/…"
             value={value.instagramUrl}
             onChange={(e) => onChange({ instagramUrl: e.target.value })}
@@ -186,7 +186,7 @@ export default function PresentationFields({ value, onChange, huevsiteBaseUrl = 
       <div className="field">
         <label>Otro website <span className="opt">(opcional)</span></label>
         <input
-          type="url"
+          type="text"
           placeholder="https://tu-sitio.com"
           value={value.websiteUrl}
           onChange={(e) => onChange({ websiteUrl: e.target.value })}

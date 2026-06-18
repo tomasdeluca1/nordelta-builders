@@ -63,8 +63,8 @@ async function main() {
   // 2) Insertar un pendiente "thin" (simula uno de los 90) y completar vía /api/presentation.
   console.log('\n2) Link mágico → /completar → POST /api/presentation');
   const ins = await sql`
-    INSERT INTO members (name, email, password_hash, initials, role, status, profile_submitted_at)
-    VALUES ('Verify Tester', ${magicEmail}, 'x', 'VT', 'Developer/Engineer', 'pending', NULL)
+    INSERT INTO members (name, email, password_hash, initials, role, status, profile_submitted_at, building)
+    VALUES ('Verify Tester', ${magicEmail}, 'x', 'VT', 'Developer/Engineer', 'pending', NULL, 'PREFILL-CHECK-XYZ')
     RETURNING id`;
   const magicId = ins[0].id;
   const token = await sealData({ memberId: magicId, purpose: 'complete-profile' }, { password: pwd, ttl: 3600 });
@@ -72,7 +72,8 @@ async function main() {
   const pageRes = await fetch(`${BASE}/completar?token=${encodeURIComponent(token)}`);
   const pageHtml = await pageRes.text();
   check(pageRes.status === 200, '/completar responde 200');
-  check(pageHtml.includes('Verify') && /presentaci/i.test(pageHtml), '/completar precarga el nombre y muestra el form');
+  check(pageHtml.includes('Verify') && /Enviar mi presentaci/i.test(pageHtml), '/completar muestra el form (no completado)');
+  check(pageHtml.includes('PREFILL-CHECK-XYZ'), '/completar pre-carga la data ya cargada (building)');
 
   // LinkedIn requerido: sin linkedin → 400.
   const noLi = { ...richPayload };
@@ -100,9 +101,9 @@ async function main() {
   check(m1.website_url === 'https://misitio.com', 'guardó el otro website (website_url)');
   check(m1.huevsite_username === 'verifytester', 'conectó el huevsite');
 
-  // Prefill: volver a /completar con el mismo token muestra lo ya completado.
+  // Ya completó → al reabrir el link se muestra el estado "completado", no el form.
   const reloadHtml = await (await fetch(`${BASE}/completar?token=${encodeURIComponent(token)}`)).text();
-  check(reloadHtml.includes(richPayload.bio), '/completar pre-carga la data ya completada (bio)');
+  check(/Ya completaste/i.test(reloadHtml) && !/Enviar mi presentaci/i.test(reloadHtml), '/completar muestra "completado" si ya envió (no el form)');
 
   // 3) Alta nueva rica vía /api/join.
   console.log('\n3) Alta nueva → POST /api/join (form rico)');
