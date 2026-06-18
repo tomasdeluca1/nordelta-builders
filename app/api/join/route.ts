@@ -3,6 +3,8 @@ import { eq, sql } from 'drizzle-orm';
 import { getDb, schema } from '@/lib/db';
 import { defaultPasswordFor, hashPassword } from '@/lib/password';
 import { sendRegistrationReceivedEmail, sendAdminNewRegistrationEmail } from '@/lib/email';
+import { parsePresentationFields, normalizeUrl } from '@/lib/presentation';
+import { parseHuevsiteUsername } from '@/lib/huevsite';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -59,6 +61,11 @@ export async function POST(request: Request) {
     const passwordHash = await hashPassword(defaultPwd);
     const company = body.company?.toString().trim() || null;
 
+    // Presentación rica: el alta nueva la completa de una, así que ya entra a la
+    // cola de revisión con profileSubmittedAt seteado.
+    const presentation = parsePresentationFields(body);
+    const huevsiteUsername = parseHuevsiteUsername(body.huevsiteUsername);
+
     const [inserted] = await db.insert(schema.members).values({
       name,
       email,
@@ -68,10 +75,13 @@ export async function POST(request: Request) {
       role,
       jobTitle: ROLE_TITLE[role] ?? role,
       company,
-      companyUrl: body.companyUrl?.toString().trim() || null,
+      companyUrl: normalizeUrl(body.companyUrl),
       tags,
       colorIndex: count % 8,
       status: 'pending',
+      ...presentation,
+      huevsiteUsername,
+      profileSubmittedAt: new Date(),
     }).returning({ id: schema.members.id });
 
     // Confirmation to the builder + heads-up to the admin. Failures here must not

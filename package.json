@@ -9,6 +9,7 @@
     "seed": "node scripts/seed.js",
     "og": "node scripts/generate-og.js",
     "migrate:mongo": "node scripts/migrate-from-mongo.js",
+    "reengage": "node scripts/reengage.js",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate"
   },

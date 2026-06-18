@@ -5,6 +5,7 @@ import { acceptedEmailHtml } from './email-templates/accepted';
 import { rejectedEmailHtml } from './email-templates/rejected';
 import { adminNewRegistrationHtml } from './email-templates/admin-notification';
 import { passwordResetHtml } from './email-templates/password-reset';
+import { presentationReceivedHtml } from './email-templates/presentation-received';
 
 let resendClient: Resend | undefined;
 
@@ -48,6 +49,42 @@ export async function sendAdminNewRegistrationEmail(params: {
     from: getFromAddress(),
     to,
     subject: `🛎️ Nuevo registro pendiente: ${params.name}`,
+    html: adminNewRegistrationHtml({
+      name: params.name,
+      email: params.email,
+      role: params.role,
+      company: params.company,
+      adminUrl: `${appUrl}/admin`,
+      appUrl,
+    }),
+  });
+}
+
+/** Builder completó su presentación vía link mágico → "la estamos revisando". */
+export async function sendPresentationReceivedEmail(params: { to: string; name: string }): Promise<void> {
+  const appUrl = getAppUrl();
+  await getResend().emails.send({
+    from: getFromAddress(),
+    to: params.to,
+    subject: 'Recibimos tu presentación en Nordelta Tech ✅',
+    html: presentationReceivedHtml({ name: params.name, appUrl }),
+  });
+}
+
+/** Aviso interno al admin de que un pendiente completó su presentación. */
+export async function sendAdminPresentationCompletedEmail(params: {
+  name: string;
+  email: string;
+  role: string;
+  company?: string | null;
+}): Promise<void> {
+  const appUrl = getAppUrl();
+  const to = await getSetting('admin_notification_email');
+  if (!to) return;
+  await getResend().emails.send({
+    from: getFromAddress(),
+    to,
+    subject: `✅ Presentación completada: ${params.name}`,
     html: adminNewRegistrationHtml({
       name: params.name,
       email: params.email,

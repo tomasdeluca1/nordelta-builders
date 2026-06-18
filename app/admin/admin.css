@@ -72,6 +72,7 @@
 .status-active { background: rgba(0, 229, 160, 0.14); color: #00e5a0; }
 .status-rejected { background: rgba(239, 83, 80, 0.14); color: #ef5350; }
 .status-inactive { background: rgba(122, 143, 158, 0.14); color: #a9b6c0; }
+.status-lapsed { background: rgba(255, 176, 32, 0.10); color: #c98f2e; }
 
 .admin-actions { display: flex; flex-wrap: wrap; gap: 6px; }
 .btn-mini {
@@ -93,7 +94,29 @@
 .btn-warn { border-color: rgba(255, 176, 32, 0.4); color: #ffb020; }
 .btn-warn:hover:not(:disabled) { background: rgba(255, 176, 32, 0.12); }
 
-.admin-modal { max-width: 520px; }
+.admin-modal { max-width: 560px; max-height: 88vh; overflow-y: auto; }
 .admin-checks { display: flex; flex-direction: column; gap: 10px; margin: 4px 0 8px; }
 .admin-checks label { display: flex; align-items: center; gap: 8px; color: #a9b6c0; font-size: 0.86rem; cursor: pointer; }
 .admin-checks input { width: 16px; height: 16px; accent-color: #00e5a0; }
+
+.btn-view { border-color: rgba(33, 150, 243, 0.4); color: #5aa9f0; }
+.btn-view:hover:not(:disabled) { background: rgba(33, 150, 243, 0.12); }
+
+/* Detalle de la presentación (DetailModal) */
+.admin-detail-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: #a9b6c0; font-size: 0.84rem; margin-bottom: 6px; }
+.admin-detail-email { display: inline-block; color: #7a8f9e; font-size: 0.82rem; font-family: 'SF Mono', Menlo, Consolas, monospace; text-decoration: none; margin-bottom: 14px; }
+.admin-detail-email:hover { color: #00e5a0; }
+.admin-detail { display: flex; flex-direction: column; gap: 12px; border-top: 1px solid #1c2328; padding-top: 16px; }
+.admin-detail-row { display: grid; grid-template-columns: 140px 1fr; gap: 12px; align-items: start; }
+.admin-detail-label { font-family: 'Space Mono', monospace; font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: #7a8f9e; padding-top: 2px; }
+.admin-detail-val { color: #dde4ea; font-size: 0.9rem; line-height: 1.55; word-break: break-word; }
+.admin-detail-val a { color: #00e5a0; text-decoration: none; }
+.admin-detail-val a:hover { text-decoration: underline; }
+.admin-detail-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.admin-detail-link { font-size: 0.8rem; padding: 3px 10px; border: 1px solid #2c3640; border-radius: 999px; }
+.admin-detail-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; padding-top: 18px; border-top: 1px solid #1c2328; }
+.admin-detail-actions .btn { flex: 1; min-width: 120px; min-height: 44px; }
+
+@media (max-width: 540px) {
+  .admin-detail-row { grid-template-columns: 1fr; gap: 3px; }
+}

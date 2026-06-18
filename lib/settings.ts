@@ -1,11 +1,12 @@
 import { getDb, schema } from './db';
 
-export type SettingKey = 'whatsapp_group_url' | 'admin_notification_email' | 'huevsite_url';
+export type SettingKey = 'whatsapp_group_url' | 'admin_notification_email' | 'huevsite_url' | 'reengagement_deadline';
 
 export const SETTING_DEFAULTS: Record<SettingKey, string> = {
   whatsapp_group_url: 'https://chat.whatsapp.com/BCjkNIAfX5k157xVl28NCT',
   admin_notification_email: 'huevsite.studio@gmail.com',
   huevsite_url: 'https://huevsite.io',
+  reengagement_deadline: '',
 };
 
 export const SETTING_KEYS = Object.keys(SETTING_DEFAULTS) as SettingKey[];

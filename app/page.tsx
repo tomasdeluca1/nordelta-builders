@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import PresentationFields, { EMPTY_PRESENTATION, presentationPayload, type PresentationState } from './components/PresentationFields';
 
 interface HuevsiteData {
   username: string;
@@ -50,7 +51,9 @@ export default function Home() {
   const [membersLoading, setMembersLoading] = useState(true);
   const [formData, setFormData] = useState({ name: '', email: '', role: '', company: '', companyUrl: '' });
   const [formTags, setFormTags] = useState<string[]>([]);
+  const [presentation, setPresentation] = useState<PresentationState>(EMPTY_PRESENTATION);
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const patchPresentation = (patch: Partial<PresentationState>) => setPresentation(prev => ({ ...prev, ...patch }));
 
   const AVAILABLE_TAGS = ['AI', 'SaaS', 'Fintech', 'Web3', 'Proptech', 'Dev', 'Design', 'Marketing', 'Founder', 'Builder', 'Inversor'];
   const toggleTag = (tag: string) => setFormTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
@@ -185,7 +188,7 @@ export default function Home() {
       const res = await fetch('/api/join', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, tags: formTags }),
+        body: JSON.stringify({ ...formData, tags: formTags, ...presentationPayload(presentation) }),
       });
       if (!res.ok) throw new Error('Error al registrar');
       setFormStatus('success');
@@ -198,6 +201,7 @@ export default function Home() {
   const handleAddAnother = () => {
     setFormData({ name: '', email: '', role: '', company: '', companyUrl: '' });
     setFormTags([]);
+    setPresentation(EMPTY_PRESENTATION);
     setFormStatus('idle');
   };
 
@@ -546,7 +550,7 @@ export default function Home() {
               <>
                 <div className="modal-eyebrow">$ join --community</div>
                 <h3 className="modal-title">Sumate a <span className="green">nordelta.tech</span></h3>
-                <p className="modal-sub">Completá tus datos para pedir el ingreso a la comunidad. Un admin revisa tu solicitud y, si te acepta, te llega el acceso y la invitación al grupo de WhatsApp por email.</p>
+                <p className="modal-sub">Contanos quién sos, dónde vivís y qué construís. Un admin revisa tu presentación y, si te acepta, te llega el acceso y la invitación al grupo de WhatsApp por email.</p>
 
                 <form onSubmit={handleJoinSubmit} className="modal-form">
                   <div className="field">
@@ -592,6 +596,8 @@ export default function Home() {
                       ))}
                     </div>
                   </div>
+                  <div className="modal-eyebrow" style={{ marginTop: 4 }}>$ tu --presentación</div>
+                  <PresentationFields value={presentation} onChange={patchPresentation} huevsiteBaseUrl={huevsiteUrl} />
                   <button type="submit" disabled={formStatus === 'loading'} className="btn btn-green">
                     {formStatus === 'loading' ? 'Guardando...' : 'Unirme a nordelta.tech →'}
                   </button>

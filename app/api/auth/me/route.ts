@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { getDb, schema } from '@/lib/db';
 import { getSession } from '@/lib/auth';
+import { isOwner } from '@/lib/admin';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -39,5 +40,5 @@ export async function GET() {
     return NextResponse.json({ user: null }, { status: 200 });
   }
 
-  return NextResponse.json({ user });
+  return NextResponse.json({ user: { ...user, isOwner: isOwner(user) } });
 }
