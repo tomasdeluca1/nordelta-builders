@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { NEIGHBORHOODS, LOOKING_FOR_OPTIONS } from '@/lib/profile-fields';
 import '../auth.css';
 import './admin.css';
 
@@ -21,10 +22,22 @@ interface AdminMember {
   huevsiteUsername?: string | null;
   huevsiteApproved: boolean;
   huevsiteFeatured: boolean;
+  neighborhood?: string | null;
+  bio?: string | null;
+  building?: string | null;
+  linkedinUrl?: string | null;
+  twitterUrl?: string | null;
+  instagramUrl?: string | null;
+  websiteUrl?: string | null;
+  lookingFor?: string[];
+  canHelpWith?: string | null;
+  profileSubmittedAt?: string | null;
+  reengagedAt?: string | null;
   createdAt: string;
   updatedAt: string;
 }
 
+const HUEVSITE_URL = 'https://huevsite.io';
 const ROLES = ['Founder/CEO', 'Developer/Engineer', 'Product/Design', 'Marketing/Growth', 'Inversor', 'Otro'];
 const AVAILABLE_TAGS = ['AI', 'SaaS', 'Fintech', 'Web3', 'Proptech', 'Dev', 'Design', 'Marketing', 'Founder', 'Builder', 'Inversor'];
 
@@ -32,23 +45,26 @@ const TABS: { key: string; label: string }[] = [
   { key: 'pending', label: 'Pendientes' },
   { key: 'active', label: 'Activos' },
   { key: 'rejected', label: 'Rechazados' },
+  { key: 'lapsed', label: 'Vencidos' },
   { key: 'inactive', label: 'Inactivos' },
   { key: 'all', label: 'Todos' },
 ];
 
 const STATUS_LABEL: Record<string, string> = {
-  pending: 'Pendiente', active: 'Activo', rejected: 'Rechazado', inactive: 'Inactivo',
+  pending: 'Pendiente', active: 'Activo', rejected: 'Rechazado', inactive: 'Inactivo', lapsed: 'Vencido',
 };
 
 export default function AdminPage() {
   const router = useRouter();
   const [authorized, setAuthorized] = useState<boolean | null>(null);
+  const [isOwner, setIsOwner] = useState(false);
   const [members, setMembers] = useState<AdminMember[]>([]);
   const [counts, setCounts] = useState<Record<string, number>>({});
   const [tab, setTab] = useState('pending');
   const [busyId, setBusyId] = useState<number | null>(null);
   const [toast, setToast] = useState('');
   const [editing, setEditing] = useState<AdminMember | null>(null);
+  const [viewing, setViewing] = useState<AdminMember | null>(null);
 
   const flash = (m: string) => { setToast(m); setTimeout(() => setToast(''), 3500); };
 
@@ -66,6 +82,7 @@ export default function AdminPage() {
       .then(d => {
         if (!d.user) { router.replace('/login'); return; }
         if (!d.user.isAdmin) { router.replace('/dashboard'); return; }
+        setIsOwner(!!d.user.isOwner);
         setAuthorized(true);
         loadMembers();
       });
@@ -149,7 +166,13 @@ export default function AdminPage() {
                     <tr key={m.id}>
                       <td>
                         <div className="admin-builder">
-                          <span className="admin-name">{m.name}{m.isAdmin && <span className="admin-badge badge-admin">admin</span>}</span>
+                          <span className="admin-name">
+                            {m.name}
+                            {m.isAdmin && <span className="admin-badge badge-admin">admin</span>}
+                            {m.status === 'pending' && (m.profileSubmittedAt
+                              ? <span className="admin-badge badge-ok">✓ presentó</span>
+                              : <span className="admin-badge badge-pend">sin presentar</span>)}
+                          </span>
                           <span className="admin-email">{m.email}</span>
                         </div>
                       </td>
@@ -175,8 +198,9 @@ export default function AdminPage() {
                             <button disabled={busyId === m.id} className="btn-mini" onClick={() => doAction(m.id, 'resend', `¿Reenviar credenciales a ${m.name}? Se resetea su contraseña temporal.`)}>Reenviar</button>
                             <button disabled={busyId === m.id} className="btn-mini btn-warn" onClick={() => doAction(m.id, 'deactivate', `¿Dar de baja a ${m.name}?`)}>Baja</button>
                           </>}
-                          {(m.status === 'rejected') && <button disabled={busyId === m.id} className="btn-mini btn-accept" onClick={() => doAction(m.id, 'accept', `¿Aceptar a ${m.name}?`)}>Aceptar</button>}
+                          {(m.status === 'rejected' || m.status === 'lapsed') && <button disabled={busyId === m.id} className="btn-mini btn-accept" onClick={() => doAction(m.id, 'accept', `¿Aceptar a ${m.name}?`)}>Aceptar</button>}
                           {(m.status === 'inactive') && <button disabled={busyId === m.id} className="btn-mini btn-accept" onClick={() => doAction(m.id, 'reactivate')}>Reactivar</button>}
+                          <button className="btn-mini btn-view" onClick={() => setViewing(m)}>Ver</button>
                           <button className="btn-mini" onClick={() => setEditing(m)}>Editar</button>
                         </div>
                       </td>
@@ -191,9 +215,20 @@ export default function AdminPage() {
         <SettingsCard onSaved={() => flash('Configuración guardada ✓')} />
       </section>
 
+      {viewing && (
+        <DetailModal
+          member={viewing}
+          busy={busyId === viewing.id}
+          onClose={() => setViewing(null)}
+          onEdit={() => { setEditing(viewing); setViewing(null); }}
+          onAction={async (action, confirmMsg) => { await doAction(viewing.id, action, confirmMsg); setViewing(null); }}
+        />
+      )}
+
       {editing && (
         <EditModal
           member={editing}
+          canManageAdmin={isOwner}
           onClose={() => setEditing(null)}
           onSaved={async () => { setEditing(null); flash('Builder actualizado ✓'); await loadMembers(); }}
         />
@@ -203,7 +238,7 @@ export default function AdminPage() {
 }
 
 function SettingsCard({ onSaved }: { onSaved: () => void }) {
-  const [form, setForm] = useState<Record<string, string>>({ whatsapp_group_url: '', admin_notification_email: '', huevsite_url: '' });
+  const [form, setForm] = useState<Record<string, string>>({ whatsapp_group_url: '', admin_notification_email: '', huevsite_url: '', reengagement_deadline: '' });
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -233,13 +268,21 @@ function SettingsCard({ onSaved }: { onSaved: () => void }) {
         <label className="auth-label"><span>URL de huevsite.io</span>
           <input value={form.huevsite_url} onChange={e => setForm({ ...form, huevsite_url: e.target.value })} placeholder="https://huevsite.io" />
         </label>
+        <label className="auth-label"><span>Deadline de la campaña (presentaciones)</span>
+          <input type="date" value={form.reengagement_deadline} onChange={e => setForm({ ...form, reengagement_deadline: e.target.value })} />
+        </label>
         <button type="submit" disabled={saving} className="btn btn-green auth-submit">{saving ? 'Guardando…' : 'Guardar settings'}</button>
       </form>
+      <p className="dash-meta" style={{ marginTop: 14, lineHeight: 1.6 }}>
+        Campaña de presentación a los pendientes (link mágico) se corre por consola:
+        {' '}<code>node scripts/reengage.js --send</code>. Probá primero sin <code>--send</code> (dry-run)
+        y con <code>--only=tu@email</code>. Para cerrar: <code>node scripts/reengage.js --prune --send</code>.
+      </p>
     </div>
   );
 }
 
-function EditModal({ member, onClose, onSaved }: { member: AdminMember; onClose: () => void; onSaved: () => void }) {
+function EditModal({ member, canManageAdmin, onClose, onSaved }: { member: AdminMember; canManageAdmin: boolean; onClose: () => void; onSaved: () => void }) {
   const [f, setF] = useState({
     name: member.name,
     role: member.role,
@@ -250,20 +293,32 @@ function EditModal({ member, onClose, onSaved }: { member: AdminMember; onClose:
     huevsiteApproved: member.huevsiteApproved,
     huevsiteFeatured: member.huevsiteFeatured,
     isAdmin: member.isAdmin,
+    neighborhood: member.neighborhood ?? '',
+    bio: member.bio ?? '',
+    building: member.building ?? '',
+    canHelpWith: member.canHelpWith ?? '',
+    linkedinUrl: member.linkedinUrl ?? '',
+    twitterUrl: member.twitterUrl ?? '',
+    instagramUrl: member.instagramUrl ?? '',
+    websiteUrl: member.websiteUrl ?? '',
   });
   const [tags, setTags] = useState<string[]>(member.tags ?? []);
+  const [lookingFor, setLookingFor] = useState<string[]>(member.lookingFor ?? []);
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState('');
 
   const toggleTag = (t: string) => setTags(p => p.includes(t) ? p.filter(x => x !== t) : [...p, t]);
+  const toggleLooking = (t: string) => setLookingFor(p => p.includes(t) ? p.filter(x => x !== t) : [...p, t]);
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true); setErr('');
     try {
+      const { isAdmin, ...rest } = f;
+      const payload = canManageAdmin ? { ...rest, isAdmin, tags, lookingFor } : { ...rest, tags, lookingFor };
       const res = await fetch(`/api/admin/members/${member.id}`, {
         method: 'PATCH', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...f, tags }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok) { setErr(data.error || 'Error'); return; }
@@ -298,6 +353,42 @@ function EditModal({ member, onClose, onSaved }: { member: AdminMember; onClose:
           <label className="auth-label"><span>huevsite (username o URL)</span>
             <input value={f.huevsiteUsername} onChange={e => setF({ ...f, huevsiteUsername: e.target.value })} placeholder="ada · ada.huevsite.io" />
           </label>
+          <label className="auth-label"><span>Barrio / zona</span>
+            <select value={f.neighborhood} onChange={e => setF({ ...f, neighborhood: e.target.value })}>
+              <option value="">—</option>
+              {NEIGHBORHOODS.map(n => <option key={n} value={n}>{n}</option>)}
+            </select>
+          </label>
+          <label className="auth-label"><span>Bio</span>
+            <textarea rows={2} value={f.bio} onChange={e => setF({ ...f, bio: e.target.value })} />
+          </label>
+          <label className="auth-label"><span>Qué construye</span>
+            <input value={f.building} onChange={e => setF({ ...f, building: e.target.value })} />
+          </label>
+          <label className="auth-label"><span>En qué ayuda</span>
+            <input value={f.canHelpWith} onChange={e => setF({ ...f, canHelpWith: e.target.value })} />
+          </label>
+          <div className="auth-row">
+            <label className="auth-label"><span>LinkedIn</span>
+              <input value={f.linkedinUrl} onChange={e => setF({ ...f, linkedinUrl: e.target.value })} />
+            </label>
+            <label className="auth-label"><span>X / Twitter</span>
+              <input value={f.twitterUrl} onChange={e => setF({ ...f, twitterUrl: e.target.value })} />
+            </label>
+          </div>
+          <label className="auth-label"><span>Instagram</span>
+            <input value={f.instagramUrl} onChange={e => setF({ ...f, instagramUrl: e.target.value })} />
+          </label>
+          <label className="auth-label"><span>Otro website</span>
+            <input value={f.websiteUrl} onChange={e => setF({ ...f, websiteUrl: e.target.value })} placeholder="https://…" />
+          </label>
+          <div className="auth-label"><span>Qué busca</span>
+            <div className="dash-tag-picker">
+              {LOOKING_FOR_OPTIONS.map(t => (
+                <button type="button" key={t} onClick={() => toggleLooking(t)} className={`dash-tag-chip${lookingFor.includes(t) ? ' is-active' : ''}`}>{t}</button>
+              ))}
+            </div>
+          </div>
           <div className="auth-label"><span>Tags</span>
             <div className="dash-tag-picker">
               {AVAILABLE_TAGS.map(t => (
@@ -308,11 +399,117 @@ function EditModal({ member, onClose, onSaved }: { member: AdminMember; onClose:
           <div className="admin-checks">
             <label><input type="checkbox" checked={f.huevsiteApproved} onChange={e => setF({ ...f, huevsiteApproved: e.target.checked })} /> huevsite aprobado (visible en landing)</label>
             <label><input type="checkbox" checked={f.huevsiteFeatured} onChange={e => setF({ ...f, huevsiteFeatured: e.target.checked })} /> destacado</label>
-            <label><input type="checkbox" checked={f.isAdmin} onChange={e => setF({ ...f, isAdmin: e.target.checked })} /> es admin</label>
+            {canManageAdmin && (
+              <label><input type="checkbox" checked={f.isAdmin} onChange={e => setF({ ...f, isAdmin: e.target.checked })} /> es admin <span className="admin-badge badge-admin">solo dueño</span></label>
+            )}
           </div>
           {err && <div className="auth-error">{err}</div>}
           <button type="submit" disabled={saving} className="btn btn-green auth-submit">{saving ? 'Guardando…' : 'Guardar cambios'}</button>
         </form>
+      </div>
+    </div>
+  );
+}
+
+function DetailRow({ label, children }: { label: string; children: React.ReactNode }) {
+  if (children == null || children === '' || (Array.isArray(children) && children.length === 0)) return null;
+  return (
+    <div className="admin-detail-row">
+      <div className="admin-detail-label">{label}</div>
+      <div className="admin-detail-val">{children}</div>
+    </div>
+  );
+}
+
+function fmtDate(s?: string | null): string | null {
+  if (!s) return null;
+  const d = new Date(s);
+  if (isNaN(d.getTime())) return null;
+  return d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+function DetailModal({
+  member: m, busy, onClose, onEdit, onAction,
+}: {
+  member: AdminMember;
+  busy: boolean;
+  onClose: () => void;
+  onEdit: () => void;
+  onAction: (action: string, confirmMsg?: string) => void;
+}) {
+  const links: { label: string; href: string }[] = [];
+  if (m.linkedinUrl) links.push({ label: 'LinkedIn', href: m.linkedinUrl });
+  if (m.twitterUrl) links.push({ label: 'X', href: m.twitterUrl });
+  if (m.instagramUrl) links.push({ label: 'Instagram', href: m.instagramUrl });
+  if (m.websiteUrl) links.push({ label: 'Website', href: m.websiteUrl });
+
+  return (
+    <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="modal-card admin-modal">
+        <button onClick={onClose} className="modal-close" aria-label="Cerrar">&times;</button>
+        <div className="modal-eyebrow">$ ver --member {m.id}</div>
+        <h3 className="modal-title" style={{ marginBottom: 4 }}>{m.name}</h3>
+        <div className="admin-detail-sub">
+          {(m.jobTitle || m.role)}{m.company ? <> · {m.company}</> : null}
+          {' · '}<span className={`admin-status status-${m.status}`}>{STATUS_LABEL[m.status] ?? m.status}</span>
+          {m.status === 'pending' && (m.profileSubmittedAt
+            ? <span className="admin-badge badge-ok">✓ presentó</span>
+            : <span className="admin-badge badge-pend">sin presentar</span>)}
+        </div>
+        <a href={`mailto:${m.email}`} className="admin-detail-email">{m.email}</a>
+
+        <div className="admin-detail">
+          <DetailRow label="Barrio / zona">{m.neighborhood}</DetailRow>
+          <DetailRow label="Bio">{m.bio}</DetailRow>
+          <DetailRow label="Qué construye">{m.building}</DetailRow>
+          <DetailRow label="Qué busca">
+            {m.lookingFor && m.lookingFor.length > 0 ? (
+              <div className="admin-detail-chips">
+                {m.lookingFor.map(t => <span key={t} className="dash-tag-chip is-active">{t}</span>)}
+              </div>
+            ) : null}
+          </DetailRow>
+          <DetailRow label="En qué ayuda">{m.canHelpWith}</DetailRow>
+          <DetailRow label="Empresa">
+            {m.company ? (m.companyUrl
+              ? <a href={m.companyUrl} target="_blank" rel="noopener">{m.company} ↗</a>
+              : m.company) : null}
+          </DetailRow>
+          <DetailRow label="Website (huevsite)">
+            {m.huevsiteUsername ? (
+              <a href={`${HUEVSITE_URL}/${m.huevsiteUsername}`} target="_blank" rel="noopener">
+                @{m.huevsiteUsername} ↗ {m.huevsiteApproved ? '· aprobado' : '· pendiente'}
+              </a>
+            ) : null}
+          </DetailRow>
+          <DetailRow label="Links">
+            {links.length > 0 ? (
+              <div className="admin-detail-chips">
+                {links.map(l => <a key={l.label} href={l.href} target="_blank" rel="noopener" className="admin-detail-link">{l.label} ↗</a>)}
+              </div>
+            ) : null}
+          </DetailRow>
+          <DetailRow label="Tags">
+            {m.tags && m.tags.length > 0 ? (
+              <div className="admin-detail-chips">{m.tags.map(t => <span key={t} className="dash-tag-chip">{t}</span>)}</div>
+            ) : null}
+          </DetailRow>
+          <DetailRow label="Registro">{fmtDate(m.createdAt)}</DetailRow>
+          <DetailRow label="Presentación">{fmtDate(m.profileSubmittedAt)}</DetailRow>
+          <DetailRow label="Re-enganche">{fmtDate(m.reengagedAt)}</DetailRow>
+        </div>
+
+        <div className="admin-detail-actions">
+          {m.status === 'pending' && <>
+            <button disabled={busy} className="btn btn-green" onClick={() => onAction('accept', `¿Aceptar a ${m.name}? Se le envían credenciales + WhatsApp.`)}>Aceptar</button>
+            <button disabled={busy} className="btn btn-outline" onClick={() => onAction('reject', `¿Rechazar a ${m.name}? Se le envía un email.`)}>Rechazar</button>
+          </>}
+          {(m.status === 'rejected' || m.status === 'lapsed') &&
+            <button disabled={busy} className="btn btn-green" onClick={() => onAction('accept', `¿Aceptar a ${m.name}?`)}>Aceptar</button>}
+          {m.status === 'active' &&
+            <button disabled={busy} className="btn btn-outline" onClick={() => onAction('resend', `¿Reenviar credenciales a ${m.name}?`)}>Reenviar acceso</button>}
+          <button className="btn btn-ghost" onClick={onEdit}>Editar</button>
+        </div>
       </div>
     </div>
   );

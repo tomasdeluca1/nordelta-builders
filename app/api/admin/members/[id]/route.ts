@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { getDb, schema } from '@/lib/db';
-import { requireAdmin } from '@/lib/admin';
+import { requireAdmin, isOwner } from '@/lib/admin';
 import { parseHuevsiteUsername } from '@/lib/huevsite';
+import { parsePresentationFields } from '@/lib/presentation';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -50,7 +51,20 @@ export async function PATCH(request: Request, { params }: { params: { id: string
   if ('huevsiteUsername' in body) set.huevsiteUsername = parseHuevsiteUsername(body.huevsiteUsername);
   if (typeof body.huevsiteApproved === 'boolean') set.huevsiteApproved = body.huevsiteApproved;
   if (typeof body.huevsiteFeatured === 'boolean') set.huevsiteFeatured = body.huevsiteFeatured;
-  if (typeof body.isAdmin === 'boolean') set.isAdmin = body.isAdmin;
+  // Solo el dueño puede otorgar/quitar admin.
+  if (typeof body.isAdmin === 'boolean') {
+    if (!isOwner(admin)) {
+      return NextResponse.json({ error: 'Solo el dueño puede gestionar admins' }, { status: 403 });
+    }
+    set.isAdmin = body.isAdmin;
+  }
+
+  // Campos de la presentación (solo los que vengan en el body, ya normalizados).
+  const presKeys = ['neighborhood', 'bio', 'building', 'linkedinUrl', 'twitterUrl', 'instagramUrl', 'websiteUrl', 'lookingFor', 'canHelpWith'] as const;
+  if (presKeys.some((k) => k in body)) {
+    const pres = parsePresentationFields(body) as unknown as Record<string, unknown>;
+    for (const k of presKeys) if (k in body) set[k] = pres[k];
+  }
 
   const db = getDb();
   const [updated] = await db.update(schema.members).set(set).where(eq(schema.members.id, id)).returning();

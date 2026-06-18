@@ -812,7 +812,7 @@ footer {
 .field label .opt {
   color: var(--muted); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: none;
 }
-.field input, .field select {
+.field input, .field select, .field textarea {
   width: 100%;
   padding: 13px 14px;
   background: var(--bg-2);
@@ -824,13 +824,14 @@ footer {
   transition: all .2s;
   min-height: 46px;
 }
-.field input:focus, .field select:focus {
+.field textarea { min-height: 76px; resize: vertical; line-height: 1.5; }
+.field input:focus, .field select:focus, .field textarea:focus {
   outline: none;
   border-color: var(--accent);
   background: var(--surf);
   box-shadow: 0 0 0 3px rgba(0,229,160,.12);
 }
-.field input::placeholder { color: var(--muted); }
+.field input::placeholder, .field textarea::placeholder { color: var(--muted); }
 .field select { appearance: none; cursor: pointer; }
 
 .form-grid {
