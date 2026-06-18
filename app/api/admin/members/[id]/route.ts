@@ -60,7 +60,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
   }
 
   // Campos de la presentación (solo los que vengan en el body, ya normalizados).
-  const presKeys = ['neighborhood', 'bio', 'building', 'linkedinUrl', 'twitterUrl', 'instagramUrl', 'lookingFor', 'canHelpWith'] as const;
+  const presKeys = ['neighborhood', 'bio', 'building', 'linkedinUrl', 'twitterUrl', 'instagramUrl', 'websiteUrl', 'lookingFor', 'canHelpWith'] as const;
   if (presKeys.some((k) => k in body)) {
     const pres = parsePresentationFields(body) as unknown as Record<string, unknown>;
     for (const k of presKeys) if (k in body) set[k] = pres[k];

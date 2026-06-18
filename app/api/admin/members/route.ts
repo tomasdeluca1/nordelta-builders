@@ -28,6 +28,7 @@ const SELECT = {
   linkedinUrl: schema.members.linkedinUrl,
   twitterUrl: schema.members.twitterUrl,
   instagramUrl: schema.members.instagramUrl,
+  websiteUrl: schema.members.websiteUrl,
   lookingFor: schema.members.lookingFor,
   canHelpWith: schema.members.canHelpWith,
   profileSubmittedAt: schema.members.profileSubmittedAt,

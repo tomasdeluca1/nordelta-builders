@@ -49,6 +49,7 @@ async function main() {
     twitterUrl: 'x.com/verify',
     instagramUrl: 'instagram.com/verify',
     huevsiteUsername: 'verifytester',
+    websiteUrl: 'misitio.com',
   };
 
   console.log(`\n== Verificación contra ${BASE} ==\n`);
@@ -73,6 +74,15 @@ async function main() {
   check(pageRes.status === 200, '/completar responde 200');
   check(pageHtml.includes('Verify') && /presentaci/i.test(pageHtml), '/completar precarga el nombre y muestra el form');
 
+  // LinkedIn requerido: sin linkedin → 400.
+  const noLi = { ...richPayload };
+  delete noLi.linkedinUrl;
+  const reqRes = await fetch(`${BASE}/api/presentation`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token, name: 'Verify Tester', role: 'Developer/Engineer', ...noLi }),
+  });
+  check(reqRes.status === 400, 'POST /api/presentation sin LinkedIn → 400 (requerido)');
+
   const presRes = await fetch(`${BASE}/api/presentation`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ token, name: 'Verify Tester', role: 'Developer/Engineer', company: 'QA Inc', companyUrl: 'qa.test', ...richPayload }),
@@ -87,7 +97,12 @@ async function main() {
   check(m1.bio === richPayload.bio, 'guardó bio');
   check(Array.isArray(m1.looking_for) && m1.looking_for.length === 2, 'guardó looking_for (chips)');
   check(m1.linkedin_url === 'https://linkedin.com/in/verify', 'normalizó la URL de LinkedIn (https://)');
+  check(m1.website_url === 'https://misitio.com', 'guardó el otro website (website_url)');
   check(m1.huevsite_username === 'verifytester', 'conectó el huevsite');
+
+  // Prefill: volver a /completar con el mismo token muestra lo ya completado.
+  const reloadHtml = await (await fetch(`${BASE}/completar?token=${encodeURIComponent(token)}`)).text();
+  check(reloadHtml.includes(richPayload.bio), '/completar pre-carga la data ya completada (bio)');
 
   // 3) Alta nueva rica vía /api/join.
   console.log('\n3) Alta nueva → POST /api/join (form rico)');

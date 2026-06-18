@@ -64,6 +64,9 @@ export async function POST(request: Request) {
     // Presentación rica: el alta nueva la completa de una, así que ya entra a la
     // cola de revisión con profileSubmittedAt seteado.
     const presentation = parsePresentationFields(body);
+    if (!presentation.linkedinUrl) {
+      return NextResponse.json({ error: 'El LinkedIn es requerido' }, { status: 400 });
+    }
     const huevsiteUsername = parseHuevsiteUsername(body.huevsiteUsername);
 
     const [inserted] = await db.insert(schema.members).values({

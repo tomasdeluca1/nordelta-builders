@@ -39,6 +39,9 @@ export async function POST(request: Request) {
   }
 
   const presentation = parsePresentationFields(body);
+  if (!presentation.linkedinUrl) {
+    return NextResponse.json({ error: 'El LinkedIn es requerido' }, { status: 400 });
+  }
   const huevsiteUsername = parseHuevsiteUsername(body.huevsiteUsername);
 
   const set: Record<string, unknown> = {

@@ -93,6 +93,7 @@ export default async function CompletarPage({ searchParams }: { searchParams: { 
     twitterUrl: member.twitterUrl ?? '',
     instagramUrl: member.instagramUrl ?? '',
     huevsiteUsername: member.huevsiteUsername ?? '',
+    websiteUrl: member.websiteUrl ?? '',
   };
 
   return (

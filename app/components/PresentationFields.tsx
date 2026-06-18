@@ -12,6 +12,7 @@ export interface PresentationState {
   twitterUrl: string;
   instagramUrl: string;
   huevsiteUsername: string;
+  websiteUrl: string;
 }
 
 export const EMPTY_PRESENTATION: PresentationState = {
@@ -24,6 +25,7 @@ export const EMPTY_PRESENTATION: PresentationState = {
   twitterUrl: '',
   instagramUrl: '',
   huevsiteUsername: '',
+  websiteUrl: '',
 };
 
 export function presentationFromMember(m: Partial<Record<keyof PresentationState, unknown>>): PresentationState {
@@ -37,6 +39,7 @@ export function presentationFromMember(m: Partial<Record<keyof PresentationState
     twitterUrl: (m.twitterUrl as string) ?? '',
     instagramUrl: (m.instagramUrl as string) ?? '',
     huevsiteUsername: (m.huevsiteUsername as string) ?? '',
+    websiteUrl: (m.websiteUrl as string) ?? '',
   };
 }
 
@@ -52,6 +55,7 @@ export function presentationPayload(v: PresentationState) {
     twitterUrl: v.twitterUrl,
     instagramUrl: v.instagramUrl,
     huevsiteUsername: v.huevsiteUsername,
+    websiteUrl: v.websiteUrl,
   };
 }
 
@@ -133,16 +137,18 @@ export default function PresentationFields({ value, onChange, huevsiteBaseUrl = 
         />
       </div>
 
+      <div className="field">
+        <label>LinkedIn <span className="opt" style={{ color: 'var(--accent)' }}>* requerido</span></label>
+        <input
+          type="url"
+          required
+          placeholder="linkedin.com/in/…"
+          value={value.linkedinUrl}
+          onChange={(e) => onChange({ linkedinUrl: e.target.value })}
+        />
+      </div>
+
       <div className="form-grid">
-        <div className="field">
-          <label>LinkedIn <span className="opt">(opcional)</span></label>
-          <input
-            type="url"
-            placeholder="linkedin.com/in/…"
-            value={value.linkedinUrl}
-            onChange={(e) => onChange({ linkedinUrl: e.target.value })}
-          />
-        </div>
         <div className="field">
           <label>X / Twitter <span className="opt">(opcional)</span></label>
           <input
@@ -152,20 +158,19 @@ export default function PresentationFields({ value, onChange, huevsiteBaseUrl = 
             onChange={(e) => onChange({ twitterUrl: e.target.value })}
           />
         </div>
+        <div className="field">
+          <label>Instagram <span className="opt">(opcional)</span></label>
+          <input
+            type="url"
+            placeholder="instagram.com/…"
+            value={value.instagramUrl}
+            onChange={(e) => onChange({ instagramUrl: e.target.value })}
+          />
+        </div>
       </div>
 
       <div className="field">
-        <label>Instagram <span className="opt">(opcional)</span></label>
-        <input
-          type="url"
-          placeholder="instagram.com/…"
-          value={value.instagramUrl}
-          onChange={(e) => onChange({ instagramUrl: e.target.value })}
-        />
-      </div>
-
-      <div className="field">
-        <label>Tu website (huevsite.io) <span className="opt">— recomendado</span></label>
+        <label>Tu huevsite <span className="opt">— recomendado (huevsite.io)</span></label>
         <input
           placeholder="tu-usuario · tu-usuario.huevsite.io"
           value={value.huevsiteUsername}
@@ -176,6 +181,16 @@ export default function PresentationFields({ value, onChange, huevsiteBaseUrl = 
           {' '}¿No tenés? Armalo gratis en{' '}
           <a href={huevsiteBaseUrl} target="_blank" rel="noopener" style={{ color: 'var(--accent)' }}>huevsite.io</a>.
         </span>
+      </div>
+
+      <div className="field">
+        <label>Otro website <span className="opt">(opcional)</span></label>
+        <input
+          type="url"
+          placeholder="https://tu-sitio.com"
+          value={value.websiteUrl}
+          onChange={(e) => onChange({ websiteUrl: e.target.value })}
+        />
       </div>
     </>
   );

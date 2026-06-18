@@ -24,6 +24,7 @@ export interface PresentationFields {
   linkedinUrl: string | null;
   twitterUrl: string | null;
   instagramUrl: string | null;
+  websiteUrl: string | null;
   lookingFor: string[];
   canHelpWith: string | null;
 }
@@ -44,6 +45,7 @@ export function parsePresentationFields(body: unknown): PresentationFields {
     linkedinUrl: normalizeUrl(b.linkedinUrl),
     twitterUrl: normalizeUrl(b.twitterUrl),
     instagramUrl: normalizeUrl(b.instagramUrl),
+    websiteUrl: normalizeUrl(b.websiteUrl),
     lookingFor,
     canHelpWith: str(b.canHelpWith, 280),
   };

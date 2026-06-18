@@ -28,6 +28,7 @@ export const members = pgTable(
     linkedinUrl: varchar('linkedin_url', { length: 500 }),
     twitterUrl: varchar('twitter_url', { length: 500 }),
     instagramUrl: varchar('instagram_url', { length: 500 }),
+    websiteUrl: varchar('website_url', { length: 500 }),
     lookingFor: text('looking_for').array().notNull().default([] as string[]),
     canHelpWith: varchar('can_help_with', { length: 280 }),
     // null hasta que el builder envía su presentación; separa "incompleta" de "lista para revisar".

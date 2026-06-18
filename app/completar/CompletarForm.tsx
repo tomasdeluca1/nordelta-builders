@@ -23,6 +23,7 @@ export interface CompletarInitial {
   twitterUrl: string;
   instagramUrl: string;
   huevsiteUsername: string;
+  websiteUrl: string;
 }
 
 export default function CompletarForm({

@@ -28,6 +28,7 @@ interface AdminMember {
   linkedinUrl?: string | null;
   twitterUrl?: string | null;
   instagramUrl?: string | null;
+  websiteUrl?: string | null;
   lookingFor?: string[];
   canHelpWith?: string | null;
   profileSubmittedAt?: string | null;
@@ -299,6 +300,7 @@ function EditModal({ member, canManageAdmin, onClose, onSaved }: { member: Admin
     linkedinUrl: member.linkedinUrl ?? '',
     twitterUrl: member.twitterUrl ?? '',
     instagramUrl: member.instagramUrl ?? '',
+    websiteUrl: member.websiteUrl ?? '',
   });
   const [tags, setTags] = useState<string[]>(member.tags ?? []);
   const [lookingFor, setLookingFor] = useState<string[]>(member.lookingFor ?? []);
@@ -377,6 +379,9 @@ function EditModal({ member, canManageAdmin, onClose, onSaved }: { member: Admin
           <label className="auth-label"><span>Instagram</span>
             <input value={f.instagramUrl} onChange={e => setF({ ...f, instagramUrl: e.target.value })} />
           </label>
+          <label className="auth-label"><span>Otro website</span>
+            <input value={f.websiteUrl} onChange={e => setF({ ...f, websiteUrl: e.target.value })} placeholder="https://…" />
+          </label>
           <div className="auth-label"><span>Qué busca</span>
             <div className="dash-tag-picker">
               {LOOKING_FOR_OPTIONS.map(t => (
@@ -436,6 +441,7 @@ function DetailModal({
   if (m.linkedinUrl) links.push({ label: 'LinkedIn', href: m.linkedinUrl });
   if (m.twitterUrl) links.push({ label: 'X', href: m.twitterUrl });
   if (m.instagramUrl) links.push({ label: 'Instagram', href: m.instagramUrl });
+  if (m.websiteUrl) links.push({ label: 'Website', href: m.websiteUrl });
 
   return (
     <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
