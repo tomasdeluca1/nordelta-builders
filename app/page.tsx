@@ -580,7 +580,7 @@ export default function Home() {
                     </div>
                     <div className="field">
                       <label>URL</label>
-                      <input type="url" placeholder="https://..." value={formData.companyUrl} onChange={e => setFormData({...formData, companyUrl: e.target.value})} />
+                      <input type="text" placeholder="tu-empresa.com" value={formData.companyUrl} onChange={e => setFormData({...formData, companyUrl: e.target.value})} />
                     </div>
                   </div>
                   <div className="field">

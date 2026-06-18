@@ -110,7 +110,7 @@ export default function CompletarForm({
         </div>
         <div className="field">
           <label>URL <span className="opt">(opcional)</span></label>
-          <input type="url" placeholder="https://…" value={identity.companyUrl} onChange={(e) => setIdentity({ ...identity, companyUrl: e.target.value })} />
+          <input type="text" placeholder="tu-empresa.com" value={identity.companyUrl} onChange={(e) => setIdentity({ ...identity, companyUrl: e.target.value })} />
         </div>
       </div>
 
