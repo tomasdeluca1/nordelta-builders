@@ -1,0 +1,5 @@
+# Salida generada del research de builders: contiene datos personales (bios,
+# LinkedIn) y assessments de gente real. No se commitea.
+*
+!.gitignore
+!README.md
