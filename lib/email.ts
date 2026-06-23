@@ -4,6 +4,7 @@ import { registrationReceivedHtml } from './email-templates/registration-receive
 import { acceptedEmailHtml } from './email-templates/accepted';
 import { rejectedEmailHtml } from './email-templates/rejected';
 import { adminNewRegistrationHtml } from './email-templates/admin-notification';
+import { welcomeEmailHtml } from './email-templates/welcome';
 import { passwordResetHtml } from './email-templates/password-reset';
 import { presentationReceivedHtml } from './email-templates/presentation-received';
 
@@ -48,7 +49,7 @@ export async function sendAdminNewRegistrationEmail(params: {
   await getResend().emails.send({
     from: getFromAddress(),
     to,
-    subject: `🛎️ Nuevo registro pendiente: ${params.name}`,
+    subject: `🛎️ Nuevo builder en Nordelta Tech: ${params.name}`,
     html: adminNewRegistrationHtml({
       name: params.name,
       email: params.email,
@@ -115,6 +116,31 @@ export async function sendAcceptedEmail(params: {
       loginUrl: `${appUrl}/login`,
       whatsappUrl,
       appUrl,
+    }),
+  });
+}
+
+/** Builder se registró con auto-acceso → acceso + WhatsApp + (opcional) pedido de web. */
+export async function sendWelcomeEmail(params: {
+  to: string;
+  name: string;
+  defaultPassword: string;
+  needsWebsite: boolean;
+}): Promise<void> {
+  const appUrl = getAppUrl();
+  const whatsappUrl = await getSetting('whatsapp_group_url');
+  await getResend().emails.send({
+    from: getFromAddress(),
+    to: params.to,
+    subject: '¡Entraste a Nordelta Tech! 🚀',
+    html: welcomeEmailHtml({
+      name: params.name,
+      email: params.to,
+      password: params.defaultPassword,
+      loginUrl: `${appUrl}/login`,
+      whatsappUrl: whatsappUrl ?? '',
+      appUrl,
+      needsWebsite: params.needsWebsite,
     }),
   });
 }

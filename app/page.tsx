@@ -23,6 +23,7 @@ interface Member {
   tags?: string[];
   colorIndex: number;
   huevsiteUsername?: string | null;
+  huevsiteApproved?: boolean;
   huevsiteFeatured?: boolean;
   huevsite?: HuevsiteData | null;
 }
@@ -41,6 +42,10 @@ const PALETTE = [
 export default function Home() {
   const [isMobOpen, setIsMobOpen] = useState(false);
   const [showJoinModal, setShowJoinModal] = useState(false);
+  const [showAllModal, setShowAllModal] = useState(false);
+  const [allMembers, setAllMembers] = useState<Member[]>([]);
+  const [allLoaded, setAllLoaded] = useState(false);
+  const [allQuery, setAllQuery] = useState('');
 
   const [members, setMembers] = useState<Member[]>([]);
   const [memberTotal, setMemberTotal] = useState<number | null>(null);
@@ -117,6 +122,16 @@ export default function Home() {
   const memberRow1 = members.filter((_, i) => i % 2 === 0);
   const memberRow2 = members.filter((_, i) => i % 2 === 1);
 
+  const openAllModal = () => {
+    setShowAllModal(true);
+    if (!allLoaded) {
+      fetch('/api/members/all')
+        .then((r) => r.json())
+        .then((data) => { setAllMembers(data.members ?? []); setAllLoaded(true); })
+        .catch(() => setAllLoaded(true));
+    }
+  };
+
   const renderMemberCard = (m: Member, key: string) => {
     const c = PALETTE[m.colorIndex % PALETTE.length];
     const huev = m.huevsite;
@@ -177,9 +192,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (isMobOpen || showJoinModal || huevView) document.body.style.overflow = 'hidden';
+    if (isMobOpen || showJoinModal || showAllModal || huevView) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = '';
-  }, [isMobOpen, showJoinModal, huevView]);
+  }, [isMobOpen, showJoinModal, showAllModal, huevView]);
 
   const handleJoinSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -477,6 +492,9 @@ export default function Home() {
         )}
 
         <div className="members-join">
+          <button onClick={openAllModal} className="btn btn-outline">
+            Ver todos {memberTotal ? `los ${memberTotal} ` : ''}builders →
+          </button>
           <button onClick={() => setShowJoinModal(true)} className="btn btn-green">Sumate a la comunidad →</button>
         </div>
       </section>
@@ -528,6 +546,63 @@ export default function Home() {
       </footer>
 
       {/* JOIN MODAL */}
+      {showAllModal && (
+        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowAllModal(false); }}>
+          <div className="modal-card modal-card-wide">
+            <button onClick={() => setShowAllModal(false)} className="modal-close" aria-label="Cerrar">&times;</button>
+            <div className="modal-eyebrow">$ ls --community</div>
+            <h3 className="modal-title">Toda la <span className="green">comunidad</span></h3>
+            <input
+              className="all-search"
+              placeholder="Buscar por nombre, empresa, rol o tag…"
+              value={allQuery}
+              onChange={(e) => setAllQuery(e.target.value)}
+              autoFocus
+            />
+            {!allLoaded ? (
+              <p className="all-empty">Cargando builders…</p>
+            ) : (() => {
+              const q = allQuery.trim().toLowerCase();
+              const filtered = q
+                ? allMembers.filter((m) =>
+                    [m.name, m.company, m.role, m.jobTitle, ...(m.tags ?? [])]
+                      .filter(Boolean)
+                      .some((f) => String(f).toLowerCase().includes(q)))
+                : allMembers;
+              if (!filtered.length) return <p className="all-empty">No encontramos a nadie con eso.</p>;
+              return (
+                <>
+                  <div className="all-count">{filtered.length} de {allMembers.length}</div>
+                  <div className="all-grid">
+                    {filtered.map((m) => {
+                      const c = PALETTE[m.colorIndex % PALETTE.length];
+                      const showHuev = Boolean(m.huevsiteApproved && m.huevsiteUsername);
+                      return (
+                        <div className="all-row" key={m._id}>
+                          <div className="all-av" style={{ background: c.bg, color: c.color }}>{m.initials}</div>
+                          <div className="all-info">
+                            <div className="all-name">{m.name}</div>
+                            <div className="all-role">
+                              {m.jobTitle && m.company ? `${m.jobTitle} @ ${m.company}` : m.role}
+                            </div>
+                          </div>
+                          {showHuev && (
+                            <button
+                              className="all-huev"
+                              onClick={() => setHuevView({ username: m.huevsiteUsername as string, name: m.name })}
+                            >huevsite →</button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+        </div>
+      )}
+
       {showJoinModal && (
         <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowJoinModal(false); }}>
           <div className="modal-card">
@@ -536,11 +611,11 @@ export default function Home() {
             {formStatus === 'success' ? (
               <div className="modal-success">
                 <div className="success-badge">✓</div>
-                <h3 className="success-title">¡Recibimos tu <span style={{ color: 'var(--accent)' }}>registro</span>!</h3>
-                <p className="success-text">Tu solicitud para sumarte a nordelta.tech quedó registrada.</p>
+                <h3 className="success-title">¡Estás <span style={{ color: 'var(--accent)' }}>adentro</span>!</h3>
+                <p className="success-text">Ya sos parte de nordelta.tech.</p>
                 <div className="success-note">
-                  <strong>$ status --pending</strong><br />
-                  Un admin va a revisar tu solicitud. Cuando te <strong>aceptemos</strong> te llega un email con tu acceso al dashboard y la <strong>invitación al grupo de WhatsApp</strong>. Revisá el inbox (y el spam, por las dudas).
+                  <strong>$ status --ok</strong><br />
+                  Te mandamos un mail con tu <strong>acceso al dashboard</strong> y la <strong>invitación al grupo de WhatsApp</strong>. Revisá el inbox (y el spam, por las dudas).
                 </div>
                 <div className="success-actions">
                   <button onClick={handleAddAnother} className="btn btn-outline">+ Registrar a otro builder</button>
@@ -550,7 +625,7 @@ export default function Home() {
               <>
                 <div className="modal-eyebrow">$ join --community</div>
                 <h3 className="modal-title">Sumate a <span className="green">nordelta.tech</span></h3>
-                <p className="modal-sub">Contanos quién sos, dónde vivís y qué construís. Un admin revisa tu presentación y, si te acepta, te llega el acceso y la invitación al grupo de WhatsApp por email.</p>
+                <p className="modal-sub">Contanos quién sos, dónde vivís y qué construís. Entrás al toque: te llega un mail con tu acceso y la invitación al grupo de WhatsApp.</p>
 
                 <form onSubmit={handleJoinSubmit} className="modal-form">
                   <div className="field">

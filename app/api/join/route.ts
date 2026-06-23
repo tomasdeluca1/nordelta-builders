@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { eq, sql } from 'drizzle-orm';
 import { getDb, schema } from '@/lib/db';
 import { defaultPasswordFor, hashPassword } from '@/lib/password';
-import { sendRegistrationReceivedEmail, sendAdminNewRegistrationEmail } from '@/lib/email';
+import { sendWelcomeEmail, sendAdminNewRegistrationEmail } from '@/lib/email';
 import { parsePresentationFields, normalizeUrl } from '@/lib/presentation';
 import { parseHuevsiteUsername } from '@/lib/huevsite';
 
@@ -81,18 +81,24 @@ export async function POST(request: Request) {
       companyUrl: normalizeUrl(body.companyUrl),
       tags,
       colorIndex: count % 8,
-      status: 'pending',
+      status: 'active',
       ...presentation,
       huevsiteUsername,
       profileSubmittedAt: new Date(),
     }).returning({ id: schema.members.id });
 
-    // Confirmation to the builder + heads-up to the admin. Failures here must not
-    // break the registration itself.
+    // Auto-acceso: el builder entra solo. Un único mail con acceso + WhatsApp +
+    // (si falta) pedido de web, más un aviso informativo al admin. Los fallos de
+    // mail no rompen el registro.
     try {
-      await sendRegistrationReceivedEmail({ to: email, name });
+      await sendWelcomeEmail({
+        to: email,
+        name,
+        defaultPassword: defaultPwd,
+        needsWebsite: !presentation.websiteUrl,
+      });
     } catch (mailErr) {
-      console.error('Registration-received email failed:', mailErr);
+      console.error('Welcome email failed:', mailErr);
     }
     try {
       await sendAdminNewRegistrationEmail({ name, email, role, company });
@@ -100,7 +106,7 @@ export async function POST(request: Request) {
       console.error('Admin notification email failed:', mailErr);
     }
 
-    return NextResponse.json({ success: true, id: inserted.id, pending: true }, { status: 201 });
+    return NextResponse.json({ success: true, id: inserted.id, active: true }, { status: 201 });
   } catch (error) {
     console.error('Error inserting member:', error);
     return NextResponse.json({ error: 'Internal server error while saving to database' }, { status: 500 });
