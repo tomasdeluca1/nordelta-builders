@@ -39,10 +39,18 @@ const ASSESSMENT_SCHEMA = {
   },
 }
 
-const people = Array.isArray(args) ? args : []
+// args puede llegar como array, como string JSON, o envuelto en { people }.
+function coercePeople(a) {
+  let v = a
+  if (typeof v === 'string') { try { v = JSON.parse(v) } catch (_) { /* noop */ } }
+  if (v && !Array.isArray(v) && Array.isArray(v.people)) v = v.people
+  return Array.isArray(v) ? v : []
+}
+
+const people = coercePeople(args)
 if (!people.length) {
-  log('No vino gente en args. Pasá el contenido de docs/research/active-members.json como args.')
-  return { assessments: [], note: 'empty-input' }
+  log(`No vino gente en args (typeof=${typeof args}). Pasá el array de active-members.json como args.`)
+  return { assessments: [], note: 'empty-input', argsType: typeof args }
 }
 
 log(`Research de ${people.length} builders (cap 1 búsqueda + 1-2 fetch por persona).`)
