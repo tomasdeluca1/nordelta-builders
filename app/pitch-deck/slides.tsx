@@ -3,6 +3,7 @@ import {
   SNAPSHOT_LABEL, GROWTH, ROLES, VERTICALS, LOOKING_FOR, GEOGRAPHY,
   PLATFORM, TEAM, TIERS, CONTACT,
 } from './pitch-data';
+import { SHOWCASE_BUILDERS } from '@/lib/builder-ranking';
 
 const PILLARS = [
   { t: 'Startups y proyectos', d: 'Founders, co-founders, primeros hires y primeros usuarios.' },
@@ -106,7 +107,28 @@ export function buildSlides(memberTotal: number): React.ReactNode[] {
       <Snapshot />
     </React.Fragment>,
 
-    // 6 — Qué construyen
+    // 6 — Los builders
+    <React.Fragment key="builders">
+      <div className="s-eyebrow">La comunidad</div>
+      <h1 className="s-title">ALGUNOS DE<br />LOS BUILDERS</h1>
+      <p className="s-lead">
+        Founders y devs que viven acá y ya construyeron cosas serias: de exits a
+        productos en producción.
+      </p>
+      <div className="builder-grid">
+        {SHOWCASE_BUILDERS.map((b) => (
+          <div className="builder-card" key={b.name}>
+            <div className="builder-av">{b.initials}</div>
+            <div className="builder-info">
+              <div className="builder-nm">{b.name}</div>
+              <div className="builder-ro">{b.role} · <span className="builder-co">{b.company}</span></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </React.Fragment>,
+
+    // 7 — Qué construyen
     <React.Fragment key="construyen">
       <div className="s-eyebrow">Qué construyen</div>
       <h1 className="s-title">UNA COMUNIDAD<br />AI-FIRST</h1>

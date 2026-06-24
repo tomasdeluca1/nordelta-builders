@@ -134,6 +134,20 @@
 .team-card .nm { color: #fff; font-size: 18px; }
 .team-card .ro { color: var(--muted); font-size: 13px; margin-top: 4px; }
 
+.builder-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 26px; }
+.builder-card { display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); background: var(--surf); border-radius: 12px; padding: 12px 14px; }
+.builder-av {
+  width: 42px; height: 42px; flex: 0 0 42px; border-radius: 50%;
+  border: 2px solid var(--accent); color: var(--accent); background: rgba(0, 229, 160, 0.08);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px;
+}
+.builder-info { min-width: 0; }
+.builder-nm { color: #fff; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.builder-ro { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.builder-co { color: var(--text-d); }
+@media (max-width: 720px) { .builder-grid { grid-template-columns: 1fr; } }
+
 .tier-card { border: 1px solid var(--border); background: var(--surf); border-radius: 14px; padding: 24px; }
 .tier-card.lead { border-color: var(--accent); box-shadow: var(--accent-glow); }
 .tier-card .tn { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: var(--accent); }
