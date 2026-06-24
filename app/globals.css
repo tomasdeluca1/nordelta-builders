@@ -1329,3 +1329,40 @@ nav.scrolled {
   .members-slider .member,
   .member-skel { flex-basis: 218px; width: 218px; }
 }
+
+/* ── Nav: chip de usuario logueado (top-right) ───────────────────── */
+.nav-user { display: flex; align-items: center; gap: 9px; text-decoration: none; padding: 5px 12px 5px 5px; border: 1px solid var(--border2); border-radius: 999px; background: var(--surf); transition: border-color .2s; }
+.nav-user:hover { border-color: var(--accent); }
+.nav-user-av { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .72rem; flex: 0 0 30px; }
+.nav-user-name { color: var(--text); font-size: .86rem; font-weight: 600; }
+.nav-logout { padding: 8px 14px; font-size: .82rem; }
+
+/* ── Comunidad: grid de huevsites destacados ─────────────────────── */
+.huev-feat { margin: 0 0 clamp(28px, 4vw, 44px); }
+.huev-feat-label { display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted2); margin-bottom: 16px; }
+.huev-feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 14px; }
+.huev-card { position: relative; display: flex; flex-direction: column; gap: 12px; background: var(--surf); border: 1px solid var(--border2); border-radius: 16px; padding: 20px; transition: transform .2s, border-color .2s; }
+.huev-card:hover { transform: translateY(-3px); }
+.huev-card .tags { justify-content: flex-start; }
+.huev-card-score { position: absolute; top: 14px; right: 14px; font-family: 'Space Mono', monospace; font-size: .68rem; padding: 3px 9px; border: 1px solid; border-radius: 999px; background: rgba(0,0,0,.25); }
+.huev-card-top { display: flex; align-items: center; gap: 13px; }
+.huev-card-av { width: 52px; height: 52px; flex: 0 0 52px; border-radius: 50%; border: 2px solid; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; background-clip: padding-box; }
+.huev-card-id { min-width: 0; }
+.huev-card-id h4 { margin: 0; font-size: 1rem; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.huev-card-role { font-size: .78rem; color: var(--muted2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.huev-card-role a { text-decoration: none; }
+.huev-card-headline { margin: 0; font-size: .85rem; line-height: 1.5; color: var(--text-d); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.huev-card-btn { margin-top: auto; align-self: flex-start; background: none; border: 1px solid; border-radius: 999px; padding: 8px 16px; font-size: .8rem; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; transition: background .2s; }
+.huev-card-btn:hover { background: rgba(0,229,160,.08); }
+
+/* Card de invitación a conectar huevsite */
+.huev-invite { align-items: flex-start; border-style: dashed; border-color: var(--border3); background: linear-gradient(180deg, rgba(0,229,160,.05), transparent); }
+.huev-invite-icon { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+.huev-invite h4 { margin: 0; font-size: 1rem; color: var(--text); }
+.huev-invite p { margin: 0; font-size: .85rem; line-height: 1.5; color: var(--muted2); }
+.huev-invite-btn { color: var(--accent); border-color: var(--accent); }
+
+@media (max-width: 560px) {
+  .nav-user-name { display: none; }
+  .huev-feat-grid { grid-template-columns: 1fr; }
+}
