@@ -32,6 +32,10 @@ async function main() {
   const limitArg = args.find((a) => a.startsWith('--limit='));
   const limit = limitArg ? Math.max(1, parseInt(limitArg.split('=')[1], 10) || 0) : null;
   const withLinks = args.includes('--with-links');
+  const excludeArg = args.find((a) => a.startsWith('--exclude='));
+  const excludeIds = new Set(
+    excludeArg ? excludeArg.split('=')[1].split(',').map((s) => parseInt(s.trim(), 10)).filter(Number.isFinite) : [],
+  );
   const outArg = args.find((a) => a.startsWith('--out='));
   const outPath = outArg
     ? path.resolve(process.cwd(), outArg.split('=')[1])
@@ -61,7 +65,8 @@ async function main() {
         ORDER BY created_at ASC
       `;
 
-  const sliced = limit ? rows.slice(0, limit) : rows;
+  const kept = excludeIds.size ? rows.filter((r) => !excludeIds.has(r.id)) : rows;
+  const sliced = limit ? kept.slice(0, limit) : kept;
   const people = sliced.map((r) => ({
     id: r.id,
     name: r.name,
