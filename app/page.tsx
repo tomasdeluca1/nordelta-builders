@@ -400,7 +400,7 @@ export default function Home() {
                 <div>&nbsp;</div>
                 <div><span className="pr">$</span> <span className="cm">cat ./manifest.json</span></div>
                 <div><span className="ou">{`{ "domain": "nordelta.tech",`}</span></div>
-                <div><span className="ou">&nbsp;&nbsp;{`"members": 40,`}</span></div>
+                <div><span className="ou">&nbsp;&nbsp;{`"members": ${memberTotal ?? 163},`}</span></div>
                 <div><span className="ou">&nbsp;&nbsp;{`"year": 2025,`}</span></div>
                 <div><span className="ou">&nbsp;&nbsp;{`"status": "shipping" }`}</span></div>
                 <div>&nbsp;</div>
