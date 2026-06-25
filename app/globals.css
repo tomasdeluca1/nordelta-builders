@@ -1266,43 +1266,7 @@ nav.scrolled {
   animation: spinPlain .9s linear infinite;
 }
 
-/* ═══ MEMBERS SLIDER — 2 independent rows, full-bleed, seamless ══ */
-.members-slider {
-  /* Full-bleed: break out of the max-width section to span the whole viewport */
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  margin-top: clamp(20px, 3vw, 36px);
-  overflow: hidden;
-  display: flex; flex-direction: column; gap: 16px;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
-}
-.members-row { overflow: hidden; }
-.members-track {
-  display: flex; width: max-content;
-  animation-name: membersScroll; animation-timing-function: linear; animation-iteration-count: infinite;
-}
-.members-track-2 { animation-direction: reverse; }
-.members-slider:hover .members-track { animation-play-state: paused; }
-
-.members-slider .member,
-.member-skel {
-  flex: 0 0 256px; width: 256px; height: 226px; margin-right: 16px;
-}
-.members-slider .member { padding: 18px; gap: 8px; justify-content: center; }
-.members-slider .avatar { width: 52px; height: 52px; font-size: 1.3rem; }
-.members-slider .member h4 { font-size: .95rem; }
-@keyframes membersScroll { to { transform: translateX(-50%); } }
-
-.members-skeleton .members-row { display: flex; }
-.member-skel {
-  border: 1px solid var(--border); border-radius: var(--r);
-  background: linear-gradient(110deg, var(--surf) 25%, var(--surf2) 50%, var(--surf) 75%);
-  background-size: 200% 100%; animation: shimmer 1.4s linear infinite;
-}
-
-/* Join CTA lives OUTSIDE the slider */
+/* CTA de la comunidad (Ver todos / Sumate / Conectá huevsite) */
 .members-join { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: clamp(28px, 4vw, 48px); }
 
 /* Modal "Ver todos" + buscador */
@@ -1325,11 +1289,6 @@ nav.scrolled {
 .all-huev:hover { border-color: var(--accent); }
 @media (max-width: 720px) { .all-grid { grid-template-columns: 1fr; } }
 
-@media (max-width: 640px) {
-  .members-slider .member,
-  .member-skel { flex-basis: 218px; width: 218px; }
-}
-
 /* ── Nav: chip de usuario logueado (top-right) ───────────────────── */
 .nav-user { display: flex; align-items: center; gap: 9px; text-decoration: none; padding: 5px 12px 5px 5px; border: 1px solid var(--border2); border-radius: 999px; background: var(--surf); transition: border-color .2s; }
 .nav-user:hover { border-color: var(--accent); }
@@ -1337,34 +1296,11 @@ nav.scrolled {
 .nav-user-name { color: var(--text); font-size: .86rem; font-weight: 600; }
 .nav-logout { padding: 8px 14px; font-size: .82rem; }
 
-/* ── Comunidad: grid de huevsites destacados ─────────────────────── */
-.huev-feat { margin: 0 0 clamp(28px, 4vw, 44px); }
+/* Label "Perfiles en vivo" (reusado por el carousel) */
 .huev-feat-label { display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted2); margin-bottom: 16px; }
-.huev-feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 14px; }
-.huev-card { position: relative; display: flex; flex-direction: column; gap: 12px; background: var(--surf); border: 1px solid var(--border2); border-radius: 16px; padding: 20px; transition: transform .2s, border-color .2s; }
-.huev-card:hover { transform: translateY(-3px); }
-.huev-card .tags { justify-content: flex-start; }
-.huev-card-score { position: absolute; top: 14px; right: 14px; font-family: 'Space Mono', monospace; font-size: .68rem; padding: 3px 9px; border: 1px solid; border-radius: 999px; background: rgba(0,0,0,.25); }
-.huev-card-top { display: flex; align-items: center; gap: 13px; }
-.huev-card-av { width: 52px; height: 52px; flex: 0 0 52px; border-radius: 50%; border: 2px solid; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; background-clip: padding-box; }
-.huev-card-id { min-width: 0; }
-.huev-card-id h4 { margin: 0; font-size: 1rem; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.huev-card-role { font-size: .78rem; color: var(--muted2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.huev-card-role a { text-decoration: none; }
-.huev-card-headline { margin: 0; font-size: .85rem; line-height: 1.5; color: var(--text-d); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.huev-card-btn { margin-top: auto; align-self: flex-start; background: none; border: 1px solid; border-radius: 999px; padding: 8px 16px; font-size: .8rem; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; transition: background .2s; }
-.huev-card-btn:hover { background: rgba(0,229,160,.08); }
-
-/* Card de invitación a conectar huevsite */
-.huev-invite { align-items: flex-start; border-style: dashed; border-color: var(--border3); background: linear-gradient(180deg, rgba(0,229,160,.05), transparent); }
-.huev-invite-icon { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
-.huev-invite h4 { margin: 0; font-size: 1rem; color: var(--text); }
-.huev-invite p { margin: 0; font-size: .85rem; line-height: 1.5; color: var(--muted2); }
-.huev-invite-btn { color: var(--accent); border-color: var(--accent); }
 
 @media (max-width: 560px) {
   .nav-user-name { display: none; }
-  .huev-feat-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Comunidad: carousel de previews de huevsites (uno por uno) ───── */
@@ -1379,16 +1315,17 @@ nav.scrolled {
   border: 1px solid var(--border2); border-radius: 18px; overflow: hidden;
   background: var(--bg-2); box-shadow: 0 24px 60px rgba(0,0,0,.35);
 }
-.huev-car-iframe { width: 100%; height: 100%; border: 0; background: var(--bg); opacity: 0; transition: opacity .4s ease; }
-.huev-car-iframe.is-loaded { opacity: 1; }
+.huev-car-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: var(--bg); opacity: 0; pointer-events: none; z-index: 1; transition: opacity .5s ease; }
+.huev-car-iframe.is-active { z-index: 2; pointer-events: auto; }
+.huev-car-iframe.is-active.is-loaded { opacity: 1; }
 .huev-car-skel {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 3;
   background: linear-gradient(100deg, var(--surf) 30%, var(--surf2) 50%, var(--surf) 70%);
   background-size: 200% 100%; animation: huevShimmer 1.4s infinite;
 }
 @keyframes huevShimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 .huev-car-arrow {
-  position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
   width: 44px; height: 44px; border-radius: 50%;
   border: 1px solid var(--border3); background: rgba(8,11,13,.78); backdrop-filter: blur(6px);
   color: var(--text); font-size: 1.5rem; line-height: 1; cursor: pointer;

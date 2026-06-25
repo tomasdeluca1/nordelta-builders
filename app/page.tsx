@@ -49,7 +49,7 @@ export default function Home() {
   const [me, setMe] = useState<{ name: string; initials: string; colorIndex: number; huevsiteUsername?: string | null } | null>(null);
   const [huevSlide, setHuevSlide] = useState(0);
   const [huevPaused, setHuevPaused] = useState(false);
-  const [huevFrameLoaded, setHuevFrameLoaded] = useState(false);
+  const [huevLoaded, setHuevLoaded] = useState<Set<string>>(new Set());
 
   const [members, setMembers] = useState<Member[]>([]);
   const [memberTotal, setMemberTotal] = useState<number | null>(null);
@@ -98,13 +98,14 @@ export default function Home() {
     window.location.href = '/';
   };
 
-  const goHuev = (delta: number) => { setHuevFrameLoaded(false); setHuevSlide(s => s + delta); };
+  const goHuev = (delta: number) => setHuevSlide(s => s + delta);
 
-  // Auto-avance del carousel de huevsites (pausa al pasar el mouse).
+  // Auto-avance del carousel de huevsites (pausa al pasar el mouse). Los iframes
+  // siguientes ya están pre-renderizados, así que el cambio es instantáneo.
   useEffect(() => {
     const n = members.filter(m => m.huevsite).length;
     if (n < 2 || huevPaused) return;
-    const id = setInterval(() => { setHuevFrameLoaded(false); setHuevSlide(s => s + 1); }, 8000);
+    const id = setInterval(() => setHuevSlide(s => s + 1), 6000);
     return () => clearInterval(id);
   }, [members, huevPaused]);
 
@@ -148,6 +149,21 @@ export default function Home() {
   const huevsites = members.filter(m => m.huevsite);
   const huevCount = huevsites.length;
   const activeHuev = huevCount ? huevsites[((huevSlide % huevCount) + huevCount) % huevCount] : null;
+  // Ventana de iframes montados a la vez: actual + 2 siguientes + anterior, para
+  // que los próximos ya estén cargados cuando el carousel avanza.
+  const huevWindow: { m: Member; active: boolean }[] = (() => {
+    if (!huevCount) return [];
+    const seen = new Set<string>();
+    const out: { m: Member; active: boolean }[] = [];
+    for (const off of [0, 1, 2, -1]) {
+      const m = huevsites[((huevSlide + off) % huevCount + huevCount) % huevCount];
+      const u = m.huevsite!.username;
+      if (seen.has(u)) continue;
+      seen.add(u);
+      out.push({ m, active: off === 0 });
+    }
+    return out;
+  })();
 
   const openAllModal = () => {
     setShowAllModal(true);
@@ -499,15 +515,20 @@ export default function Home() {
               </div>
             </div>
             <div className="huev-car-frame">
-              <iframe
-                key={activeHuev.huevsite!.username}
-                className={`huev-car-iframe${huevFrameLoaded ? ' is-loaded' : ''}`}
-                src={`${huevsiteUrl}/${activeHuev.huevsite!.username}?embed=1`}
-                title={`huevsite de ${activeHuev.name}`}
-                loading="lazy"
-                onLoad={() => setHuevFrameLoaded(true)}
-              />
-              {!huevFrameLoaded && <div className="huev-car-skel" />}
+              {huevWindow.map(({ m, active }) => {
+                const u = m.huevsite!.username;
+                return (
+                  <iframe
+                    key={u}
+                    className={`huev-car-iframe${active ? ' is-active' : ''}${huevLoaded.has(u) ? ' is-loaded' : ''}`}
+                    src={`${huevsiteUrl}/${u}?embed=1`}
+                    title={`huevsite de ${m.name}`}
+                    loading="eager"
+                    onLoad={() => setHuevLoaded(s => { const n = new Set(s); n.add(u); return n; })}
+                  />
+                );
+              })}
+              {activeHuev && !huevLoaded.has(activeHuev.huevsite!.username) && <div className="huev-car-skel" />}
               {huevCount > 1 && (
                 <>
                   <button className="huev-car-arrow prev" onClick={() => goHuev(-1)} aria-label="Perfil anterior">‹</button>
