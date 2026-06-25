@@ -28,8 +28,13 @@ export async function GET() {
         })
         .from(schema.members)
         .where(eq(schema.members.status, 'active'))
-        // Surface approved/featured huevsites first, then by seniority.
-        .orderBy(desc(schema.members.huevsiteFeatured), desc(schema.members.huevsiteApproved), asc(schema.members.createdAt))
+        // Surface every connected huevsite first (featured/approved on top), then by seniority.
+        .orderBy(
+          desc(sql`${schema.members.huevsiteUsername} IS NOT NULL`),
+          desc(schema.members.huevsiteFeatured),
+          desc(schema.members.huevsiteApproved),
+          asc(schema.members.createdAt),
+        )
         .limit(60),
       db
         .select({ count: sql<number>`count(*)::int` })
@@ -41,7 +46,8 @@ export async function GET() {
     // Enrich approved huevsites with their public profile (avatar, accent, score).
     const enriched = await Promise.all(
       rows.map(async (r) => {
-        const showHuevsite = Boolean(r.huevsiteApproved && r.huevsiteUsername);
+        // Mostramos todos los huevsites conectados, sin requerir aprobación.
+        const showHuevsite = Boolean(r.huevsiteUsername);
         let huevsite = null;
         if (showHuevsite && r.huevsiteUsername) {
           const p = await fetchHuevsiteProfile(r.huevsiteUsername);

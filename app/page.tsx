@@ -47,6 +47,9 @@ export default function Home() {
   const [allLoaded, setAllLoaded] = useState(false);
   const [allQuery, setAllQuery] = useState('');
   const [me, setMe] = useState<{ name: string; initials: string; colorIndex: number; huevsiteUsername?: string | null } | null>(null);
+  const [huevSlide, setHuevSlide] = useState(0);
+  const [huevPaused, setHuevPaused] = useState(false);
+  const [huevFrameLoaded, setHuevFrameLoaded] = useState(false);
 
   const [members, setMembers] = useState<Member[]>([]);
   const [memberTotal, setMemberTotal] = useState<number | null>(null);
@@ -95,6 +98,16 @@ export default function Home() {
     window.location.href = '/';
   };
 
+  const goHuev = (delta: number) => { setHuevFrameLoaded(false); setHuevSlide(s => s + delta); };
+
+  // Auto-avance del carousel de huevsites (pausa al pasar el mouse).
+  useEffect(() => {
+    const n = members.filter(m => m.huevsite).length;
+    if (n < 2 || huevPaused) return;
+    const id = setInterval(() => { setHuevFrameLoaded(false); setHuevSlide(s => s + 1); }, 8000);
+    return () => clearInterval(id);
+  }, [members, huevPaused]);
+
   // Nav condenses on scroll + scroll-reveal for sections (progressive
   // enhancement: hidden state only applies once JS marks the doc ready).
   useEffect(() => {
@@ -131,11 +144,10 @@ export default function Home() {
     };
   }, []);
 
-  // Two independent rows (even/odd split) for the 2-row slider; each row is its
-  // own seamless marquee, so odd member counts never leave an empty slot.
-  const featuredHuev = members.filter(m => m.huevsite);
-  const memberRow1 = members.filter((_, i) => i % 2 === 0);
-  const memberRow2 = members.filter((_, i) => i % 2 === 1);
+  // Todos los huevsites conectados (la API ya los devuelve sin requerir aprobación).
+  const huevsites = members.filter(m => m.huevsite);
+  const huevCount = huevsites.length;
+  const activeHuev = huevCount ? huevsites[((huevSlide % huevCount) + huevCount) % huevCount] : null;
 
   const openAllModal = () => {
     setShowAllModal(true);
@@ -145,81 +157,6 @@ export default function Home() {
         .then((data) => { setAllMembers(data.members ?? []); setAllLoaded(true); })
         .catch(() => setAllLoaded(true));
     }
-  };
-
-  const renderHuevCard = (m: Member) => {
-    const huev = m.huevsite!;
-    const c = PALETTE[m.colorIndex % PALETTE.length];
-    const accent = huev.accentColor || c.color;
-    return (
-      <div className="huev-card" key={`huev-${m._id}`} style={{ borderColor: `${accent}44` }}>
-        {typeof huev.builderScore === 'number' && (
-          <span className="huev-card-score" style={{ color: accent, borderColor: `${accent}55` }}>{huev.builderScore} pts</span>
-        )}
-        <div className="huev-card-top">
-          <div
-            className="huev-card-av"
-            style={huev.avatar
-              ? { backgroundImage: `url(${huev.avatar})`, backgroundSize: 'cover', backgroundPosition: 'center', borderColor: accent }
-              : { background: c.bg, color: accent, borderColor: accent }}
-          >{huev.avatar ? '' : m.initials}</div>
-          <div className="huev-card-id">
-            <h4>{m.name}</h4>
-            <div className="huev-card-role">
-              {m.jobTitle && m.company
-                ? <>{m.jobTitle} @ <a href={m.companyUrl} target="_blank" rel="noopener" style={{ color: accent }}>{m.company}</a></>
-                : m.role}
-            </div>
-          </div>
-        </div>
-        {huev.headline && <p className="huev-card-headline">{huev.headline}</p>}
-        <div className="tags">
-          {m.tags?.slice(0, 3).map(tag => <span key={tag} className="tag">{tag}</span>)}
-        </div>
-        <button
-          className="huev-card-btn"
-          style={{ color: accent, borderColor: `${accent}55` }}
-          onClick={() => setHuevView({ username: huev.username, name: m.name })}
-        >Ver huevsite →</button>
-      </div>
-    );
-  };
-
-  const renderMemberCard = (m: Member, key: string) => {
-    const c = PALETTE[m.colorIndex % PALETTE.length];
-    const huev = m.huevsite;
-    const accent = huev?.accentColor || c.color;
-    return (
-      <div key={key} className={`member${huev ? ' member-huev' : ''}${m.huevsiteFeatured ? ' member-feat' : ''}`}>
-        {m.huevsiteFeatured && <span className="member-feat-badge">★ destacado</span>}
-        <div
-          className="avatar"
-          style={huev?.avatar
-            ? { backgroundImage: `url(${huev.avatar})`, backgroundSize: 'cover', backgroundPosition: 'center', color: 'transparent', border: `2px solid ${accent}` }
-            : { background: c.bg, color: c.color }}
-        >
-          {huev?.avatar ? '' : m.initials}
-        </div>
-        <h4>{m.name}</h4>
-        <div className="member-role">
-          {m.jobTitle && m.company
-            ? <>{m.jobTitle} @ <a href={m.companyUrl} target="_blank" rel="noopener" style={{ color: accent }}>{m.company}</a></>
-            : m.role}
-        </div>
-        <div className="tags">
-          {m.tags?.slice(0, 3).map(tag => <span key={tag} className="tag">{tag}</span>)}
-        </div>
-        {huev && (
-          <button
-            className="member-huev-btn"
-            style={{ color: accent, borderColor: `${accent}55` }}
-            onClick={() => setHuevView({ username: huev.username, name: m.name })}
-          >
-            {typeof huev.builderScore === 'number' ? `Ver huevsite · ${huev.builderScore} pts →` : 'Ver huevsite →'}
-          </button>
-        )}
-      </div>
-    );
   };
 
   useEffect(() => {
@@ -544,47 +481,46 @@ export default function Home() {
           </aside>
         </div>
 
-        {!membersLoading && (
-          <div className="huev-feat">
-            <div className="huev-feat-label">
-              <span className="pill-dot" /> Perfiles en vivo
-            </div>
-            <div className="huev-feat-grid">
-              {featuredHuev.map(renderHuevCard)}
-              <div className="huev-card huev-invite">
-                <div className="huev-invite-icon">+</div>
-                <h4>¿Tenés un huevsite?</h4>
-                <p>Conectalo a tu proyecto y mostrá lo que estás construyendo, acá mismo.</p>
-                {me
-                  ? <a href="/dashboard" className="huev-card-btn huev-invite-btn">Conectar mi huevsite →</a>
-                  : <button className="huev-card-btn huev-invite-btn" onClick={() => setShowJoinModal(true)}>Sumate y conectalo →</button>}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {membersLoading ? (
-          <div className="members-slider members-skeleton">
-            {[0, 1].map((r) => (
-              <div className="members-row" key={r}>
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="member member-skel" />
-                ))}
-              </div>
-            ))}
+        {membersLoading || !activeHuev ? (
+          <div className="huev-carousel">
+            <div className="huev-car-frame"><div className="huev-car-skel" /></div>
           </div>
         ) : (
-          <div className="members-slider">
-            <div className="members-row">
-              <div className="members-track" style={{ animationDuration: `${Math.max(24, memberRow1.length * 6)}s` }}>
-                {[...memberRow1, ...memberRow1].map((m, i) => renderMemberCard(m, `r1-${i}-${m._id}`))}
+          <div
+            className="huev-carousel"
+            onMouseEnter={() => setHuevPaused(true)}
+            onMouseLeave={() => setHuevPaused(false)}
+          >
+            <div className="huev-car-head">
+              <div className="huev-feat-label"><span className="pill-dot" /> Perfiles en vivo</div>
+              <div className="huev-car-meta">
+                <span className="huev-car-name">{activeHuev.name} · <span className="green">@{activeHuev.huevsite!.username}</span></span>
+                <a href={`${huevsiteUrl}/${activeHuev.huevsite!.username}`} target="_blank" rel="noopener" className="btn btn-ghost huev-car-open">Abrir ↗</a>
               </div>
             </div>
-            <div className="members-row">
-              <div className="members-track members-track-2" style={{ animationDuration: `${Math.max(24, memberRow2.length * 6)}s` }}>
-                {[...memberRow2, ...memberRow2].map((m, i) => renderMemberCard(m, `r2-${i}-${m._id}`))}
-              </div>
+            <div className="huev-car-frame">
+              <iframe
+                key={activeHuev.huevsite!.username}
+                className={`huev-car-iframe${huevFrameLoaded ? ' is-loaded' : ''}`}
+                src={`${huevsiteUrl}/${activeHuev.huevsite!.username}?embed=1`}
+                title={`huevsite de ${activeHuev.name}`}
+                loading="lazy"
+                onLoad={() => setHuevFrameLoaded(true)}
+              />
+              {!huevFrameLoaded && <div className="huev-car-skel" />}
+              {huevCount > 1 && (
+                <>
+                  <button className="huev-car-arrow prev" onClick={() => goHuev(-1)} aria-label="Perfil anterior">‹</button>
+                  <button className="huev-car-arrow next" onClick={() => goHuev(1)} aria-label="Perfil siguiente">›</button>
+                </>
+              )}
             </div>
+            {huevCount > 1 && (
+              <div className="huev-car-foot">
+                <span className="huev-car-count">{(((huevSlide % huevCount) + huevCount) % huevCount) + 1} / {huevCount}</span>
+                <span className="huev-car-hint">Pasá el mouse para pausar · ‹ › para cambiar</span>
+              </div>
+            )}
           </div>
         )}
 
@@ -592,7 +528,9 @@ export default function Home() {
           <button onClick={openAllModal} className="btn btn-outline">
             Ver todos {memberTotal ? `los ${memberTotal} ` : ''}builders →
           </button>
-          <button onClick={() => setShowJoinModal(true)} className="btn btn-green">Sumate a la comunidad →</button>
+          {me
+            ? <a href="/dashboard" className="btn btn-outline">Conectá tu huevsite →</a>
+            : <button onClick={() => setShowJoinModal(true)} className="btn btn-green">Sumate a la comunidad →</button>}
         </div>
       </section>
 
@@ -673,7 +611,7 @@ export default function Home() {
                   <div className="all-grid">
                     {filtered.map((m) => {
                       const c = PALETTE[m.colorIndex % PALETTE.length];
-                      const showHuev = Boolean(m.huevsiteApproved && m.huevsiteUsername);
+                      const showHuev = Boolean(m.huevsiteUsername);
                       return (
                         <div className="all-row" key={m._id}>
                           <div className="all-av" style={{ background: c.bg, color: c.color }}>{m.initials}</div>

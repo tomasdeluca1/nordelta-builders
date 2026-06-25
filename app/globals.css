@@ -1366,3 +1366,42 @@ nav.scrolled {
   .nav-user-name { display: none; }
   .huev-feat-grid { grid-template-columns: 1fr; }
 }
+
+/* ── Comunidad: carousel de previews de huevsites (uno por uno) ───── */
+.huev-carousel { max-width: 940px; margin: 0 auto clamp(28px, 4vw, 44px); }
+.huev-car-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.huev-car-meta { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.huev-car-name { font-size: .9rem; color: var(--text-d); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.huev-car-name .green { font-family: 'Space Mono', monospace; font-size: .82rem; }
+.huev-car-open { font-size: .72rem; padding: 7px 14px; flex-shrink: 0; }
+.huev-car-frame {
+  position: relative; width: 100%; height: clamp(420px, 56vh, 560px);
+  border: 1px solid var(--border2); border-radius: 18px; overflow: hidden;
+  background: var(--bg-2); box-shadow: 0 24px 60px rgba(0,0,0,.35);
+}
+.huev-car-iframe { width: 100%; height: 100%; border: 0; background: var(--bg); opacity: 0; transition: opacity .4s ease; }
+.huev-car-iframe.is-loaded { opacity: 1; }
+.huev-car-skel {
+  position: absolute; inset: 0;
+  background: linear-gradient(100deg, var(--surf) 30%, var(--surf2) 50%, var(--surf) 70%);
+  background-size: 200% 100%; animation: huevShimmer 1.4s infinite;
+}
+@keyframes huevShimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.huev-car-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--border3); background: rgba(8,11,13,.78); backdrop-filter: blur(6px);
+  color: var(--text); font-size: 1.5rem; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: border-color .2s, color .2s;
+}
+.huev-car-arrow:hover { border-color: var(--accent); color: var(--accent); }
+.huev-car-arrow.prev { left: 14px; }
+.huev-car-arrow.next { right: 14px; }
+.huev-car-foot { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; font-family: 'Space Mono', monospace; }
+.huev-car-count { color: var(--accent); font-size: .82rem; }
+.huev-car-hint { color: var(--muted); font-size: .72rem; }
+@media (max-width: 560px) {
+  .huev-car-frame { height: 64vh; }
+  .huev-car-hint { display: none; }
+  .huev-car-arrow { width: 38px; height: 38px; }
+}
