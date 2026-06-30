@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PLACEHOLDER: reemplazar por el logo oficial de Balanz (mismo nombre de archivo). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 70" role="img" aria-label="Balanz">
+  <text x="2" y="48" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="700" letter-spacing="-2" fill="#ffffff">balanz</text>
+  <rect x="4" y="59" width="148" height="4" rx="2" fill="#00e5a0"/>
+</svg>

@@ -85,3 +85,68 @@ export const TIERS = [
 ];
 
 export const CONTACT = { email: 'huevsite.studio@gmail.com', site: 'nordelta.tech' };
+
+// ── Perfil de sponsor (opcional) ─────────────────────────────────────────────
+// Cuando se pasa a buildSlides(), el deck se personaliza para ese sponsor: cover
+// co-brandeada con su logo, slide "Por qué <sponsor>", slide "Lo que proponemos"
+// y el tier propuesto destacado. Sin sponsor, el deck queda genérico (/pitch-deck).
+export type Sponsor = {
+  name: string;
+  logoSrc: string;        // archivo en /public — swappable por el logo oficial
+  coverEyebrow: string;
+  whyTitle: string;
+  why: { t: string; d: string }[];
+  proposalTier: string;   // debe coincidir con un TIERS[].name
+  proposalTitle: string;
+  proposalLead: string;
+  proposal: { t: string; d: string }[];
+  proposalNote: string;
+};
+
+export const BALANZ: Sponsor = {
+  name: 'Balanz',
+  logoSrc: '/sponsors/balanz.svg',
+  coverEyebrow: 'Propuesta para Balanz · 2026',
+  whyTitle: 'ACÁ ESTÁ TU CLIENTE',
+  why: [
+    {
+      t: 'Ya son vecinos',
+      d: 'Balanz se mudó a Nordelta para estar cerca de sus clientes de Zona Norte. La comunidad construye a minutos de esa oficina. Falta que se conozcan.',
+    },
+    {
+      t: 'Tu segmento, sin vueltas',
+      d: 'Founders con liquidez y devs bien pagos, varios con exits reales. No es awareness difuso: es tu cliente, reunido en un solo lugar.',
+    },
+    {
+      t: 'La marca de los que construyen',
+      d: 'La inversión tradicional le habla a la generación anterior. Balanz se planta con la próxima ola de founders y patrimonio.',
+    },
+    {
+      t: 'Talento y deal-flow',
+      d: '46 devs para tus equipos y las startups fintech/AI de la zona, de cerca, antes que nadie.',
+    },
+  ],
+  proposalTier: 'Lead',
+  proposalTitle: 'ABRÍ LA PUERTA',
+  proposalLead:
+    'Balanz como sponsor principal (Lead) y sede del primer ciclo: kick-off, Build with AI y Hackathon #1.',
+  proposal: [
+    {
+      t: 'La sede',
+      d: 'El co-work y los encuentros del ciclo en las áreas comunes de Balanz Nordelta. La comunidad entra por tu puerta.',
+    },
+    {
+      t: 'La producción',
+      d: 'Balanz banca catering y armado de los encuentros. El espacio ya lo tenés; esto es lo que lo hace pasar.',
+    },
+    {
+      t: 'El premio',
+      d: 'Balanz pone el premio del Hackathon #1. Lo más on-brand para una inversora: bancar a los que construyen.',
+    },
+    {
+      t: 'La voz',
+      d: 'Una charla de Balanz a la comunidad: qué hacer con la plata después de una ronda o un exit. Referente, no banner.',
+    },
+  ],
+  proposalNote: 'El número fino lo cerramos juntos en la próxima reunión.',
+};

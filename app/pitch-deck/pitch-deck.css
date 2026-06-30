@@ -148,7 +148,7 @@
 .builder-co { color: var(--text-d); }
 @media (max-width: 720px) { .builder-grid { grid-template-columns: 1fr; } }
 
-.tier-card { border: 1px solid var(--border); background: var(--surf); border-radius: 14px; padding: 24px; }
+.tier-card { position: relative; border: 1px solid var(--border); background: var(--surf); border-radius: 14px; padding: 24px; }
 .tier-card.lead { border-color: var(--accent); box-shadow: var(--accent-glow); }
 .tier-card .tn { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: var(--accent); }
 .tier-card .tt { color: var(--text-d); font-size: 14px; margin: 6px 0 14px; }
@@ -208,6 +208,82 @@
 }
 .deck-home b { color: var(--accent); font-weight: 400; }
 
+/* ── Sponsor principal (deck co-brandeado) ── */
+.sponsor-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+  padding: 11px 18px;
+  border: 1px solid var(--border);
+  background: var(--surf);
+  border-radius: 999px;
+}
+.sponsor-lockup .sl-label {
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  color: var(--muted);
+}
+.sponsor-lockup .sl-logo { height: 26px; width: auto; display: block; }
+
+.deck-cobrand {
+  position: fixed;
+  left: 24px;
+  bottom: 22px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.deck-cobrand .cb-label {
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 10px;
+  color: var(--muted);
+}
+.deck-cobrand img { height: 18px; width: auto; display: block; }
+
+/* ── Slide "Lo que proponemos" ── */
+.proposal { margin-top: 24px; max-width: 72ch; }
+.proposal-logo { height: 34px; width: auto; display: block; margin-bottom: 22px; }
+.proposal-list { margin: 18px 0 0; padding: 0; list-style: none; }
+.proposal-list li {
+  position: relative;
+  padding-left: 26px;
+  margin: 12px 0;
+  color: var(--text-d);
+  font-size: clamp(15px, 1.7vw, 18px);
+  line-height: 1.5;
+}
+.proposal-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.proposal-list strong { color: var(--accent); font-weight: 700; }
+
+/* ── Tier propuesto para el sponsor ── */
+.tier-flag {
+  position: absolute;
+  top: -13px;
+  left: 18px;
+  padding: 5px 12px;
+  background: var(--accent);
+  color: #05070a;
+  border-radius: 999px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
 @media (max-width: 720px) {
   .s-grid.cols-2,
   .s-grid.cols-3,
@@ -223,7 +299,8 @@
   .deck { position: static; overflow: visible; }
   .deck-nav,
   .deck-dots,
-  .deck-home { display: none !important; }
+  .deck-home,
+  .deck-cobrand { display: none !important; }
   .deck-stage { position: static; display: block; }
   .slide {
     display: block !important;
@@ -236,4 +313,6 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+  /* El último slide no fuerza salto → evita una página en blanco al final del PDF. */
+  .slide:last-child { page-break-after: avoid; break-after: avoid; }
 }

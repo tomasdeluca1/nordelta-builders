@@ -2,12 +2,12 @@
 import { useEffect, useState, useCallback } from 'react';
 import './pitch-deck.css';
 import { buildSlides } from './slides';
-import { MEMBERS_FALLBACK } from './pitch-data';
+import { MEMBERS_FALLBACK, type Sponsor } from './pitch-data';
 import { clampIndex, parseHash, hashFor } from './nav';
 
-export default function PitchDeck() {
+export default function PitchDeck({ sponsor }: { sponsor?: Sponsor }) {
   const [memberTotal, setMemberTotal] = useState<number>(MEMBERS_FALLBACK);
-  const slides = buildSlides(memberTotal);
+  const slides = buildSlides(memberTotal, sponsor);
   const total = slides.length;
   const [i, setI] = useState(0);
 
@@ -47,6 +47,12 @@ export default function PitchDeck() {
   return (
     <div className="deck">
       <a className="deck-home" href="/">NORDELTA <b>TECH</b></a>
+      {sponsor && (
+        <div className="deck-cobrand">
+          <span className="cb-label">Sponsor principal</span>
+          <img src={sponsor.logoSrc} alt={sponsor.name} />
+        </div>
+      )}
       <div className="deck-stage">
         {slides.map((node, idx) => (
           <section key={idx} className={`slide${idx === i ? ' is-active' : ''}`}>

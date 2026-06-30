@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   SNAPSHOT_LABEL, GROWTH, ROLES, VERTICALS, LOOKING_FOR, GEOGRAPHY,
-  PLATFORM, TEAM, TIERS, CONTACT,
+  PLATFORM, TEAM, TIERS, CONTACT, type Sponsor,
 } from './pitch-data';
 import { SHOWCASE_BUILDERS } from '@/lib/builder-ranking';
 
@@ -44,15 +44,21 @@ function Snapshot() {
   return <div className="s-snapshot">{SNAPSHOT_LABEL}</div>;
 }
 
-export function buildSlides(memberTotal: number): React.ReactNode[] {
+export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.ReactNode[] {
   const growthMax = Math.max(...GROWTH.map((g) => g.n));
 
-  return [
+  const slides: React.ReactNode[] = [
     // 1 — Cover
     <React.Fragment key="cover">
-      <div className="s-eyebrow">Pitch para sponsors · 2026</div>
+      <div className="s-eyebrow">{sponsor ? sponsor.coverEyebrow : 'Pitch para sponsors · 2026'}</div>
       <h1 className="s-title">BUILD<br />THE FUTURE</h1>
       <p className="s-lead">La comunidad tech de founders, devs y makers de Nordelta y Zona Norte.</p>
+      {sponsor && (
+        <div className="sponsor-lockup">
+          <span className="sl-label">Sponsor principal</span>
+          <img className="sl-logo" src={sponsor.logoSrc} alt={sponsor.name} />
+        </div>
+      )}
       <div className="deck-foot"><span className="big">{memberTotal}+ builders</span>nordelta.tech</div>
     </React.Fragment>,
 
@@ -203,24 +209,45 @@ export function buildSlides(memberTotal: number): React.ReactNode[] {
       </div>
     </React.Fragment>,
 
-    // 12 — Por qué un sponsor
+    // 12 — Por qué un sponsor (genérico o a medida del sponsor)
     <React.Fragment key="porque">
-      <div className="s-eyebrow">Por qué sumarte</div>
-      <h1 className="s-title">QUÉ GANÁS</h1>
+      <div className="s-eyebrow">{sponsor ? `Por qué ${sponsor.name}` : 'Por qué sumarte'}</div>
+      <h1 className="s-title">{sponsor ? sponsor.whyTitle : 'QUÉ GANÁS'}</h1>
       <div className="s-grid cols-2">
-        {SPONSOR_WINS.map((w) => (
+        {(sponsor ? sponsor.why : SPONSOR_WINS).map((w) => (
           <div className="feat-box" key={w.t}><h4>{w.t}</h4><p>{w.d}</p></div>
         ))}
       </div>
     </React.Fragment>,
 
-    // 13 — Formas de sumarte
+    // 13 — Lo que proponemos (sólo con sponsor)
+    sponsor ? (
+      <React.Fragment key="propuesta">
+        <div className="s-eyebrow">Lo que proponemos</div>
+        <h1 className="s-title">{sponsor.proposalTitle}</h1>
+        <div className="proposal">
+          <img className="proposal-logo" src={sponsor.logoSrc} alt={sponsor.name} />
+          <p className="s-lead">{sponsor.proposalLead}</p>
+          <ul className="proposal-list">
+            {sponsor.proposal.map((p) => (
+              <li key={p.t}><strong>{p.t}.</strong> {p.d}</li>
+            ))}
+          </ul>
+          <p className="s-snapshot">{sponsor.proposalNote}</p>
+        </div>
+      </React.Fragment>
+    ) : null,
+
+    // 14 — Formas de sumarte
     <React.Fragment key="formas">
       <div className="s-eyebrow">Formas de sumarte</div>
       <h1 className="s-title">ELEGÍ CÓMO ENTRAR</h1>
       <div className="s-grid cols-3">
         {TIERS.map((t, idx) => (
           <div className={`tier-card${idx === 0 ? ' lead' : ''}`} key={t.name}>
+            {sponsor && sponsor.proposalTier === t.name && (
+              <div className="tier-flag">Para {sponsor.name}</div>
+            )}
             <div className="tn">{t.name}</div>
             <div className="tt">{t.tagline}</div>
             <ul>{t.perks.map((p) => (<li key={p}>{p}</li>))}</ul>
@@ -230,7 +257,7 @@ export function buildSlides(memberTotal: number): React.ReactNode[] {
       <p className="s-snapshot">Sin precio de lista: armamos el formato juntos.</p>
     </React.Fragment>,
 
-    // 14 — Hablemos
+    // 15 — Hablemos
     <React.Fragment key="hablemos">
       <div className="s-eyebrow">Hablemos</div>
       <h1 className="s-title">SUMATE A LA QUE<br />CONSTRUYE LA ZONA</h1>
@@ -244,4 +271,7 @@ export function buildSlides(memberTotal: number): React.ReactNode[] {
       </div>
     </React.Fragment>,
   ];
+
+  // Quita los slots nulos (p. ej. "Lo que proponemos" cuando no hay sponsor).
+  return slides.filter(Boolean) as React.ReactNode[];
 }
