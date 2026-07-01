@@ -47,21 +47,22 @@ export const GEOGRAPHY = [
 
 export const PLATFORM = { huevsites: 28, linkedin: 81, websites: 23 };
 
-export const TEAM = [
-  { name: 'Tomás Deluca', initials: 'TD', role: 'Organizador' },
-  { name: 'Patricio Iturraspe', initials: 'PI', role: 'Organizador' },
-  { name: 'Lucas Argento', initials: 'LA', role: 'Organizador' },
+export type TeamMember = { name: string; initials: string; role: string; photo?: string };
+export const TEAM: TeamMember[] = [
+  { name: 'Tomás Deluca', initials: 'TD', role: 'Organizador', photo: '/organizers/tomas-deluca.jpg' },
+  { name: 'Patricio Iturraspe', initials: 'PI', role: 'Organizador', photo: '/organizers/patricio-iturraspe.jpg' },
+  { name: 'Lucas Argento', initials: 'LA', role: 'Organizador', photo: '/organizers/lucas-argento.jpg' },
 ];
 
+// Orden ascendente: de menor a mayor. Lead va al final = el nivel más alto.
 export const TIERS = [
   {
-    name: 'Lead',
-    tagline: 'El sponsor principal del ciclo.',
+    name: 'Friend',
+    tagline: 'Bancás que esto crezca.',
     perks: [
-      'Tu marca al frente de los eventos',
-      'Espacio para hablar en los encuentros',
-      'Presencia en nordelta.tech',
-      'Línea directa con la comunidad',
+      'Mención como sponsor',
+      'Invitaciones a los encuentros',
+      'Acceso al directorio de builders',
     ],
   },
   {
@@ -74,17 +75,18 @@ export const TIERS = [
     ],
   },
   {
-    name: 'Friend',
-    tagline: 'Bancás que esto crezca.',
+    name: 'Lead',
+    tagline: 'El sponsor principal del ciclo.',
     perks: [
-      'Mención como sponsor',
-      'Invitaciones a los encuentros',
-      'Acceso al directorio de builders',
+      'Tu marca al frente de los eventos',
+      'Espacio para hablar en los encuentros',
+      'Presencia en nordelta.tech',
+      'Línea directa con la comunidad',
     ],
   },
 ];
 
-export const CONTACT = { email: 'huevsite.studio@gmail.com', site: 'nordelta.tech' };
+export const CONTACT = { emails: ['tomasdelucaa@gmail.com', 'patricio@mateandbuild.com.ar'], site: 'nordelta.tech' };
 
 // ── Perfil de sponsor (opcional) ─────────────────────────────────────────────
 // Cuando se pasa a buildSlides(), el deck se personaliza para ese sponsor: cover

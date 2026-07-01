@@ -1,15 +1,16 @@
 import React from 'react';
 import {
   SNAPSHOT_LABEL, GROWTH, ROLES, VERTICALS, LOOKING_FOR, GEOGRAPHY,
-  PLATFORM, TEAM, TIERS, CONTACT, type Sponsor,
+  TEAM, TIERS, CONTACT, type Sponsor,
 } from './pitch-data';
 import { SHOWCASE_BUILDERS } from '@/lib/builder-ranking';
+import { AreaChart, Donut, Bars, Legend } from './charts';
 
 const PILLARS = [
-  { t: 'Startups y proyectos', d: 'Founders, co-founders, primeros hires y primeros usuarios.' },
-  { t: 'Conocimiento', d: 'Workshops, charlas de founders y sesiones de preguntas.' },
-  { t: 'Red de contactos', d: 'Mentores, inversores y empresas de la zona.' },
-  { t: 'Acción real', d: 'No es otro grupo de WhatsApp. Construimos juntos.' },
+  { t: 'Gente construyendo', d: 'Founders, co-founders, primeros hires y primeros usuarios. Todos con algo entre manos, no espectadores.' },
+  { t: 'Se comparte lo que funciona', d: 'Workshops y charlas de founders que ya lo hicieron, y sesiones para destrabar problemas reales.' },
+  { t: 'La red de la zona', d: 'Mentores, inversores y empresas de Zona Norte, a mano y en persona.' },
+  { t: 'Se construye, no se chatea', d: 'No es otro grupo de WhatsApp. Nos juntamos a hacer cosas, con las manos en el teclado.' },
 ];
 
 const ACTIVITY = [
@@ -26,26 +27,15 @@ const SPONSOR_WINS = [
   { t: 'Las startups de la zona, de cerca', d: 'Ves qué se está construyendo antes que nadie.' },
 ];
 
-function Bars({ data, max }: { data: { label: string; n: number }[]; max: number }) {
-  return (
-    <div>
-      {data.map((d) => (
-        <div className="bar-row" key={d.label}>
-          <span className="lbl">{d.label}</span>
-          <span className="bar"><span className="bar-fill" style={{ width: `${Math.round((d.n / max) * 100)}%` }} /></span>
-          <span className="n">{d.n}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function Snapshot() {
   return <div className="s-snapshot">{SNAPSHOT_LABEL}</div>;
 }
 
 export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.ReactNode[] {
-  const growthMax = Math.max(...GROWTH.map((g) => g.n));
+  // El último punto del crecimiento usa el total en vivo (coherente con el bignum).
+  const growthData = GROWTH.map((g, i) => (
+    i === GROWTH.length - 1 ? { label: g.label, n: memberTotal } : g
+  ));
 
   const slides: React.ReactNode[] = [
     // 1 — Cover
@@ -80,7 +70,7 @@ export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.React
         Una comunidad de builders que vive y trabaja en la zona. Nos juntamos a construir,
         no a hacer networking de tarjetita.
       </p>
-      <div className="s-grid cols-4">
+      <div className="s-grid cols-2">
         {PILLARS.map((p) => (
           <div className="feat-box" key={p.t}><h4>{p.t}</h4><p>{p.d}</p></div>
         ))}
@@ -92,39 +82,36 @@ export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.React
       <div className="s-eyebrow">Tracción</div>
       <div className="s-bignum">{memberTotal}+</div>
       <p className="s-lead">builders en cuestión de semanas. Sin pauta, todo boca a boca.</p>
-      <div className="timeline">
-        {GROWTH.map((g) => (
-          <div className="tl-step" key={g.label}>
-            <div className="tl-n">{g.n}</div>
-            <div className="tl-bar" style={{ height: `${Math.max(8, Math.round((g.n / growthMax) * 180))}px` }} />
-            <div className="tl-l">{g.label}</div>
-          </div>
-        ))}
-      </div>
+      <AreaChart data={growthData} width={900} height={210} />
       <Snapshot />
     </React.Fragment>,
 
     // 5 — Quiénes son
     <React.Fragment key="quienes">
       <div className="s-eyebrow">Quiénes son</div>
-      <h1 className="s-title">NO ES UNA<br />LISTA DE EMAILS</h1>
-      <Bars data={ROLES} max={ROLES[0].n} />
-      <p className="s-lead" style={{ marginTop: 18 }}>9 de cada 10 son founders o devs.</p>
+      <h1 className="s-title">NO ES UNA LISTA<br />DE EMAILS</h1>
+      <div className="roles">
+        <Donut data={ROLES} />
+        <Legend data={ROLES} />
+      </div>
+      <p className="s-lead" style={{ marginTop: 14 }}>8 de cada 10 son founders o devs.</p>
       <Snapshot />
     </React.Fragment>,
 
     // 6 — Los builders
     <React.Fragment key="builders">
       <div className="s-eyebrow">La comunidad</div>
-      <h1 className="s-title">ALGUNOS DE<br />LOS BUILDERS</h1>
+      <h1 className="s-title">ESTA ES LA<br />COMUNIDAD</h1>
       <p className="s-lead">
-        Founders y devs que viven acá y ya construyeron cosas serias: de exits a
-        productos en producción.
+        Estos son algunos: founders, devs y makers que viven acá y ya construyeron
+        cosas serias, de exits a productos en producción.
       </p>
       <div className="builder-grid">
         {SHOWCASE_BUILDERS.map((b) => (
           <div className="builder-card" key={b.name}>
-            <div className="builder-av">{b.initials}</div>
+            {b.photo
+              ? <img className="builder-av builder-ph" src={b.photo} alt={b.name} />
+              : <div className="builder-av">{b.initials}</div>}
             <div className="builder-info">
               <div className="builder-nm">{b.name}</div>
               <div className="builder-ro">{b.role} · <span className="builder-co">{b.company}</span></div>
@@ -138,11 +125,7 @@ export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.React
     <React.Fragment key="construyen">
       <div className="s-eyebrow">Qué construyen</div>
       <h1 className="s-title">UNA COMUNIDAD<br />AI-FIRST</h1>
-      <div className="chips">
-        {VERTICALS.map((v) => (
-          <span className="chip" key={v.label}>{v.label}<span className="n">{v.n}</span></span>
-        ))}
-      </div>
+      <Bars data={VERTICALS} max={VERTICALS[0].n} />
       <Snapshot />
     </React.Fragment>,
 
@@ -178,30 +161,16 @@ export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.React
       </div>
     </React.Fragment>,
 
-    // 10 — La plataforma
-    <React.Fragment key="plataforma">
-      <div className="s-eyebrow">La plataforma</div>
-      <h1 className="s-title">NO ES SÓLO UN GRUPO</h1>
-      <p className="s-lead">
-        nordelta.tech tiene dashboard, perfiles públicos de cada builder y un directorio
-        de la comunidad. Presencia online real, no sólo un chat.
-      </p>
-      <div className="s-grid cols-3">
-        <div className="kpi"><div className="v">{PLATFORM.huevsites}</div><div className="k">perfiles públicos armados</div></div>
-        <div className="kpi"><div className="v">{PLATFORM.linkedin}</div><div className="k">con LinkedIn conectado</div></div>
-        <div className="kpi"><div className="v">{PLATFORM.websites}</div><div className="k">con web propia</div></div>
-      </div>
-      <Snapshot />
-    </React.Fragment>,
-
-    // 11 — Equipo
+    // 10 — Equipo
     <React.Fragment key="equipo">
       <div className="s-eyebrow">Quiénes lo organizan</div>
       <h1 className="s-title">GENTE QUE VIVE Y<br />CONSTRUYE ACÁ</h1>
       <div className="s-grid cols-3">
         {TEAM.map((m) => (
           <div className="team-card" key={m.name}>
-            <div className="team-av">{m.initials}</div>
+            {m.photo
+              ? <img className="team-av team-ph" src={m.photo} alt={m.name} />
+              : <div className="team-av">{m.initials}</div>}
             <div className="nm">{m.name}</div>
             <div className="ro">{m.role}</div>
           </div>
@@ -243,16 +212,20 @@ export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.React
       <div className="s-eyebrow">Formas de sumarte</div>
       <h1 className="s-title">ELEGÍ CÓMO ENTRAR</h1>
       <div className="s-grid cols-3">
-        {TIERS.map((t, idx) => (
-          <div className={`tier-card${idx === 0 ? ' lead' : ''}`} key={t.name}>
-            {sponsor && sponsor.proposalTier === t.name && (
-              <div className="tier-flag">Para {sponsor.name}</div>
-            )}
-            <div className="tn">{t.name}</div>
-            <div className="tt">{t.tagline}</div>
-            <ul>{t.perks.map((p) => (<li key={p}>{p}</li>))}</ul>
-          </div>
-        ))}
+        {TIERS.map((t) => {
+          const top = t.name === 'Lead';
+          return (
+            <div className={`tier-card${top ? ' lead' : ''}`} key={t.name}>
+              {sponsor && sponsor.proposalTier === t.name && (
+                <div className="tier-flag">Para {sponsor.name}</div>
+              )}
+              {top && <div className="tier-rank">◆ El nivel más alto</div>}
+              <div className="tn">{t.name}</div>
+              <div className="tt">{t.tagline}</div>
+              <ul>{t.perks.map((p) => (<li key={p}>{p}</li>))}</ul>
+            </div>
+          );
+        })}
       </div>
       <p className="s-snapshot">Sin precio de lista: armamos el formato juntos.</p>
     </React.Fragment>,
@@ -266,7 +239,9 @@ export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.React
         armamos el formato.
       </p>
       <div className="deck-foot">
-        <span className="big"><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></span>
+        {CONTACT.emails.map((e) => (
+          <span className="big" key={e}><a href={`mailto:${e}`}>{e}</a></span>
+        ))}
         {CONTACT.site}
       </div>
     </React.Fragment>,
