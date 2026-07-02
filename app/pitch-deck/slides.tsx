@@ -14,10 +14,18 @@ const PILLARS = [
 ];
 
 const ACTIVITY = [
-  { t: 'Primer co-work', d: 'Ya pasó: un día entero construyendo en Islas del Golf.', done: true },
+  { t: 'Co-works', d: 'Ya van varios, en distintos puntos de la zona.', done: true },
   { t: 'Kick-off', d: 'El encuentro fundacional de la comunidad.', done: false },
   { t: 'Build with AI', d: 'Sesión práctica: de idea a MVP en pocas horas.', done: false },
   { t: 'Hackathon #1', d: 'El primer hackathon de la zona.', done: false },
+];
+
+// Co-works ya realizados. `img` se completa cuando lleguen las fotos reales
+// (dropear en /public/coworks/); mientras tanto la card muestra un placeholder.
+const COWORKS: { venue: string; img?: string }[] = [
+  { venue: 'Club Santa Bárbara', img: '/coworks/santa-barbara.jpg' },
+  { venue: 'Café García', img: '/coworks/cafe-garcia.jpg' },
+  { venue: 'SUM · Islas del Golf', img: '/coworks/islas-del-golf.jpg' },
 ];
 
 const SPONSOR_WINS = [
@@ -161,7 +169,33 @@ export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.React
       </div>
     </React.Fragment>,
 
-    // 10 — Equipo
+    // 10 — Co-works (ya pasa, con fotos reales de los encuentros)
+    <React.Fragment key="coworks">
+      <div className="s-eyebrow">Los co-works</div>
+      <h1 className="s-title">YA NOS JUNTAMOS<br />A CONSTRUIR</h1>
+      <p className="s-lead">No es un plan a futuro: ya hicimos co-works en distintos puntos de Zona Norte.</p>
+      <div className="cowork-grid">
+        {COWORKS.map((c) => (
+          <div className="cowork-card" key={c.venue}>
+            {c.img ? (
+              <img className="cowork-img" src={c.img} alt={`Co-work en ${c.venue}`} />
+            ) : (
+              <div className="cowork-ph">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="3" y="4" width="18" height="16" rx="2" />
+                  <circle cx="8.5" cy="9.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 20" />
+                </svg>
+                <span className="ph-tx">Foto próximamente</span>
+              </div>
+            )}
+            <div className="cowork-venue">{c.venue}</div>
+          </div>
+        ))}
+      </div>
+    </React.Fragment>,
+
+    // 11 — Equipo
     <React.Fragment key="equipo">
       <div className="s-eyebrow">Quiénes lo organizan</div>
       <h1 className="s-title">GENTE QUE VIVE Y<br />CONSTRUYE ACÁ</h1>
