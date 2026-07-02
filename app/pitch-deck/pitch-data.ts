@@ -107,7 +107,7 @@ export type Sponsor = {
 
 export const BALANZ: Sponsor = {
   name: 'Balanz',
-  logoSrc: '/sponsors/balanz.svg',
+  logoSrc: '/sponsors/balanz.png',
   coverEyebrow: 'Propuesta para Balanz · 2026',
   whyTitle: 'ACÁ ESTÁ TU CLIENTE',
   why: [

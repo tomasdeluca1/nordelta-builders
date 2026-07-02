@@ -269,7 +269,7 @@ img.builder-av { object-fit: cover; background: var(--surf); }
   font-size: 11px;
   color: var(--muted);
 }
-.sponsor-lockup .sl-logo { height: 26px; width: auto; display: block; }
+.sponsor-lockup .sl-logo { height: 20px; width: auto; display: block; background: #fff; padding: 7px 10px; border-radius: 6px; }
 
 .deck-cobrand {
   position: fixed;
@@ -287,11 +287,11 @@ img.builder-av { object-fit: cover; background: var(--surf); }
   font-size: 10px;
   color: var(--muted);
 }
-.deck-cobrand img { height: 18px; width: auto; display: block; }
+.deck-cobrand img { height: 15px; width: auto; display: block; background: #fff; padding: 5px 8px; border-radius: 5px; }
 
 /* ── Slide "Lo que proponemos" ── */
 .proposal { margin-top: 24px; max-width: 72ch; }
-.proposal-logo { height: 34px; width: auto; display: block; margin-bottom: 22px; }
+.proposal-logo { height: 24px; width: auto; display: inline-block; background: #fff; padding: 9px 13px; border-radius: 8px; margin-bottom: 22px; }
 .proposal-list { margin: 18px 0 0; padding: 0; list-style: none; }
 .proposal-list li {
   position: relative;
