@@ -22,7 +22,7 @@
   html, body { margin: 0; padding: 0; background: #fff; color: var(--ink); }
   body { font-family: 'DM Sans', -apple-system, Segoe UI, Roboto, sans-serif; font-size: 12.2px; line-height: 1.62; }
 
-  .page { width: 794px; margin: 0 auto; padding: 56px 64px 48px; }
+  .page { width: 100%; max-width: 794px; margin: 0 auto; padding: 56px 64px 48px; }
 
   .eyebrow { font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.16em; font-size: 10px; color: var(--accent); }
   h1 { font-family: 'Bebas Neue', sans-serif; font-weight: 400; letter-spacing: 0.02em; font-size: 52px; line-height: 0.98; margin: 8px 0 6px; }
@@ -56,6 +56,17 @@
   .foot { margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--line); font-family: 'Space Mono', monospace; font-size: 11px; color: var(--soft); }
   .foot a { color: var(--accent-ink); text-decoration: none; }
   .foot .big { display: block; color: var(--ink); font-size: 13px; margin-bottom: 3px; }
+
+  @media (max-width: 640px) {
+    body { font-size: 13.2px; }
+    .page { padding: 30px 18px 40px; }
+    h1 { font-size: 40px; }
+    .sub { font-size: 13px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .cols { grid-template-columns: 1fr; gap: 0; }
+    .cycle th:nth-child(2), .cycle td:nth-child(2) { white-space: normal; }
+    .foot .big { line-height: 1.9; }
+  }
 
   @page { size: A4; margin: 0; }
   @media print {
@@ -154,7 +165,7 @@
   </section>
 
   <div class="foot">
-    <span class="big"><a href="mailto:tomasdelucaa@gmail.com">tomasdelucaa@gmail.com</a> &nbsp;·&nbsp; <a href="mailto:patricio@mateandbuild.com.ar">patricio@mateandbuild.com.ar</a></span>
+    <span class="big"><a href="mailto:tomasdelucaa@gmail.com">tomasdelucaa@gmail.com</a> · <a href="mailto:patricio@mateandbuild.com.ar">patricio@mateandbuild.com.ar</a></span>
     nordelta.tech
   </div>
 

@@ -344,6 +344,18 @@ img.builder-av { object-fit: cover; background: var(--surf); }
   .deck-dots { display: none; }
 }
 
+/* Mobile: el deck deja de ser fijo con overflow:hidden y el slide activo scrollea */
+@media (max-width: 720px) {
+  .deck { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .deck-stage { position: static; display: block; min-height: 100%; }
+  .slide { width: 100%; max-height: none; padding: 88px 20px 132px; }
+  .slide.is-active { display: block; }
+  .slide-no { display: none; }
+  .s-title { font-size: clamp(30px, 8.5vw, 52px); }
+  .s-bignum { font-size: clamp(56px, 19vw, 104px); }
+  .sponsor-lockup { flex-wrap: wrap; }
+}
+
 /* Print → un slide por página, fondo oscuro, sin controles */
 @media print {
   @page { size: 1280px 720px; margin: 0; }
