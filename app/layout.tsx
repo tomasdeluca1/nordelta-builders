@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
 
 const siteUrl = process.env.APP_URL?.trim() || 'https://nordelta.tech';
@@ -48,7 +49,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id="c6d29b68-5d43-4ebf-96cb-74b8ca555a80"
+          strategy="afterInteractive"
+        />
+      </body>
     </html>
   );
 }
