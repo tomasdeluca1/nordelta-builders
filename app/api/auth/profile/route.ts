@@ -2,27 +2,12 @@ import { NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { getDb, schema } from '@/lib/db';
 import { getSession } from '@/lib/auth';
+import { ROLES, ROLE_TITLE } from '@/lib/profile-fields';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const ALLOWED_ROLES = new Set([
-  'Founder/CEO',
-  'Developer/Engineer',
-  'Product/Design',
-  'Marketing/Growth',
-  'Inversor',
-  'Otro',
-]);
-
-const ROLE_TITLE: Record<string, string> = {
-  'Founder/CEO':        'Founder',
-  'Developer/Engineer': 'Dev',
-  'Product/Design':     'Product',
-  'Marketing/Growth':   'Growth',
-  'Inversor':           'Inversor',
-  'Otro':               'Builder',
-};
+const ALLOWED_ROLES = new Set<string>(ROLES);
 
 function getInitials(name: string): string {
   return name.trim().split(/\s+/).slice(0, 2).map(n => n[0]?.toUpperCase() ?? '').join('') || '?';

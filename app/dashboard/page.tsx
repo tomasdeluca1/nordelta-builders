@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ROLES } from '@/lib/profile-fields';
 import '../auth.css';
 
 interface User {
@@ -35,7 +36,6 @@ const PALETTE = [
   { bg: 'rgba(76,175,80,.12)',  color: '#4caf50' },
 ];
 
-const ROLES = ['Founder/CEO', 'Developer/Engineer', 'Product/Design', 'Marketing/Growth', 'Inversor', 'Otro'];
 const AVAILABLE_TAGS = ['AI', 'SaaS', 'Fintech', 'Web3', 'Proptech', 'Dev', 'Design', 'Marketing', 'Founder', 'Builder', 'Inversor'];
 
 export default function DashboardPage() {
@@ -231,14 +231,14 @@ export default function DashboardPage() {
                 <input value={user.email} disabled readOnly className="auth-input-readonly" />
               </label>
               <label className="auth-label">
-                <span>Rol</span>
+                <span>Área</span>
                 <select required value={profile.role} onChange={e => setProfile({ ...profile, role: e.target.value })}>
                   {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
                 </select>
               </label>
               <label className="auth-label">
-                <span>Job title</span>
-                <input placeholder="Ej. Founder, Dev, Product…" value={profile.jobTitle} onChange={e => setProfile({ ...profile, jobTitle: e.target.value })} />
+                <span>Cargo</span>
+                <input placeholder="Ej. Partner & CTO" maxLength={80} value={profile.jobTitle} onChange={e => setProfile({ ...profile, jobTitle: e.target.value })} />
               </label>
               <div className="auth-row">
                 <label className="auth-label">
