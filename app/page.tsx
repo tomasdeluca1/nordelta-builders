@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import PresentationFields, { EMPTY_PRESENTATION, presentationPayload, type PresentationState } from './components/PresentationFields';
+import { ROLES } from '@/lib/profile-fields';
 
 interface HuevsiteData {
   username: string;
@@ -58,7 +59,7 @@ export default function Home() {
 
   const [navScrolled, setNavScrolled] = useState(false);
   const [membersLoading, setMembersLoading] = useState(true);
-  const [formData, setFormData] = useState({ name: '', email: '', role: '', company: '', companyUrl: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', role: '', jobTitle: '', company: '', companyUrl: '' });
   const [formTags, setFormTags] = useState<string[]>([]);
   const [presentation, setPresentation] = useState<PresentationState>(EMPTY_PRESENTATION);
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -220,7 +221,7 @@ export default function Home() {
   };
 
   const handleAddAnother = () => {
-    setFormData({ name: '', email: '', role: '', company: '', companyUrl: '' });
+    setFormData({ name: '', email: '', role: '', jobTitle: '', company: '', companyUrl: '' });
     setFormTags([]);
     setPresentation(EMPTY_PRESENTATION);
     setFormStatus('idle');
@@ -692,17 +693,18 @@ export default function Home() {
                     <label>E-mail</label>
                     <input required type="email" placeholder="ada@ejemplo.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
                   </div>
-                  <div className="field">
-                    <label>¿A qué te dedicás?</label>
-                    <select required value={formData.role} onChange={e => setFormData({...formData, role: e.target.value})}>
-                      <option value="" disabled>Seleccioná tu rol...</option>
-                      <option value="Founder/CEO">Founder / CEO</option>
-                      <option value="Developer/Engineer">Developer / Engineer</option>
-                      <option value="Product/Design">Product / Design</option>
-                      <option value="Marketing/Growth">Marketing / Growth</option>
-                      <option value="Inversor">Inversor / VC</option>
-                      <option value="Otro">Otro</option>
-                    </select>
+                  <div className="form-grid">
+                    <div className="field">
+                      <label>¿Cuál es tu área?</label>
+                      <select required value={formData.role} onChange={e => setFormData({...formData, role: e.target.value})}>
+                        <option value="" disabled>Seleccioná tu área...</option>
+                        {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+                      </select>
+                    </div>
+                    <div className="field">
+                      <label>Cargo <span className="opt">(opcional)</span></label>
+                      <input placeholder="Ej. Partner & CTO" maxLength={80} value={formData.jobTitle} onChange={e => setFormData({...formData, jobTitle: e.target.value})} />
+                    </div>
                   </div>
                   <div className="form-grid">
                     <div className="field">
