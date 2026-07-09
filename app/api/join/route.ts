@@ -5,6 +5,7 @@ import { defaultPasswordFor, hashPassword } from '@/lib/password';
 import { sendWelcomeEmail, sendAdminNewRegistrationEmail } from '@/lib/email';
 import { parsePresentationFields, normalizeUrl } from '@/lib/presentation';
 import { parseHuevsiteUsername } from '@/lib/huevsite';
+import { ROLE_TITLE, ROLE_TAGS } from '@/lib/profile-fields';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -13,24 +14,6 @@ function getInitials(name: string): string {
   return name.trim().split(/\s+/).slice(0, 2).map(n => n[0]?.toUpperCase() ?? '').join('') || '?';
 }
 
-const ROLE_TITLE: Record<string, string> = {
-  'Founder/CEO':        'Founder',
-  'Developer/Engineer': 'Dev',
-  'Product/Design':     'Product',
-  'Marketing/Growth':   'Growth',
-  'Inversor':           'Inversor',
-  'Otro':               'Builder',
-};
-
-const ROLE_TAGS: Record<string, string[]> = {
-  'Founder/CEO':        ['Founder'],
-  'Developer/Engineer': ['Dev'],
-  'Product/Design':     ['Product'],
-  'Marketing/Growth':   ['Growth'],
-  'Inversor':           ['Inversor'],
-  'Otro':               ['Builder'],
-};
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -38,6 +21,7 @@ export async function POST(request: Request) {
     const name = typeof body.name === 'string' ? body.name.trim() : '';
     const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
     const role = typeof body.role === 'string' ? body.role.trim() : '';
+    const jobTitleRaw = typeof body.jobTitle === 'string' ? body.jobTitle.trim().slice(0, 80) : '';
 
     if (!name || !email || !role) {
       return NextResponse.json({ error: 'Name, email, and role are required' }, { status: 400 });
@@ -76,7 +60,7 @@ export async function POST(request: Request) {
       mustChangePassword: true,
       initials: getInitials(name),
       role,
-      jobTitle: ROLE_TITLE[role] ?? role,
+      jobTitle: jobTitleRaw || (ROLE_TITLE[role] ?? role),
       company,
       companyUrl: normalizeUrl(body.companyUrl),
       tags,
