@@ -20,11 +20,11 @@ function loadDotEnv() {
 const IDENTITY_TAGS = new Set(['Founder', 'Dev', 'Product', 'Growth', 'Builder', 'Inversor']);
 
 const ROLE_LABEL = {
-  'Founder/CEO': 'Founder / CEO',
-  'Developer/Engineer': 'Dev / Engineer',
-  'Marketing/Growth': 'Marketing / Growth',
-  'Product/Design': 'Product / Design',
-  'Inversor': 'Inversor',
+  'Negocio / Fundación': 'Founder / CEO',
+  'Tecnología': 'Dev / Engineer',
+  'Marketing / Growth': 'Marketing / Growth',
+  'Producto / Diseño': 'Product / Design',
+  'Inversión': 'Inversor',
   'Otro': 'Otro',
 };
 

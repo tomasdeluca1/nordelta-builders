@@ -1269,8 +1269,6 @@ nav.scrolled {
 /* CTA de la comunidad (Ver todos / Sumate / Conectá huevsite) */
 .members-join { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: clamp(28px, 4vw, 48px); }
 
-/* Modal "Ver todos" + buscador */
-.modal-card-wide { max-width: 760px; width: 92vw; }
 /* ── Nav: chip de usuario logueado (top-right) ───────────────────── */
 .nav-user { display: flex; align-items: center; gap: 9px; text-decoration: none; padding: 5px 12px 5px 5px; border: 1px solid var(--border2); border-radius: 999px; background: var(--surf); transition: border-color .2s; }
 .nav-user:hover { border-color: var(--accent); }

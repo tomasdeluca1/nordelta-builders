@@ -64,7 +64,7 @@ async function main() {
   console.log('\n2) Link mágico → /completar → POST /api/presentation');
   const ins = await sql`
     INSERT INTO members (name, email, password_hash, initials, role, status, profile_submitted_at, building)
-    VALUES ('Verify Tester', ${magicEmail}, 'x', 'VT', 'Developer/Engineer', 'pending', NULL, 'PREFILL-CHECK-XYZ')
+    VALUES ('Verify Tester', ${magicEmail}, 'x', 'VT', 'Tecnología', 'pending', NULL, 'PREFILL-CHECK-XYZ')
     RETURNING id`;
   const magicId = ins[0].id;
   const token = await sealData({ memberId: magicId, purpose: 'complete-profile' }, { password: pwd, ttl: 3600 });
@@ -80,13 +80,13 @@ async function main() {
   delete noLi.linkedinUrl;
   const reqRes = await fetch(`${BASE}/api/presentation`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token, name: 'Verify Tester', role: 'Developer/Engineer', ...noLi }),
+    body: JSON.stringify({ token, name: 'Verify Tester', role: 'Tecnología', ...noLi }),
   });
   check(reqRes.status === 400, 'POST /api/presentation sin LinkedIn → 400 (requerido)');
 
   const presRes = await fetch(`${BASE}/api/presentation`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token, name: 'Verify Tester', role: 'Developer/Engineer', company: 'QA Inc', companyUrl: 'qa.test', ...richPayload }),
+    body: JSON.stringify({ token, name: 'Verify Tester', role: 'Tecnología', company: 'QA Inc', companyUrl: 'qa.test', ...richPayload }),
   });
   const presData = await presRes.json().catch(() => ({}));
   check(presRes.status === 200 && presData.success, 'POST /api/presentation devuelve success');
@@ -109,7 +109,7 @@ async function main() {
   console.log('\n3) Alta nueva → POST /api/join (form rico)');
   const joinRes = await fetch(`${BASE}/api/join`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: 'Join Tester', email: joinEmail, role: 'Founder/CEO', company: 'NewCo', companyUrl: 'newco.test', tags: ['SaaS'], ...richPayload }),
+    body: JSON.stringify({ name: 'Join Tester', email: joinEmail, role: 'Negocio / Fundación', company: 'NewCo', companyUrl: 'newco.test', tags: ['SaaS'], ...richPayload }),
   });
   const joinData = await joinRes.json().catch(() => ({}));
   check(joinRes.status === 201 && joinData.pending, 'POST /api/join crea pendiente (201)');

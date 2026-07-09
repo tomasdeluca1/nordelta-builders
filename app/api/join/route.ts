@@ -5,10 +5,12 @@ import { defaultPasswordFor, hashPassword } from '@/lib/password';
 import { sendWelcomeEmail, sendAdminNewRegistrationEmail } from '@/lib/email';
 import { parsePresentationFields, normalizeUrl } from '@/lib/presentation';
 import { parseHuevsiteUsername } from '@/lib/huevsite';
-import { ROLE_TITLE, ROLE_TAGS } from '@/lib/profile-fields';
+import { ROLES, ROLE_TITLE, ROLE_TAGS } from '@/lib/profile-fields';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+const ALLOWED_ROLES = new Set<string>(ROLES);
 
 function getInitials(name: string): string {
   return name.trim().split(/\s+/).slice(0, 2).map(n => n[0]?.toUpperCase() ?? '').join('') || '?';
@@ -25,6 +27,9 @@ export async function POST(request: Request) {
 
     if (!name || !email || !role) {
       return NextResponse.json({ error: 'Name, email, and role are required' }, { status: 400 });
+    }
+    if (!ALLOWED_ROLES.has(role)) {
+      return NextResponse.json({ error: 'Rol inválido' }, { status: 400 });
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: 'Invalid email' }, { status: 400 });

@@ -31,7 +31,7 @@ export async function PATCH(request: Request) {
     const body = await request.json();
     const name = typeof body.name === 'string' ? body.name.trim() : '';
     const role = typeof body.role === 'string' ? body.role.trim() : '';
-    const jobTitleRaw = typeof body.jobTitle === 'string' ? body.jobTitle.trim() : '';
+    const jobTitleRaw = typeof body.jobTitle === 'string' ? body.jobTitle.trim().slice(0, 80) : '';
     const company = typeof body.company === 'string' ? body.company.trim() : '';
     const companyUrl = normalizeUrl(typeof body.companyUrl === 'string' ? body.companyUrl : '');
     const tags: string[] | null = Array.isArray(body.tags)

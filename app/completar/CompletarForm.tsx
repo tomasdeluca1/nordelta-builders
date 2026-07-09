@@ -97,9 +97,9 @@ export default function CompletarForm({
         <input value={initial.email} disabled readOnly className="auth-input-readonly" />
       </div>
       <div className="field">
-        <label>¿A qué te dedicás?</label>
+        <label>¿Cuál es tu área?</label>
         <select required value={identity.role} onChange={(e) => setIdentity({ ...identity, role: e.target.value })}>
-          <option value="" disabled>Seleccioná tu rol…</option>
+          <option value="" disabled>Seleccioná tu área…</option>
           {ROLES.map((r) => (
             <option key={r} value={r}>{r}</option>
           ))}
