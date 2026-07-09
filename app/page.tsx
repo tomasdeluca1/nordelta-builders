@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import PresentationFields, { EMPTY_PRESENTATION, presentationPayload, type PresentationState } from './components/PresentationFields';
 import { ROLES } from '@/lib/profile-fields';
+import CommunityDirectory from './components/CommunityDirectory';
+import { PALETTE } from '@/lib/palette';
 
 interface HuevsiteData {
   username: string;
@@ -29,24 +31,9 @@ interface Member {
   huevsite?: HuevsiteData | null;
 }
 
-const PALETTE = [
-  { bg: 'rgba(0,229,160,.1)',  color: '#00e5a0' },
-  { bg: 'rgba(33,150,243,.1)', color: '#2196f3' },
-  { bg: 'rgba(255,152,0,.1)',  color: '#ff9800' },
-  { bg: 'rgba(156,39,176,.1)', color: '#9c27b0' },
-  { bg: 'rgba(244,67,54,.1)',  color: '#ef5350' },
-  { bg: 'rgba(0,188,212,.1)',  color: '#00bcd4' },
-  { bg: 'rgba(255,193,7,.1)',  color: '#ffc107' },
-  { bg: 'rgba(76,175,80,.1)',  color: '#4caf50' },
-];
-
 export default function Home() {
   const [isMobOpen, setIsMobOpen] = useState(false);
   const [showJoinModal, setShowJoinModal] = useState(false);
-  const [showAllModal, setShowAllModal] = useState(false);
-  const [allMembers, setAllMembers] = useState<Member[]>([]);
-  const [allLoaded, setAllLoaded] = useState(false);
-  const [allQuery, setAllQuery] = useState('');
   const [me, setMe] = useState<{ name: string; initials: string; colorIndex: number; huevsiteUsername?: string | null } | null>(null);
   const [huevSlide, setHuevSlide] = useState(0);
   const [huevPaused, setHuevPaused] = useState(false);
@@ -166,16 +153,6 @@ export default function Home() {
     return out;
   })();
 
-  const openAllModal = () => {
-    setShowAllModal(true);
-    if (!allLoaded) {
-      fetch('/api/members/all')
-        .then((r) => r.json())
-        .then((data) => { setAllMembers(data.members ?? []); setAllLoaded(true); })
-        .catch(() => setAllLoaded(true));
-    }
-  };
-
   useEffect(() => {
     const handleResize = () => { if (window.innerWidth > 960) closeMob(); };
     window.addEventListener('resize', handleResize);
@@ -199,9 +176,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (isMobOpen || showJoinModal || showAllModal || huevView) document.body.style.overflow = 'hidden';
+    if (isMobOpen || showJoinModal || huevView) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = '';
-  }, [isMobOpen, showJoinModal, showAllModal, huevView]);
+  }, [isMobOpen, showJoinModal, huevView]);
 
   const handleJoinSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -546,10 +523,9 @@ export default function Home() {
           </div>
         )}
 
+        <CommunityDirectory onOpenHuevsite={setHuevView} />
+
         <div className="members-join">
-          <button onClick={openAllModal} className="btn btn-outline">
-            Ver todos {memberTotal ? `los ${memberTotal} ` : ''}builders →
-          </button>
           {me
             ? <a href="/dashboard" className="btn btn-outline">Conectá tu huevsite →</a>
             : <button onClick={() => setShowJoinModal(true)} className="btn btn-green">Sumate a la comunidad →</button>}
@@ -601,64 +577,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-
-      {/* JOIN MODAL */}
-      {showAllModal && (
-        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowAllModal(false); }}>
-          <div className="modal-card modal-card-wide">
-            <button onClick={() => setShowAllModal(false)} className="modal-close" aria-label="Cerrar">&times;</button>
-            <div className="modal-eyebrow">$ ls --community</div>
-            <h3 className="modal-title">Toda la <span className="green">comunidad</span></h3>
-            <input
-              className="all-search"
-              placeholder="Buscar por nombre, empresa, rol o tag…"
-              value={allQuery}
-              onChange={(e) => setAllQuery(e.target.value)}
-              autoFocus
-            />
-            {!allLoaded ? (
-              <p className="all-empty">Cargando builders…</p>
-            ) : (() => {
-              const q = allQuery.trim().toLowerCase();
-              const filtered = q
-                ? allMembers.filter((m) =>
-                    [m.name, m.company, m.role, m.jobTitle, ...(m.tags ?? [])]
-                      .filter(Boolean)
-                      .some((f) => String(f).toLowerCase().includes(q)))
-                : allMembers;
-              if (!filtered.length) return <p className="all-empty">No encontramos a nadie con eso.</p>;
-              return (
-                <>
-                  <div className="all-count">{filtered.length} de {allMembers.length}</div>
-                  <div className="all-grid">
-                    {filtered.map((m) => {
-                      const c = PALETTE[m.colorIndex % PALETTE.length];
-                      const showHuev = Boolean(m.huevsiteUsername);
-                      return (
-                        <div className="all-row" key={m._id}>
-                          <div className="all-av" style={{ background: c.bg, color: c.color }}>{m.initials}</div>
-                          <div className="all-info">
-                            <div className="all-name">{m.name}</div>
-                            <div className="all-role">
-                              {m.jobTitle && m.company ? `${m.jobTitle} @ ${m.company}` : m.role}
-                            </div>
-                          </div>
-                          {showHuev && (
-                            <button
-                              className="all-huev"
-                              onClick={() => setHuevView({ username: m.huevsiteUsername as string, name: m.name })}
-                            >huevsite →</button>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </>
-              );
-            })()}
-          </div>
-        </div>
-      )}
 
       {showJoinModal && (
         <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowJoinModal(false); }}>
