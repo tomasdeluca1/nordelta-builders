@@ -1342,3 +1342,25 @@ nav.scrolled {
   .huev-car-hint { display: none; }
   .huev-car-arrow { width: 38px; height: 38px; }
 }
+
+/* ── Directorio de la comunidad (grilla escalonada) ─────────────────── */
+.dir { margin-top: 28px; }
+.dir-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+.dir-search { flex: 1; min-width: 220px; background: var(--surf); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; color: var(--text); font-family: inherit; font-size: 14px; }
+.dir-search:focus { outline: none; border-color: var(--accent); }
+.dir-count { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.dir-empty { color: var(--muted); font-size: 14px; padding: 24px 0; text-align: center; }
+.dir-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.dir-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surf); min-width: 0; }
+.dir-card-t1 { border-color: rgba(0,229,160,.35); background: linear-gradient(180deg, rgba(0,229,160,.05), var(--surf)); }
+.dir-av { width: 40px; height: 40px; flex: 0 0 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+.dir-av-img { object-fit: cover; }
+.dir-info { min-width: 0; flex: 1; }
+.dir-name { color: var(--text); font-weight: 600; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 8px; }
+.dir-score { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent); border: 1px solid rgba(0,229,160,.35); border-radius: 999px; padding: 1px 7px; flex: 0 0 auto; }
+.dir-sub { color: var(--muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dir-cta { background: none; border: 1px solid var(--border); color: var(--accent); border-radius: 999px; padding: 6px 12px; font-size: 12px; cursor: pointer; font-family: inherit; white-space: nowrap; text-decoration: none; }
+.dir-cta:hover { border-color: var(--accent); }
+.dir-more { display: block; margin: 18px auto 0; }
+@media (max-width: 960px) { .dir-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .dir-grid { grid-template-columns: 1fr; } }
