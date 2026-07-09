@@ -2,23 +2,36 @@
 // el admin y la validación del backend. Editá estas listas para ajustar barrios
 // o intenciones de matchmaking.
 
+// `role` es la FUNCIÓN/ÁREA del builder (lista cerrada, para filtros y
+// validación). El título real va en `jobTitle` (texto libre, ej. "Partner &
+// CTO"); si queda vacío se deriva con ROLE_TITLE.
 export const ROLES = [
-  'Founder/CEO',
-  'Developer/Engineer',
-  'Product/Design',
-  'Marketing/Growth',
-  'Inversor',
+  'Negocio / Fundación',
+  'Tecnología',
+  'Producto / Diseño',
+  'Marketing / Growth',
+  'Inversión',
   'Otro',
 ] as const;
 
-// Job title corto derivado del rol (espejo del de /api/join).
+// Cargo corto derivado de la función (fallback cuando no escriben el suyo).
 export const ROLE_TITLE: Record<string, string> = {
-  'Founder/CEO': 'Founder',
-  'Developer/Engineer': 'Dev',
-  'Product/Design': 'Product',
-  'Marketing/Growth': 'Growth',
-  'Inversor': 'Inversor',
-  'Otro': 'Builder',
+  'Negocio / Fundación': 'Founder',
+  'Tecnología':          'Dev',
+  'Producto / Diseño':   'Product',
+  'Marketing / Growth':  'Growth',
+  'Inversión':           'Inversor',
+  'Otro':                'Builder',
+};
+
+// Tags default del alta cuando el usuario no elige ninguno (espejo por función).
+export const ROLE_TAGS: Record<string, string[]> = {
+  'Negocio / Fundación': ['Founder'],
+  'Tecnología':          ['Dev'],
+  'Producto / Diseño':   ['Product'],
+  'Marketing / Growth':  ['Growth'],
+  'Inversión':           ['Inversor'],
+  'Otro':                ['Builder'],
 };
 
 // Barrios de Nordelta + localidades de zona norte.
