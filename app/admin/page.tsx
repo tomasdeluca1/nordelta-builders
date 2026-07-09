@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { NEIGHBORHOODS, LOOKING_FOR_OPTIONS } from '@/lib/profile-fields';
+import { NEIGHBORHOODS, LOOKING_FOR_OPTIONS, ROLES } from '@/lib/profile-fields';
 import '../auth.css';
 import './admin.css';
 
@@ -38,7 +38,6 @@ interface AdminMember {
 }
 
 const HUEVSITE_URL = 'https://huevsite.io';
-const ROLES = ['Founder/CEO', 'Developer/Engineer', 'Product/Design', 'Marketing/Growth', 'Inversor', 'Otro'];
 const AVAILABLE_TAGS = ['AI', 'SaaS', 'Fintech', 'Web3', 'Proptech', 'Dev', 'Design', 'Marketing', 'Founder', 'Builder', 'Inversor'];
 
 const TABS: { key: string; label: string }[] = [

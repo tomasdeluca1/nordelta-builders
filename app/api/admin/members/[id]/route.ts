@@ -4,13 +4,12 @@ import { getDb, schema } from '@/lib/db';
 import { requireAdmin, isOwner } from '@/lib/admin';
 import { parseHuevsiteUsername } from '@/lib/huevsite';
 import { parsePresentationFields } from '@/lib/presentation';
+import { ROLES } from '@/lib/profile-fields';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const ALLOWED_ROLES = new Set([
-  'Founder/CEO', 'Developer/Engineer', 'Product/Design', 'Marketing/Growth', 'Inversor', 'Otro',
-]);
+const ALLOWED_ROLES = new Set<string>(ROLES);
 
 function getInitials(name: string): string {
   return name.trim().split(/\s+/).slice(0, 2).map(n => n[0]?.toUpperCase() ?? '').join('') || '?';
