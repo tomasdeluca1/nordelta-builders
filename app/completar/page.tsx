@@ -99,6 +99,7 @@ export default async function CompletarPage({ searchParams }: { searchParams: { 
     name: member.name,
     email: member.email,
     role: member.role,
+    jobTitle: member.jobTitle ?? '',
     company: member.company ?? '',
     companyUrl: member.companyUrl ?? '',
     neighborhood: member.neighborhood ?? '',

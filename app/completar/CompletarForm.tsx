@@ -12,6 +12,7 @@ export interface CompletarInitial {
   name: string;
   email: string;
   role: string;
+  jobTitle: string;
   company: string;
   companyUrl: string;
   neighborhood: string;
@@ -38,6 +39,7 @@ export default function CompletarForm({
   const [identity, setIdentity] = useState({
     name: initial.name,
     role: initial.role || '',
+    jobTitle: initial.jobTitle || '',
     company: initial.company,
     companyUrl: initial.companyUrl,
   });
@@ -102,6 +104,10 @@ export default function CompletarForm({
             <option key={r} value={r}>{r}</option>
           ))}
         </select>
+      </div>
+      <div className="field">
+        <label>Cargo <span className="opt">(opcional)</span></label>
+        <input placeholder="Ej. Partner & CTO" maxLength={80} value={identity.jobTitle} onChange={(e) => setIdentity({ ...identity, jobTitle: e.target.value })} />
       </div>
       <div className="form-grid">
         <div className="field">

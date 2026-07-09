@@ -60,7 +60,9 @@ export async function POST(request: Request) {
   }
   if (typeof body.role === 'string' && ALLOWED_ROLES.has(body.role)) {
     set.role = body.role;
-    set.jobTitle = ROLE_TITLE[body.role] ?? body.role;
+    // El cargo lo escribe el builder; sólo se deriva del rol si viene vacío.
+    const jobTitleRaw = typeof body.jobTitle === 'string' ? body.jobTitle.trim().slice(0, 80) : '';
+    set.jobTitle = jobTitleRaw || (ROLE_TITLE[body.role] ?? body.role);
   }
   if (typeof body.company === 'string') set.company = body.company.trim().slice(0, 200) || null;
   if ('companyUrl' in body) set.companyUrl = normalizeUrl(body.companyUrl);
