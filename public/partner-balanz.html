@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nordelta Tech × Balanz — El acceso</title>
+<meta name="description" content="Qué recibe Balanz y qué cuesta: acceso a 230 builders de Zona Norte.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Nordelta Tech × Balanz — El acceso">
+<meta property="og:description" content="Qué recibe Balanz, quiénes son los ~230 builders y qué cuesta el ciclo de eventos.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nordelta.tech/partner-balanz.html">
+<meta property="og:image" content="https://nordelta.tech/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#05070a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E⚡%3C/text%3E%3C/svg%3E">
+<style>
+  /* Identidad Nordelta Tech — terminal / neón sobre negro.
+     Diseño comprometido con un único mundo visual (dark) a propósito: la marca ES dark-neón. */
+  @font-face { font-family:'Bebas Neue'; src:url('/assets/fonts/BebasNeue-Regular.ttf') format("truetype"); font-weight:400; font-display:swap; }
+  @font-face { font-family:'DM Sans';    src:url('/assets/fonts/DMSans-Regular.ttf') format("truetype"); font-weight:300 700; font-display:swap; }
+  @font-face { font-family:'Space Mono'; src:url('/assets/fonts/SpaceMono-Regular.ttf') format("truetype"); font-weight:400; font-display:swap; }
+
+  :root{
+    --bg:#05070a; --bg2:#0a0e12; --surf:#0d1217; --surf2:#11171e; --surf3:#161e26;
+    --border:#1a2128; --border2:#232c34; --border3:#2c3742;
+    --accent:#00e5a0; --accent2:#1ffdb6; --accentd:#00b87d;
+    --blue:#2196f3; --amber:#f59e0b;
+    --text:#e6edf3; --textd:#c4ccd4; --muted:#8194a3; --muted2:#52626e;
+    --r:6px; --r-lg:14px; --max:1080px; --pad:clamp(20px,5vw,56px);
+    --glow:0 0 0 1px rgba(0,229,160,.30), 0 0 40px rgba(0,229,160,.14);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'DM Sans',system-ui,sans-serif; line-height:1.62;
+    overflow-x:hidden; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    position:relative;
+  }
+  /* grilla ambiente */
+  body::before{
+    content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:linear-gradient(rgba(0,229,160,.045) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(0,229,160,.045) 1px,transparent 1px);
+    background-size:56px 56px;
+    -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 75%);
+            mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 0%,transparent 75%);
+    animation:gridflow 8s linear infinite;
+  }
+  /* grano */
+  body::after{
+    content:''; position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:.5; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+  @keyframes gridflow{to{background-position:0 56px,56px 0}}
+  @keyframes fadeup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  ::selection{background:rgba(0,229,160,.3); color:#fff}
+
+  .wrap{position:relative; z-index:1; max-width:var(--max); margin:0 auto; padding:0 var(--pad)}
+  .display{font-family:'Bebas Neue',sans-serif; letter-spacing:.02em; line-height:.9; text-wrap:balance}
+  .mono{font-family:'Space Mono',monospace}
+  .accent{color:var(--accent)}
+
+  /* topbar */
+  .bar{
+    position:sticky; top:0; z-index:100; height:56px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 var(--pad); background:rgba(5,7,10,.72);
+    backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);
+    border-bottom:1px solid var(--border);
+  }
+  .lockup{font-family:'Bebas Neue',sans-serif; font-size:1.15rem; letter-spacing:.06em; display:flex; align-items:center; gap:10px}
+  .lockup .x{color:var(--muted2); font-size:.9rem}
+  .lockup .nt{color:var(--accent)} .lockup .bz{color:var(--text)}
+  .bar .tag{font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); border:1px solid var(--border2); padding:5px 10px; border-radius:100px}
+
+  /* hero */
+  .hero{padding:clamp(64px,12vw,150px) 0 clamp(40px,6vw,72px)}
+  .eyebrow{font-family:'Space Mono',monospace; font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); display:inline-flex; align-items:center; gap:9px; margin-bottom:26px}
+  .eyebrow::before{content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 10px var(--accent)}
+  h1.display{font-size:clamp(3rem,9vw,6.4rem); margin-bottom:24px}
+  .lede{font-size:clamp(1.05rem,2.1vw,1.32rem); color:var(--textd); max-width:60ch; margin-bottom:12px}
+  .lede strong{color:var(--text); font-weight:700}
+  .subnote{font-family:'Space Mono',monospace; font-size:.75rem; color:var(--muted); margin-top:20px}
+
+  /* stat row */
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:48px}
+  .stat{background:var(--surf); border:1px solid var(--border2); border-radius:var(--r-lg); padding:26px 24px; position:relative; overflow:hidden}
+  .stat::after{content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(var(--accent),var(--accentd))}
+  .stat .n{font-family:'Bebas Neue',sans-serif; font-size:clamp(2.6rem,6vw,3.7rem); line-height:1; color:var(--accent); font-variant-numeric:tabular-nums}
+  .stat .n .pre{color:var(--muted); font-size:.6em; vertical-align:.06em}
+  .stat .l{font-family:'Space Mono',monospace; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-top:8px; line-height:1.5}
+
+  /* sections */
+  section{padding:clamp(56px,9vw,96px) 0; border-top:1px solid var(--border)}
+  .kicker{font-family:'Space Mono',monospace; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:16px}
+  h2.display{font-size:clamp(2.1rem,5.2vw,3.3rem); margin-bottom:14px}
+  .intro{color:var(--textd); max-width:58ch; font-size:1.05rem}
+
+  /* audience cards */
+  .cards{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:40px}
+  .card{background:var(--surf); border:1px solid var(--border2); border-radius:var(--r-lg); padding:28px; transition:border-color .2s, transform .2s}
+  .card:hover{border-color:var(--border3); transform:translateY(-2px)}
+  .card .big{font-family:'Bebas Neue',sans-serif; font-size:2.7rem; line-height:1; color:var(--text); font-variant-numeric:tabular-nums; display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
+  .card .big .sub{font-size:.9rem; font-family:'Space Mono',monospace; color:var(--accent); letter-spacing:.04em}
+  .card p{color:var(--muted); margin-top:12px; font-size:.98rem}
+  .card p b{color:var(--textd); font-weight:500}
+
+  /* entity chips */
+  .chips-label{font-family:'Space Mono',monospace; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted2); margin:40px 0 16px}
+  .chips{display:flex; flex-wrap:wrap; gap:9px}
+  .chip{font-family:'Space Mono',monospace; font-size:.8rem; color:var(--textd); background:var(--surf2); border:1px solid var(--border2); padding:8px 14px; border-radius:100px}
+  .chip.dim{color:var(--muted)}
+
+  /* honest callout */
+  .callout{margin-top:44px; background:linear-gradient(120deg,rgba(0,229,160,.09),rgba(0,229,160,.02)); border:1px solid rgba(0,229,160,.28); border-radius:var(--r-lg); padding:clamp(26px,4vw,40px); box-shadow:var(--glow)}
+  .callout .q{font-family:'Space Mono',monospace; font-size:.66rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:14px}
+  .callout p{font-family:'Bebas Neue',sans-serif; font-size:clamp(1.5rem,3.6vw,2.2rem); line-height:1.06; letter-spacing:.01em; color:var(--text)}
+  .callout p em{color:var(--accent); font-style:normal}
+
+  /* carrusel de la comunidad (quiénes son) */
+  .carousel{position:relative; width:100vw; margin-left:calc(50% - 50vw); margin-top:36px; display:flex; flex-direction:column; gap:22px; user-select:none; -webkit-user-select:none}
+  .crow{overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%); mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%)}
+  .ctrack{display:flex; gap:22px; width:max-content; will-change:transform; cursor:grab; touch-action:pan-y; padding:8px 0}
+  .ctrack.grabbing{cursor:grabbing}
+  .cav{position:relative; flex:0 0 auto; display:block; text-decoration:none; -webkit-tap-highlight-color:transparent; opacity:0; animation:cavin .55s cubic-bezier(.2,.7,.2,1) forwards}
+  .cav-face{width:132px; height:132px; border-radius:50%; object-fit:cover; object-position:top; border:2px solid var(--border2); background:var(--surf2); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 22px rgba(0,0,0,.5); transition:border-color .2s, transform .28s cubic-bezier(.2,.7,.2,1), box-shadow .28s}
+  .cav-init{font-family:'Bebas Neue',sans-serif; font-size:2.7rem; letter-spacing:.02em; border-width:1px; border-style:solid}
+  .cav:hover .cav-face,.cav:focus-visible .cav-face{border-color:var(--accent); transform:scale(1.08); box-shadow:0 12px 34px rgba(0,229,160,.22)}
+  @keyframes cavin{from{opacity:0; transform:scale(.82)} to{opacity:1; transform:scale(1)}}
+  .ctip{position:fixed; z-index:300; left:0; top:0; transform:translate(-50%,-100%); opacity:0; pointer-events:none; display:flex; flex-direction:column; align-items:center; text-align:center; max-width:280px; background:var(--surf3); border:1px solid var(--border3); border-radius:11px; padding:9px 17px 10px; box-shadow:0 18px 44px rgba(0,0,0,.6); transition:opacity .16s ease}
+  .ctip.show{opacity:1}
+  .ctip::before{content:""; position:absolute; left:18%; bottom:0; width:64%; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+  .ctip::after{content:""; position:absolute; left:32%; bottom:0; width:36%; height:1px; background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+  .ctip-n{font-weight:700; font-size:.9rem; color:var(--text); white-space:nowrap}
+  .ctip-d{font-family:'Space Mono',monospace; font-size:.64rem; line-height:1.5; color:var(--muted); margin-top:4px; letter-spacing:.02em; white-space:normal}
+  .carousel-cap{text-align:center; font-family:'Space Mono',monospace; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted2); margin:30px 0 0}
+  .roster-note{font-family:'Space Mono',monospace; font-size:.72rem; color:var(--muted); margin-top:14px; text-align:center}
+  @media(max-width:560px){ .carousel{gap:16px} .cav-face{width:92px; height:92px} .cav-init{font-size:1.9rem} .ctrack{gap:16px} .ctip{max-width:230px} }
+  @media (prefers-reduced-motion:reduce){ .cav{opacity:1; animation:none} }
+
+  /* offer blocks */
+  .offers{display:grid; gap:14px; margin-top:40px}
+  .offer{display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:start; background:var(--surf); border:1px solid var(--border2); border-radius:var(--r-lg); padding:30px clamp(24px,3vw,36px)}
+  .offer .idx{font-family:'Bebas Neue',sans-serif; font-size:2.4rem; line-height:1; color:var(--accent); opacity:.6}
+  .offer h3{font-family:'Bebas Neue',sans-serif; font-size:1.7rem; letter-spacing:.02em; margin-bottom:8px}
+  .offer p{color:var(--muted); font-size:1rem}
+  .offer .opt{display:inline-block; font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--amber); border:1px solid rgba(245,158,11,.4); padding:3px 9px; border-radius:100px; margin-left:10px; vertical-align:2px}
+
+  /* montos table */
+  .tablewrap{margin-top:36px; overflow-x:auto; border:1px solid var(--border2); border-radius:var(--r-lg)}
+  table{border-collapse:collapse; width:100%; min-width:640px; font-size:.95rem}
+  thead th{font-family:'Space Mono',monospace; font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-align:left; padding:16px 20px; background:var(--surf2); border-bottom:1px solid var(--border2); white-space:nowrap}
+  tbody td{padding:18px 20px; border-bottom:1px solid var(--border); vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:var(--surf)}
+  td.ev{font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:.02em; color:var(--text)}
+  td.ppl{font-family:'Space Mono',monospace; color:var(--textd); font-variant-numeric:tabular-nums}
+  .zero{color:var(--accent); font-family:'Space Mono',monospace; font-size:.85rem}
+  .quote{color:var(--muted); font-family:'Space Mono',monospace; font-size:.82rem}
+  .prize{color:var(--amber); font-family:'Space Mono',monospace; font-size:.82rem}
+  .dash{color:var(--muted2)}
+  .tnote{font-family:'Space Mono',monospace; font-size:.75rem; color:var(--muted); margin-top:16px}
+
+  /* cta */
+  .cta{text-align:center; padding-bottom:clamp(70px,10vw,120px)}
+  .cta h2{margin-bottom:18px}
+  .cta .intro{margin:0 auto 32px}
+  .btns{display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-family:'DM Sans',sans-serif; font-weight:700; font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; padding:15px 28px; border-radius:var(--r); border:1px solid transparent; transition:all .2s}
+  .btn.primary{background:var(--accent); color:#04120c; box-shadow:var(--glow)}
+  .btn.primary:hover{background:var(--accent2); transform:translateY(-2px)}
+  .btn.ghost{border-color:var(--border3); color:var(--textd)}
+  .btn.ghost:hover{border-color:var(--accent); color:var(--accent)}
+
+  footer{border-top:1px solid var(--border); padding:32px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px}
+  footer .mono{font-size:.72rem; color:var(--muted2); letter-spacing:.08em}
+  footer a{color:var(--accent); text-decoration:none}
+
+  /* Reveal = animación CSS pura: corre en load y SIEMPRE termina visible (opacity:1),
+     sin depender de JS ni de un observer. Nunca deja contenido oculto. */
+  .reveal{animation:fadeup .7s cubic-bezier(.2,.7,.2,1) both}
+  .reveal:nth-child(2){animation-delay:.06s}
+  .reveal:nth-child(3){animation-delay:.12s}
+  .reveal:nth-child(4){animation-delay:.18s}
+
+  @media (max-width:720px){
+    .stats{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .offer{grid-template-columns:1fr; gap:12px}
+    .offer .idx{font-size:1.8rem}
+    .bar .tag{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    body::before{animation:none}
+    .reveal{animation:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="lockup"><span class="nt">NORDELTA TECH</span><span class="x">×</span><span class="bz">BALANZ</span></div>
+  <span class="tag">Propuesta · 2026</span>
+</header>
+
+<div class="wrap">
+
+  <section class="hero" style="border-top:none">
+    <div class="eyebrow">Sponsor principal · Zona Norte</div>
+    <h1 class="display">Te damos acceso<br>a los que construyen.</h1>
+    <p class="lede"><strong>230 builders activos de Nordelta y Zona Norte</strong>, a metros de tu oficina nueva. No prometemos cuentas ni AUM: prometemos <strong>acceso directo y recurrente</strong> a esta audiencia. La relación la construís vos.</p>
+    <p class="subnote">// Pasamos de ~160 a ~230 en un mes. Todo boca a boca.</p>
+
+    <div class="stats">
+      <div class="stat reveal">
+        <div class="n"><span class="pre">~</span><span data-count="230">230</span></div>
+        <div class="l">Builders activos hoy</div>
+      </div>
+      <div class="stat reveal">
+        <div class="n"><span data-count="71">71</span>%</div>
+        <div class="l">Perfil relevante para Balanz</div>
+      </div>
+      <div class="stat reveal">
+        <div class="n"><span data-count="83">83</span>%</div>
+        <div class="l">Vive en Nordelta + Zona Norte</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">01 — El beneficio</div>
+    <h2 class="display">A quién accedés.</h2>
+    <p class="intro">La comunidad es tu cliente, reunido en un solo lugar. Esto es lo que hay adentro —datos reales de la base, al 16/07/2026.</p>
+
+    <div class="cards">
+      <div class="card reveal">
+        <div class="big">106 <span class="sub">+ 6 con exit real</span></div>
+        <p><b>Founders con liquidez.</b> Gente que ya vendió: Pulppo, Tanor, GoPersonal, Gapienz, Cleexs. El target de wealth management más jugoso, hoy en la comunidad.</p>
+      </div>
+      <div class="card reveal">
+        <div class="big">70 <span class="sub">devs · 10 cobran en USD</span></div>
+        <p><b>Perfil para dolarizar ahorro.</b> Roles senior en Amazon, Mercado Libre, Salesforce, Ford. Sueldo en dólares buscando dónde ponerlo.</p>
+      </div>
+      <div class="card reveal">
+        <div class="big">45 <span class="sub">fintech · 25 Web3 · 132 AI</span></div>
+        <p><b>Deal-flow temprano para una inversora.</b> Startups de la zona antes que nadie: Zeilo, Talo, DAMM Capital, Across Capital.</p>
+      </div>
+      <div class="card reveal">
+        <div class="big">24 <span class="sub">buscan invertir hoy</span></div>
+        <p><b>Audiencia caliente.</b> Marcan "busco inversión" en su perfil ahora mismo. Y el 65% tiene LinkedIn verificable.</p>
+      </div>
+    </div>
+
+    <div class="chips-label">Empresas representadas en la comunidad</div>
+    <div class="chips">
+      <span class="chip">Pulppo</span><span class="chip">Mudafy</span><span class="chip">Pachama</span>
+      <span class="chip">Cline</span><span class="chip">SquadS Ventures</span><span class="chip">Mercado Libre</span>
+      <span class="chip">Amazon</span><span class="chip">Humai</span><span class="chip">GoPersonal</span>
+      <span class="chip">Salesforce</span><span class="chip">DAMM Capital</span><span class="chip dim">+195 más</span>
+    </div>
+
+    <div class="callout reveal">
+      <div class="q">Seamos claros</div>
+      <p>No prometemos que abran cuentas. Prometemos <em>el acceso</em> a esta audiencia. La conversión la maneja Balanz.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">02 — Quiénes son</div>
+    <h2 class="display">El nivel, uno por uno.</h2>
+    <p class="intro">Una muestra del segmento más fuerte de la comunidad: 46 perfiles reales de la base. Pasá el mouse sobre cada uno para ver quién es, arrastrá para moverlo, y clic para ir a su LinkedIn.</p>
+    <div class="carousel">
+    <div class="crow" data-dir="-1" data-n="23">
+      <div class="ctrack">
+        <a class="cav" href="https://www.linkedin.com/in/agustiniglesias/" target="_blank" rel="noopener noreferrer" data-n="Agustín Iglesias" data-d="Cofundó y vendió Pulppo (YC S22) · hoy CEO de Propiedades.com" style="animation-delay:0ms" aria-label="Agustín Iglesias — Cofundó y vendió Pulppo (YC S22) · hoy CEO de Propiedades.com"><img class="cav-face" src="/community/agustin-iglesias.png" alt="Agustín Iglesias" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/gaston-krasny/" target="_blank" rel="noopener noreferrer" data-n="Gastón Krasny" data-d="CTO de Unicore · cofundó Sesocio (adquirida por Blockchain.com)" style="animation-delay:44ms" aria-label="Gastón Krasny — CTO de Unicore · cofundó Sesocio (adquirida por Blockchain.com)"><img class="cav-face" src="/community/gaston-krasny.png" alt="Gastón Krasny" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/jmbeltramini/" target="_blank" rel="noopener noreferrer" data-n="Jose Maria Beltramini" data-d="Cofundador de Summa Solutions · inversor y advisor en eCommerce + IA" style="animation-delay:88ms" aria-label="Jose Maria Beltramini — Cofundador de Summa Solutions · inversor y advisor en eCommerce + IA"><img class="cav-face" src="/community/jose-maria-beltramini.jpg" alt="Jose Maria Beltramini" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/diegonoriega/" target="_blank" rel="noopener noreferrer" data-n="Diego Noriega" data-d="Cofundador de SquadS Ventures · venture builder e inversor ángel · Endeavor" style="animation-delay:132ms" aria-label="Diego Noriega — Cofundador de SquadS Ventures · venture builder e inversor ángel · Endeavor"><img class="cav-face" src="/community/diego-noriega.jpg" alt="Diego Noriega" draggable="false" width="132" height="132" loading="lazy"></a>
+        <div class="cav" tabindex="0" data-n="Gonzalo Wartjes" data-d="Fundador y CEO de PhysaFlow" style="animation-delay:176ms" aria-label="Gonzalo Wartjes — Fundador y CEO de PhysaFlow"><span class="cav-face cav-init" style="background:rgba(255,152,0,.14);color:#ff9800">GW</span></div>
+        <a class="cav" href="https://www.linkedin.com/in/lucas-espina-81070a1b2/" target="_blank" rel="noopener noreferrer" data-n="Lucas Espina" data-d="Fundador y CEO de RestoHost AI · hosts para restaurantes con IA" style="animation-delay:220ms" aria-label="Lucas Espina — Fundador y CEO de RestoHost AI · hosts para restaurantes con IA"><img class="cav-face" src="/community/lucas-espina.jpg" alt="Lucas Espina" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/luquidiaz" target="_blank" rel="noopener noreferrer" data-n="Luqui Diaz" data-d="Cofundador y COO de Mudafy (YC S19)" style="animation-delay:264ms" aria-label="Luqui Diaz — Cofundador y COO de Mudafy (YC S19)"><img class="cav-face" src="/community/luqui-diaz.png" alt="Luqui Diaz" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/devmartinkiperszmid/" target="_blank" rel="noopener noreferrer" data-n="Martín Kiperszmid" data-d="Ingeniero de software Android · trabaja en Salesforce" style="animation-delay:308ms" aria-label="Martín Kiperszmid — Ingeniero de software Android · trabaja en Salesforce"><img class="cav-face" src="/community/martin-kiperszmid.jpg" alt="Martín Kiperszmid" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/mauroozuna" target="_blank" rel="noopener noreferrer" data-n="Mauro Ozuna" data-d="Cofundador y CPO de Volto · ex Amazon, Glovo y Mercado Libre" style="animation-delay:352ms" aria-label="Mauro Ozuna — Cofundador y CPO de Volto · ex Amazon, Glovo y Mercado Libre"><img class="cav-face" src="/community/mauro-adriano-ozuna.png" alt="Mauro Ozuna" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/barreiro-iffernet/" target="_blank" rel="noopener noreferrer" data-n="Tomás Barreiro" data-d="Ingeniero de software en Cline" style="animation-delay:396ms" aria-label="Tomás Barreiro — Ingeniero de software en Cline"><img class="cav-face" src="/community/tomas-martin-barreiro-iffernet.jpg" alt="Tomás Barreiro" draggable="false" width="132" height="132" loading="lazy"></a>
+        <div class="cav" tabindex="0" data-n="Fran Capurro Robles" data-d="Decano de Tecnología en la U. Nacional del Delta · impulsa el Hackathon CarpinchIA" style="animation-delay:440ms" aria-label="Fran Capurro Robles — Decano de Tecnología en la U. Nacional del Delta · impulsa el Hackathon CarpinchIA"><span class="cav-face cav-init" style="background:rgba(255,193,7,.14);color:#ffc107">FC</span></div>
+        <a class="cav" href="https://www.linkedin.com/in/geronimo-ferrari/" target="_blank" rel="noopener noreferrer" data-n="Gerónimo Ferrari" data-d="Ingeniero electrónico · DSP, embebidos y comunicaciones satelitales" style="animation-delay:484ms" aria-label="Gerónimo Ferrari — Ingeniero electrónico · DSP, embebidos y comunicaciones satelitales"><img class="cav-face" src="/community/geronimo-ferrari.jpg" alt="Gerónimo Ferrari" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/matiaspanusopulos/" target="_blank" rel="noopener noreferrer" data-n="Matías Panusópulos" data-d="Cofundador · director de growth marketing" style="animation-delay:528ms" aria-label="Matías Panusópulos — Cofundador · director de growth marketing"><img class="cav-face" src="/community/matias-panusopulos.jpg" alt="Matías Panusópulos" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/arribalzaga/" target="_blank" rel="noopener noreferrer" data-n="Rafael Arribalzaga" data-d="CEO de Prepolitan" style="animation-delay:572ms" aria-label="Rafael Arribalzaga — CEO de Prepolitan"><span class="cav-face cav-init" style="background:rgba(244,67,54,.14);color:#ef5350">RA</span></a>
+        <a class="cav" href="https://www.linkedin.com/in/fernando-c%C3%A1ceres-6536898/" target="_blank" rel="noopener noreferrer" data-n="Fernando Caceres" data-d="Ingeniero en sistemas · desarrollador fullstack" style="animation-delay:616ms" aria-label="Fernando Caceres — Ingeniero en sistemas · desarrollador fullstack"><img class="cav-face" src="/community/fernando-caceres.jpg" alt="Fernando Caceres" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/bartocanitrot/" target="_blank" rel="noopener noreferrer" data-n="Bartolomé Canitrot" data-d="Ingeniero de software · Bartolomé Studio" style="animation-delay:660ms" aria-label="Bartolomé Canitrot — Ingeniero de software · Bartolomé Studio"><img class="cav-face" src="/community/bartolome-canitrot.png" alt="Bartolomé Canitrot" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/daniel-khadour" target="_blank" rel="noopener noreferrer" data-n="Daniel Khadour" data-d="Desarrollador full-stack · fundador de VolApp (React / React Native)" style="animation-delay:704ms" aria-label="Daniel Khadour — Desarrollador full-stack · fundador de VolApp (React / React Native)"><img class="cav-face" src="/community/daniel-khadour.jpg" alt="Daniel Khadour" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/ignacio-pedro-dominguez-28a6b79" target="_blank" rel="noopener noreferrer" data-n="Ignacio Dominguez" data-d="Director comercial · estrategia y crecimiento de negocios" style="animation-delay:748ms" aria-label="Ignacio Dominguez — Director comercial · estrategia y crecimiento de negocios"><span class="cav-face cav-init" style="background:rgba(0,229,160,.14);color:#00e5a0">ID</span></a>
+        <a class="cav" href="https://www.linkedin.com/in/ivan-lendner/" target="_blank" rel="noopener noreferrer" data-n="Ivan Lendner" data-d="Fundador de Sentrio · infraestructura de ciber-riesgo para Latam" style="animation-delay:760ms" aria-label="Ivan Lendner — Fundador de Sentrio · infraestructura de ciber-riesgo para Latam"><img class="cav-face" src="/community/ivan-lendner.jpg" alt="Ivan Lendner" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/lorenzodurante-/" target="_blank" rel="noopener noreferrer" data-n="Lorenzo Durante" data-d="Desarrollador frontend en Valtech" style="animation-delay:760ms" aria-label="Lorenzo Durante — Desarrollador frontend en Valtech"><img class="cav-face" src="/community/lorenzo-durante.jpg" alt="Lorenzo Durante" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/mateo-litrenta-015774172/" target="_blank" rel="noopener noreferrer" data-n="Mateo Litrenta" data-d="Creando Zeilo · mercado de predicciones para Latam" style="animation-delay:760ms" aria-label="Mateo Litrenta — Creando Zeilo · mercado de predicciones para Latam"><img class="cav-face" src="/community/mateo-litrenta.jpg" alt="Mateo Litrenta" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/rdepiano" target="_blank" rel="noopener noreferrer" data-n="Román de Piano" data-d="Emprendedor · RJ Group" style="animation-delay:760ms" aria-label="Román de Piano — Emprendedor · RJ Group"><img class="cav-face" src="/community/roman-de-piano.jpg" alt="Román de Piano" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/valentin-llorens" target="_blank" rel="noopener noreferrer" data-n="Valentin Llorens" data-d="Cofundador de Pulpad (pádel)" style="animation-delay:760ms" aria-label="Valentin Llorens — Cofundador de Pulpad (pádel)"><img class="cav-face" src="/community/valentin-llorens.png" alt="Valentin Llorens" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/agustiniglesias/" target="_blank" rel="noopener noreferrer" data-n="Agustín Iglesias" data-d="Cofundó y vendió Pulppo (YC S22) · hoy CEO de Propiedades.com" style="animation-delay:0ms" aria-label="Agustín Iglesias — Cofundó y vendió Pulppo (YC S22) · hoy CEO de Propiedades.com"><img class="cav-face" src="/community/agustin-iglesias.png" alt="Agustín Iglesias" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/gaston-krasny/" target="_blank" rel="noopener noreferrer" data-n="Gastón Krasny" data-d="CTO de Unicore · cofundó Sesocio (adquirida por Blockchain.com)" style="animation-delay:44ms" aria-label="Gastón Krasny — CTO de Unicore · cofundó Sesocio (adquirida por Blockchain.com)"><img class="cav-face" src="/community/gaston-krasny.png" alt="Gastón Krasny" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/jmbeltramini/" target="_blank" rel="noopener noreferrer" data-n="Jose Maria Beltramini" data-d="Cofundador de Summa Solutions · inversor y advisor en eCommerce + IA" style="animation-delay:88ms" aria-label="Jose Maria Beltramini — Cofundador de Summa Solutions · inversor y advisor en eCommerce + IA"><img class="cav-face" src="/community/jose-maria-beltramini.jpg" alt="Jose Maria Beltramini" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/diegonoriega/" target="_blank" rel="noopener noreferrer" data-n="Diego Noriega" data-d="Cofundador de SquadS Ventures · venture builder e inversor ángel · Endeavor" style="animation-delay:132ms" aria-label="Diego Noriega — Cofundador de SquadS Ventures · venture builder e inversor ángel · Endeavor"><img class="cav-face" src="/community/diego-noriega.jpg" alt="Diego Noriega" draggable="false" width="132" height="132" loading="lazy"></a>
+        <div class="cav" tabindex="0" data-n="Gonzalo Wartjes" data-d="Fundador y CEO de PhysaFlow" style="animation-delay:176ms" aria-label="Gonzalo Wartjes — Fundador y CEO de PhysaFlow"><span class="cav-face cav-init" style="background:rgba(255,152,0,.14);color:#ff9800">GW</span></div>
+        <a class="cav" href="https://www.linkedin.com/in/lucas-espina-81070a1b2/" target="_blank" rel="noopener noreferrer" data-n="Lucas Espina" data-d="Fundador y CEO de RestoHost AI · hosts para restaurantes con IA" style="animation-delay:220ms" aria-label="Lucas Espina — Fundador y CEO de RestoHost AI · hosts para restaurantes con IA"><img class="cav-face" src="/community/lucas-espina.jpg" alt="Lucas Espina" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/luquidiaz" target="_blank" rel="noopener noreferrer" data-n="Luqui Diaz" data-d="Cofundador y COO de Mudafy (YC S19)" style="animation-delay:264ms" aria-label="Luqui Diaz — Cofundador y COO de Mudafy (YC S19)"><img class="cav-face" src="/community/luqui-diaz.png" alt="Luqui Diaz" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/devmartinkiperszmid/" target="_blank" rel="noopener noreferrer" data-n="Martín Kiperszmid" data-d="Ingeniero de software Android · trabaja en Salesforce" style="animation-delay:308ms" aria-label="Martín Kiperszmid — Ingeniero de software Android · trabaja en Salesforce"><img class="cav-face" src="/community/martin-kiperszmid.jpg" alt="Martín Kiperszmid" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/mauroozuna" target="_blank" rel="noopener noreferrer" data-n="Mauro Ozuna" data-d="Cofundador y CPO de Volto · ex Amazon, Glovo y Mercado Libre" style="animation-delay:352ms" aria-label="Mauro Ozuna — Cofundador y CPO de Volto · ex Amazon, Glovo y Mercado Libre"><img class="cav-face" src="/community/mauro-adriano-ozuna.png" alt="Mauro Ozuna" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/barreiro-iffernet/" target="_blank" rel="noopener noreferrer" data-n="Tomás Barreiro" data-d="Ingeniero de software en Cline" style="animation-delay:396ms" aria-label="Tomás Barreiro — Ingeniero de software en Cline"><img class="cav-face" src="/community/tomas-martin-barreiro-iffernet.jpg" alt="Tomás Barreiro" draggable="false" width="132" height="132" loading="lazy"></a>
+        <div class="cav" tabindex="0" data-n="Fran Capurro Robles" data-d="Decano de Tecnología en la U. Nacional del Delta · impulsa el Hackathon CarpinchIA" style="animation-delay:440ms" aria-label="Fran Capurro Robles — Decano de Tecnología en la U. Nacional del Delta · impulsa el Hackathon CarpinchIA"><span class="cav-face cav-init" style="background:rgba(255,193,7,.14);color:#ffc107">FC</span></div>
+        <a class="cav" href="https://www.linkedin.com/in/geronimo-ferrari/" target="_blank" rel="noopener noreferrer" data-n="Gerónimo Ferrari" data-d="Ingeniero electrónico · DSP, embebidos y comunicaciones satelitales" style="animation-delay:484ms" aria-label="Gerónimo Ferrari — Ingeniero electrónico · DSP, embebidos y comunicaciones satelitales"><img class="cav-face" src="/community/geronimo-ferrari.jpg" alt="Gerónimo Ferrari" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/matiaspanusopulos/" target="_blank" rel="noopener noreferrer" data-n="Matías Panusópulos" data-d="Cofundador · director de growth marketing" style="animation-delay:528ms" aria-label="Matías Panusópulos — Cofundador · director de growth marketing"><img class="cav-face" src="/community/matias-panusopulos.jpg" alt="Matías Panusópulos" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/arribalzaga/" target="_blank" rel="noopener noreferrer" data-n="Rafael Arribalzaga" data-d="CEO de Prepolitan" style="animation-delay:572ms" aria-label="Rafael Arribalzaga — CEO de Prepolitan"><span class="cav-face cav-init" style="background:rgba(244,67,54,.14);color:#ef5350">RA</span></a>
+        <a class="cav" href="https://www.linkedin.com/in/fernando-c%C3%A1ceres-6536898/" target="_blank" rel="noopener noreferrer" data-n="Fernando Caceres" data-d="Ingeniero en sistemas · desarrollador fullstack" style="animation-delay:616ms" aria-label="Fernando Caceres — Ingeniero en sistemas · desarrollador fullstack"><img class="cav-face" src="/community/fernando-caceres.jpg" alt="Fernando Caceres" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/bartocanitrot/" target="_blank" rel="noopener noreferrer" data-n="Bartolomé Canitrot" data-d="Ingeniero de software · Bartolomé Studio" style="animation-delay:660ms" aria-label="Bartolomé Canitrot — Ingeniero de software · Bartolomé Studio"><img class="cav-face" src="/community/bartolome-canitrot.png" alt="Bartolomé Canitrot" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/daniel-khadour" target="_blank" rel="noopener noreferrer" data-n="Daniel Khadour" data-d="Desarrollador full-stack · fundador de VolApp (React / React Native)" style="animation-delay:704ms" aria-label="Daniel Khadour — Desarrollador full-stack · fundador de VolApp (React / React Native)"><img class="cav-face" src="/community/daniel-khadour.jpg" alt="Daniel Khadour" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/ignacio-pedro-dominguez-28a6b79" target="_blank" rel="noopener noreferrer" data-n="Ignacio Dominguez" data-d="Director comercial · estrategia y crecimiento de negocios" style="animation-delay:748ms" aria-label="Ignacio Dominguez — Director comercial · estrategia y crecimiento de negocios"><span class="cav-face cav-init" style="background:rgba(0,229,160,.14);color:#00e5a0">ID</span></a>
+        <a class="cav" href="https://www.linkedin.com/in/ivan-lendner/" target="_blank" rel="noopener noreferrer" data-n="Ivan Lendner" data-d="Fundador de Sentrio · infraestructura de ciber-riesgo para Latam" style="animation-delay:760ms" aria-label="Ivan Lendner — Fundador de Sentrio · infraestructura de ciber-riesgo para Latam"><img class="cav-face" src="/community/ivan-lendner.jpg" alt="Ivan Lendner" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/lorenzodurante-/" target="_blank" rel="noopener noreferrer" data-n="Lorenzo Durante" data-d="Desarrollador frontend en Valtech" style="animation-delay:760ms" aria-label="Lorenzo Durante — Desarrollador frontend en Valtech"><img class="cav-face" src="/community/lorenzo-durante.jpg" alt="Lorenzo Durante" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/mateo-litrenta-015774172/" target="_blank" rel="noopener noreferrer" data-n="Mateo Litrenta" data-d="Creando Zeilo · mercado de predicciones para Latam" style="animation-delay:760ms" aria-label="Mateo Litrenta — Creando Zeilo · mercado de predicciones para Latam"><img class="cav-face" src="/community/mateo-litrenta.jpg" alt="Mateo Litrenta" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/rdepiano" target="_blank" rel="noopener noreferrer" data-n="Román de Piano" data-d="Emprendedor · RJ Group" style="animation-delay:760ms" aria-label="Román de Piano — Emprendedor · RJ Group"><img class="cav-face" src="/community/roman-de-piano.jpg" alt="Román de Piano" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/valentin-llorens" target="_blank" rel="noopener noreferrer" data-n="Valentin Llorens" data-d="Cofundador de Pulpad (pádel)" style="animation-delay:760ms" aria-label="Valentin Llorens — Cofundador de Pulpad (pádel)"><img class="cav-face" src="/community/valentin-llorens.png" alt="Valentin Llorens" draggable="false" width="132" height="132" loading="lazy"></a>
+      </div>
+    </div>
+    <div class="crow" data-dir="1" data-n="23">
+      <div class="ctrack">
+        <a class="cav" href="https://linkedin.com/in/fabrizioguaglianone" target="_blank" rel="noopener noreferrer" data-n="Fabrizio Guaglianone" data-d="Creador de Gapienz · cofundó y vendió Aionixs · arquitecto de IA" style="animation-delay:22ms" aria-label="Fabrizio Guaglianone — Creador de Gapienz · cofundó y vendió Aionixs · arquitecto de IA"><img class="cav-face" src="/community/fabrizio-guaglianone.png" alt="Fabrizio Guaglianone" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/garzuaga" target="_blank" rel="noopener noreferrer" data-n="Gonzalo Arzuaga" data-d="Fundador de Cleexs y Revolucia · serial founder · autor de 11 libros" style="animation-delay:66ms" aria-label="Gonzalo Arzuaga — Fundador de Cleexs y Revolucia · serial founder · autor de 11 libros"><img class="cav-face" src="/community/gonzalo-arzuagaq.jpg" alt="Gonzalo Arzuaga" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/mfocaraccio/" target="_blank" rel="noopener noreferrer" data-n="Mariano Focaraccio" data-d="CPO de Rombit · fundador de Drixit · ex-MURAL" style="animation-delay:110ms" aria-label="Mariano Focaraccio — CPO de Rombit · fundador de Drixit · ex-MURAL"><img class="cav-face" src="/community/mariano-focaraccio.jpg" alt="Mariano Focaraccio" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/dsaezgil/" target="_blank" rel="noopener noreferrer" data-n="Diego Saez Gil" data-d="Fundó Pachama (hoy en Carbon Direct) · antes Bluesmart" style="animation-delay:154ms" aria-label="Diego Saez Gil — Fundó Pachama (hoy en Carbon Direct) · antes Bluesmart"><img class="cav-face" src="/community/diego-saez-gil.jpg" alt="Diego Saez Gil" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/jorge-emiliano" target="_blank" rel="noopener noreferrer" data-n="Jorge Emiliano" data-d="Senior Data Scientist en Amazon · GenAI y ML en producción" style="animation-delay:198ms" aria-label="Jorge Emiliano — Senior Data Scientist en Amazon · GenAI y ML en producción"><img class="cav-face" src="/community/jorge-emiliano.png" alt="Jorge Emiliano" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/lucasdtoledo?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_ios" target="_blank" rel="noopener noreferrer" data-n="Lucas Toledo" data-d="Product Director en Mercado Libre · ex-founder" style="animation-delay:242ms" aria-label="Lucas Toledo — Product Director en Mercado Libre · ex-founder"><img class="cav-face" src="/community/lucas-toledo.jpg" alt="Lucas Toledo" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/marcelo-mendonca" target="_blank" rel="noopener noreferrer" data-n="Marcelo Mendonca" data-d="Partner y CTO de TSA Group International" style="animation-delay:286ms" aria-label="Marcelo Mendonca — Partner y CTO de TSA Group International"><img class="cav-face" src="/community/marcelo-mendonca.jpg" alt="Marcelo Mendonca" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/matias-grinberg" target="_blank" rel="noopener noreferrer" data-n="Matías Grinberg" data-d="Fundador y CEO de Humai" style="animation-delay:330ms" aria-label="Matías Grinberg — Fundador y CEO de Humai"><img class="cav-face" src="/community/matias-grinber.jpg" alt="Matías Grinberg" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/sebasti%C3%A1n-schvartzman-6a07b216/" target="_blank" rel="noopener noreferrer" data-n="Sebastian Schvartzman" data-d="CFO y ejecutivo financiero senior · board member · MBA" style="animation-delay:374ms" aria-label="Sebastian Schvartzman — CFO y ejecutivo financiero senior · board member · MBA"><img class="cav-face" src="/community/sebastian-schvartzman.jpg" alt="Sebastian Schvartzman" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/azul-gaddi?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_ios" target="_blank" rel="noopener noreferrer" data-n="Azul Gaddi" data-d="Venture capital en Picante Startups · brand &amp; business building" style="animation-delay:418ms" aria-label="Azul Gaddi — Venture capital en Picante Startups · brand &amp; business building"><img class="cav-face" src="/community/azul-gaddi.jpg" alt="Azul Gaddi" draggable="false" width="132" height="132" loading="lazy"></a>
+        <div class="cav" tabindex="0" data-n="Gabriel Mellace" data-d="Founder e inversor" style="animation-delay:462ms" aria-label="Gabriel Mellace — Founder e inversor"><span class="cav-face cav-init" style="background:rgba(76,175,80,.14);color:#4caf50">GM</span></div>
+        <a class="cav" href="https://www.linkedin.com/in/hernancurras" target="_blank" rel="noopener noreferrer" data-n="Hernan Curras" data-d="CTO · advisor de tecnología para private equity · fintech y banca" style="animation-delay:506ms" aria-label="Hernan Curras — CTO · advisor de tecnología para private equity · fintech y banca"><img class="cav-face" src="/community/hernan-curras.jpg" alt="Hernan Curras" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/natalia-oriolo-881a2838" target="_blank" rel="noopener noreferrer" data-n="Natalia Oriolo" data-d="Abogada de startups y crypto · inversora ángel · LP en venture capital" style="animation-delay:550ms" aria-label="Natalia Oriolo — Abogada de startups y crypto · inversora ángel · LP en venture capital"><img class="cav-face" src="/community/natalia-oriolo.jpg" alt="Natalia Oriolo" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/robertonogaro" target="_blank" rel="noopener noreferrer" data-n="Roberto Nogaro" data-d="CMO · digital y program management" style="animation-delay:594ms" aria-label="Roberto Nogaro — CMO · digital y program management"><img class="cav-face" src="/community/roberto-nogaro.jpg" alt="Roberto Nogaro" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/aalextaboada/" target="_blank" rel="noopener noreferrer" data-n="Alex Taboada" data-d="Ingeniero de software fullstack · TypeScript y product engineering" style="animation-delay:638ms" aria-label="Alex Taboada — Ingeniero de software fullstack · TypeScript y product engineering"><img class="cav-face" src="/community/alex-taboada.jpg" alt="Alex Taboada" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/cdsanchez8" target="_blank" rel="noopener noreferrer" data-n="Cristian Sanchez" data-d="Senior product manager · construye productos con IA · founder" style="animation-delay:682ms" aria-label="Cristian Sanchez — Senior product manager · construye productos con IA · founder"><img class="cav-face" src="/community/cristian-sanchez.png" alt="Cristian Sanchez" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/lorenzopattigianfranco/" target="_blank" rel="noopener noreferrer" data-n="Gian Franco Lorenzo" data-d="Contador público · Extractito" style="animation-delay:726ms" aria-label="Gian Franco Lorenzo — Contador público · Extractito"><span class="cav-face cav-init" style="background:rgba(156,39,176,.14);color:#9c27b0">GF</span></a>
+        <a class="cav" href="https://linkedin.com/in/ismael-salgado-f" target="_blank" rel="noopener noreferrer" data-n="Ismael Salgado" data-d="Fundador de Hacemos Software" style="animation-delay:760ms" aria-label="Ismael Salgado — Fundador de Hacemos Software"><img class="cav-face" src="/community/ismael-salgado.jpg" alt="Ismael Salgado" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/leandro-ahmad" target="_blank" rel="noopener noreferrer" data-n="Leandro Ahmad" data-d="Cofundador y CEO de Administrado" style="animation-delay:760ms" aria-label="Leandro Ahmad — Cofundador y CEO de Administrado"><img class="cav-face" src="/community/leandro-ahmad.jpg" alt="Leandro Ahmad" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/marioseeber" target="_blank" rel="noopener noreferrer" data-n="Mario Seeber" data-d="Fundador de Infresh.ai · partner en Eolic People" style="animation-delay:760ms" aria-label="Mario Seeber — Fundador de Infresh.ai · partner en Eolic People"><img class="cav-face" src="/community/mario-seeber.jpg" alt="Mario Seeber" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/matias-semelman" target="_blank" rel="noopener noreferrer" data-n="Matias Semelman" data-d="Fundador de Digital20 · dev full-stack AI-first" style="animation-delay:760ms" aria-label="Matias Semelman — Fundador de Digital20 · dev full-stack AI-first"><img class="cav-face" src="/community/matias-semelman.png" alt="Matias Semelman" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/tomasgaren" target="_blank" rel="noopener noreferrer" data-n="Tomas Garen" data-d="Automatización y agentes de IA para empresas · Peeka" style="animation-delay:760ms" aria-label="Tomas Garen — Automatización y agentes de IA para empresas · Peeka"><img class="cav-face" src="/community/tomas-garen.png" alt="Tomas Garen" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/valentinvera" target="_blank" rel="noopener noreferrer" data-n="Valentín Vera" data-d="Desarrollador full-stack · TypeScript y React" style="animation-delay:760ms" aria-label="Valentín Vera — Desarrollador full-stack · TypeScript y React"><img class="cav-face" src="/community/valentin-vera.jpg" alt="Valentín Vera" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/fabrizioguaglianone" target="_blank" rel="noopener noreferrer" data-n="Fabrizio Guaglianone" data-d="Creador de Gapienz · cofundó y vendió Aionixs · arquitecto de IA" style="animation-delay:22ms" aria-label="Fabrizio Guaglianone — Creador de Gapienz · cofundó y vendió Aionixs · arquitecto de IA"><img class="cav-face" src="/community/fabrizio-guaglianone.png" alt="Fabrizio Guaglianone" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/garzuaga" target="_blank" rel="noopener noreferrer" data-n="Gonzalo Arzuaga" data-d="Fundador de Cleexs y Revolucia · serial founder · autor de 11 libros" style="animation-delay:66ms" aria-label="Gonzalo Arzuaga — Fundador de Cleexs y Revolucia · serial founder · autor de 11 libros"><img class="cav-face" src="/community/gonzalo-arzuagaq.jpg" alt="Gonzalo Arzuaga" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/mfocaraccio/" target="_blank" rel="noopener noreferrer" data-n="Mariano Focaraccio" data-d="CPO de Rombit · fundador de Drixit · ex-MURAL" style="animation-delay:110ms" aria-label="Mariano Focaraccio — CPO de Rombit · fundador de Drixit · ex-MURAL"><img class="cav-face" src="/community/mariano-focaraccio.jpg" alt="Mariano Focaraccio" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/dsaezgil/" target="_blank" rel="noopener noreferrer" data-n="Diego Saez Gil" data-d="Fundó Pachama (hoy en Carbon Direct) · antes Bluesmart" style="animation-delay:154ms" aria-label="Diego Saez Gil — Fundó Pachama (hoy en Carbon Direct) · antes Bluesmart"><img class="cav-face" src="/community/diego-saez-gil.jpg" alt="Diego Saez Gil" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/jorge-emiliano" target="_blank" rel="noopener noreferrer" data-n="Jorge Emiliano" data-d="Senior Data Scientist en Amazon · GenAI y ML en producción" style="animation-delay:198ms" aria-label="Jorge Emiliano — Senior Data Scientist en Amazon · GenAI y ML en producción"><img class="cav-face" src="/community/jorge-emiliano.png" alt="Jorge Emiliano" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/lucasdtoledo?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_ios" target="_blank" rel="noopener noreferrer" data-n="Lucas Toledo" data-d="Product Director en Mercado Libre · ex-founder" style="animation-delay:242ms" aria-label="Lucas Toledo — Product Director en Mercado Libre · ex-founder"><img class="cav-face" src="/community/lucas-toledo.jpg" alt="Lucas Toledo" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/marcelo-mendonca" target="_blank" rel="noopener noreferrer" data-n="Marcelo Mendonca" data-d="Partner y CTO de TSA Group International" style="animation-delay:286ms" aria-label="Marcelo Mendonca — Partner y CTO de TSA Group International"><img class="cav-face" src="/community/marcelo-mendonca.jpg" alt="Marcelo Mendonca" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/matias-grinberg" target="_blank" rel="noopener noreferrer" data-n="Matías Grinberg" data-d="Fundador y CEO de Humai" style="animation-delay:330ms" aria-label="Matías Grinberg — Fundador y CEO de Humai"><img class="cav-face" src="/community/matias-grinber.jpg" alt="Matías Grinberg" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/sebasti%C3%A1n-schvartzman-6a07b216/" target="_blank" rel="noopener noreferrer" data-n="Sebastian Schvartzman" data-d="CFO y ejecutivo financiero senior · board member · MBA" style="animation-delay:374ms" aria-label="Sebastian Schvartzman — CFO y ejecutivo financiero senior · board member · MBA"><img class="cav-face" src="/community/sebastian-schvartzman.jpg" alt="Sebastian Schvartzman" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/azul-gaddi?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_ios" target="_blank" rel="noopener noreferrer" data-n="Azul Gaddi" data-d="Venture capital en Picante Startups · brand &amp; business building" style="animation-delay:418ms" aria-label="Azul Gaddi — Venture capital en Picante Startups · brand &amp; business building"><img class="cav-face" src="/community/azul-gaddi.jpg" alt="Azul Gaddi" draggable="false" width="132" height="132" loading="lazy"></a>
+        <div class="cav" tabindex="0" data-n="Gabriel Mellace" data-d="Founder e inversor" style="animation-delay:462ms" aria-label="Gabriel Mellace — Founder e inversor"><span class="cav-face cav-init" style="background:rgba(76,175,80,.14);color:#4caf50">GM</span></div>
+        <a class="cav" href="https://www.linkedin.com/in/hernancurras" target="_blank" rel="noopener noreferrer" data-n="Hernan Curras" data-d="CTO · advisor de tecnología para private equity · fintech y banca" style="animation-delay:506ms" aria-label="Hernan Curras — CTO · advisor de tecnología para private equity · fintech y banca"><img class="cav-face" src="/community/hernan-curras.jpg" alt="Hernan Curras" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/natalia-oriolo-881a2838" target="_blank" rel="noopener noreferrer" data-n="Natalia Oriolo" data-d="Abogada de startups y crypto · inversora ángel · LP en venture capital" style="animation-delay:550ms" aria-label="Natalia Oriolo — Abogada de startups y crypto · inversora ángel · LP en venture capital"><img class="cav-face" src="/community/natalia-oriolo.jpg" alt="Natalia Oriolo" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/robertonogaro" target="_blank" rel="noopener noreferrer" data-n="Roberto Nogaro" data-d="CMO · digital y program management" style="animation-delay:594ms" aria-label="Roberto Nogaro — CMO · digital y program management"><img class="cav-face" src="/community/roberto-nogaro.jpg" alt="Roberto Nogaro" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/aalextaboada/" target="_blank" rel="noopener noreferrer" data-n="Alex Taboada" data-d="Ingeniero de software fullstack · TypeScript y product engineering" style="animation-delay:638ms" aria-label="Alex Taboada — Ingeniero de software fullstack · TypeScript y product engineering"><img class="cav-face" src="/community/alex-taboada.jpg" alt="Alex Taboada" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/cdsanchez8" target="_blank" rel="noopener noreferrer" data-n="Cristian Sanchez" data-d="Senior product manager · construye productos con IA · founder" style="animation-delay:682ms" aria-label="Cristian Sanchez — Senior product manager · construye productos con IA · founder"><img class="cav-face" src="/community/cristian-sanchez.png" alt="Cristian Sanchez" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/lorenzopattigianfranco/" target="_blank" rel="noopener noreferrer" data-n="Gian Franco Lorenzo" data-d="Contador público · Extractito" style="animation-delay:726ms" aria-label="Gian Franco Lorenzo — Contador público · Extractito"><span class="cav-face cav-init" style="background:rgba(156,39,176,.14);color:#9c27b0">GF</span></a>
+        <a class="cav" href="https://linkedin.com/in/ismael-salgado-f" target="_blank" rel="noopener noreferrer" data-n="Ismael Salgado" data-d="Fundador de Hacemos Software" style="animation-delay:760ms" aria-label="Ismael Salgado — Fundador de Hacemos Software"><img class="cav-face" src="/community/ismael-salgado.jpg" alt="Ismael Salgado" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/leandro-ahmad" target="_blank" rel="noopener noreferrer" data-n="Leandro Ahmad" data-d="Cofundador y CEO de Administrado" style="animation-delay:760ms" aria-label="Leandro Ahmad — Cofundador y CEO de Administrado"><img class="cav-face" src="/community/leandro-ahmad.jpg" alt="Leandro Ahmad" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/marioseeber" target="_blank" rel="noopener noreferrer" data-n="Mario Seeber" data-d="Fundador de Infresh.ai · partner en Eolic People" style="animation-delay:760ms" aria-label="Mario Seeber — Fundador de Infresh.ai · partner en Eolic People"><img class="cav-face" src="/community/mario-seeber.jpg" alt="Mario Seeber" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/matias-semelman" target="_blank" rel="noopener noreferrer" data-n="Matias Semelman" data-d="Fundador de Digital20 · dev full-stack AI-first" style="animation-delay:760ms" aria-label="Matias Semelman — Fundador de Digital20 · dev full-stack AI-first"><img class="cav-face" src="/community/matias-semelman.png" alt="Matias Semelman" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://www.linkedin.com/in/tomasgaren" target="_blank" rel="noopener noreferrer" data-n="Tomas Garen" data-d="Automatización y agentes de IA para empresas · Peeka" style="animation-delay:760ms" aria-label="Tomas Garen — Automatización y agentes de IA para empresas · Peeka"><img class="cav-face" src="/community/tomas-garen.png" alt="Tomas Garen" draggable="false" width="132" height="132" loading="lazy"></a>
+        <a class="cav" href="https://linkedin.com/in/valentinvera" target="_blank" rel="noopener noreferrer" data-n="Valentín Vera" data-d="Desarrollador full-stack · TypeScript y React" style="animation-delay:760ms" aria-label="Valentín Vera — Desarrollador full-stack · TypeScript y React"><img class="cav-face" src="/community/valentin-vera.jpg" alt="Valentín Vera" draggable="false" width="132" height="132" loading="lazy"></a>
+      </div>
+    </div>
+    </div>
+    <div class="ctip" id="ctip" aria-hidden="true"><span class="ctip-n"></span><span class="ctip-d"></span></div>
+    <p class="carousel-cap">← arrastrá · pasá el mouse para frenar →</p>
+    <p class="roster-note">// Muestra del Tier A (46), no un ranking público. Fotos y datos de LinkedIn público / self-reported, al 16/07/2026.</p>
+  </section>
+
+  <section>
+    <div class="kicker">03 — La oferta</div>
+    <h2 class="display">Cómo entra Balanz.</h2>
+    <p class="intro">No un logo en una pared. Presencia, voz y contacto directo con la comunidad, en cada encuentro del ciclo.</p>
+
+    <div class="offers">
+      <div class="offer reveal">
+        <div class="idx">A</div>
+        <div>
+          <h3>Sponsor principal del ciclo</h3>
+          <p>Tu marca al frente de los 3 eventos (Kick-off, Build with AI, Hackathon), presencia recurrente en la comunidad y en nordelta.tech.</p>
+        </div>
+      </div>
+      <div class="offer reveal">
+        <div class="idx">B</div>
+        <div>
+          <h3>Partícipe, no un banner</h3>
+          <p>Mesa en cada encuentro, una charla de Balanz a la comunidad y línea directa con los builders. Referente, no auspiciante de fondo.</p>
+        </div>
+      </div>
+      <div class="offer reveal">
+        <div class="idx">C</div>
+        <div>
+          <h3>Un evento propio de Balanz <span class="opt">Opcional</span></h3>
+          <p>Armamos un encuentro de Balanz para la comunidad: qué hacer con la plata después de una ronda o un exit, dolarizar, invertir. Tu contenido, nuestra audiencia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">04 — Los montos</div>
+    <h2 class="display">Qué cuesta.</h2>
+    <p class="intro">El espacio lo aportás vos (tu sede en Nordelta), así que es costo cero. Lo único a cubrir: catering/producción de los 3 encuentros + el premio del hackathon.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Evento</th><th>Personas</th><th>Espacio</th><th>Catering / Producción</th><th>Premio</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="ev">Kick-off</td>
+            <td class="ppl">~50</td>
+            <td><span class="zero">$0 · tu sede</span></td>
+            <td><span class="quote">Picada + bebidas · a cotizar</span></td>
+            <td><span class="dash">—</span></td>
+          </tr>
+          <tr>
+            <td class="ev">Build with AI</td>
+            <td class="ppl">~30</td>
+            <td><span class="zero">$0 · tu sede</span></td>
+            <td><span class="quote">Café + snacks · a cotizar</span></td>
+            <td><span class="dash">—</span></td>
+          </tr>
+          <tr>
+            <td class="ev">Hackathon #1</td>
+            <td class="ppl">~20</td>
+            <td><span class="zero">$0 · tu sede</span></td>
+            <td><span class="quote">Varias comidas (jornada) · a cotizar</span></td>
+            <td><span class="prize">Lo pone Balanz</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tnote">// El número fino sale de estas cantidades: se cotiza catering por persona y se define el premio. Lo cerramos juntos.</p>
+  </section>
+
+  <section class="cta">
+    <div class="kicker" style="text-align:center">05 — El siguiente paso</div>
+    <h2 class="display">Cerrémoslo en 15 minutos.</h2>
+    <p class="intro">Balanz como Lead: sede + producción + premio + una charla. Con eso arranca el ciclo. El número fino lo cerramos en una call.</p>
+    <div class="btns">
+      <a class="btn primary" href="https://nordelta.tech/pitch-deck/balanz" target="_blank" rel="noopener">Ver el deck completo →</a>
+      <a class="btn ghost" href="https://nordelta.tech" target="_blank" rel="noopener">nordelta.tech</a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="mono">NORDELTA TECH · Founders &amp; Devs · Zona Norte</span>
+    <span class="mono">Datos reales al 16/07/2026 · <a href="https://nordelta.tech">nordelta.tech</a></span>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    // Count-up en LOAD (sin observer). Bulletproof: pase lo que pase, los números
+    // terminan en su valor real. Nunca queda un "0%".
+    var els = document.querySelectorAll('[data-count]');
+    function finalize(){ els.forEach(function(el){ el.textContent = el.getAttribute('data-count'); }); }
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if(reduce || !window.requestAnimationFrame){ finalize(); return; }
+    var safety = setTimeout(finalize, 1600), done = 0;
+    els.forEach(function(el){
+      var target = +el.getAttribute('data-count'), t0 = null;
+      el.textContent = '0';
+      function step(ts){ if(!t0) t0 = ts; var p = Math.min((ts-t0)/1000,1);
+        el.textContent = Math.round((1-Math.pow(1-p,3))*target);
+        if(p<1){ requestAnimationFrame(step); }
+        else { el.textContent = target; if(++done===els.length) clearTimeout(safety); } }
+      requestAnimationFrame(step);
+    });
+  })();
+</script>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var ctip=document.getElementById('ctip'); if(!ctip) return;
+  var ctn=ctip.querySelector('.ctip-n'), ctd=ctip.querySelector('.ctip-d');
+  function showTip(cav){ var r=cav.getBoundingClientRect(); ctn.textContent=cav.getAttribute('data-n'); ctd.textContent=cav.getAttribute('data-d'); ctip.style.left=(r.left+r.width/2)+'px'; ctip.style.top=(r.top-12)+'px'; ctip.classList.add('show'); }
+  function hideTip(){ ctip.classList.remove('show'); }
+  document.querySelectorAll('.crow').forEach(function(row){
+    var track=row.querySelector('.ctrack'); if(!track) return;
+    var dir=parseFloat(row.getAttribute('data-dir'))||-1; var n=+row.getAttribute('data-n');
+    var offset=0,setW=0,paused=false,dragging=false,pending=false,startX=0,startY=0,startOff=0,moved=false,pid=null,started=0;
+    function measure(){ var c=track.children[n]; setW=c?c.offsetLeft:track.scrollWidth/2; }
+    measure(); window.addEventListener('resize',function(){ var o=offset; measure(); });
+    if(dir>0) offset=-setW;
+    var speed=0.45;
+    function wrap(){ if(setW>0){ while(offset<=-setW) offset+=setW; while(offset>0) offset-=setW; } }
+    function apply(){ track.style.transform='translate3d('+offset.toFixed(2)+'px,0,0)'; }
+    function frame(ts){ if(!started) started=ts; if(!paused&&!dragging&&!reduce&&setW>0&&(ts-started)>650){ offset+=dir*speed; wrap(); apply(); } requestAnimationFrame(frame); }
+    requestAnimationFrame(frame);
+    row.addEventListener('mouseenter',function(){ paused=true; });
+    row.addEventListener('mouseleave',function(){ if(!dragging) paused=false; hideTip(); });
+    track.addEventListener('pointerdown',function(e){ pending=true; dragging=false; moved=false; pid=e.pointerId; startX=e.clientX; startY=e.clientY; startOff=offset; paused=true; hideTip(); });
+    track.addEventListener('pointermove',function(e){
+      if(dragging){ offset=startOff+(e.clientX-startX); wrap(); apply(); return; }
+      if(pending){ var dx=e.clientX-startX, dy=e.clientY-startY;
+        if(Math.abs(dx)>6 && Math.abs(dx)>Math.abs(dy)){ dragging=true; moved=true; try{track.setPointerCapture(pid);}catch(_){}; track.classList.add('grabbing'); }
+        else if(Math.abs(dy)>10){ pending=false; if(!row.matches(':hover')) paused=false; }
+      }
+    });
+    function end(){ pending=false; if(dragging){ dragging=false; track.classList.remove('grabbing'); } if(!row.matches(':hover')) paused=false; }
+    track.addEventListener('pointerup',end); track.addEventListener('pointercancel',end);
+    track.addEventListener('click',function(e){ if(moved){ e.preventDefault(); e.stopPropagation(); } },true);
+    track.querySelectorAll('.cav').forEach(function(cav){
+      cav.addEventListener('mouseenter',function(){ if(!dragging) showTip(cav); });
+      cav.addEventListener('mouseleave',hideTip);
+      var im=cav.querySelector('img'); if(im) im.addEventListener('dragstart',function(e){e.preventDefault();});
+    });
+  });
+})();
+</script>
+</body>
+</html>
