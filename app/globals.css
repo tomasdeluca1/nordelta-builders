@@ -1138,7 +1138,6 @@ nav.scrolled {
   width: 54px; height: 54px; border-radius: 50%; border: 2px solid;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .02em;
-  background-size: cover; background-position: center;
   box-shadow: 0 10px 26px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08);
   backdrop-filter: blur(4px);
   animation: floatY 6s ease-in-out infinite;
@@ -1230,10 +1229,8 @@ nav.scrolled {
 .dir-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surf); min-width: 0; }
 .dir-card-t1 { border-color: rgba(0,229,160,.35); background: linear-gradient(180deg, rgba(0,229,160,.05), var(--surf)); }
 .dir-av { width: 40px; height: 40px; flex: 0 0 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
-.dir-av-img { object-fit: cover; }
 .dir-info { min-width: 0; flex: 1; }
 .dir-name { color: var(--text); font-weight: 600; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 8px; }
-.dir-score { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent); border: 1px solid rgba(0,229,160,.35); border-radius: 999px; padding: 1px 7px; flex: 0 0 auto; }
 .dir-sub { color: var(--muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dir-cta { background: none; border: 1px solid var(--border); color: var(--accent); border-radius: 999px; padding: 6px 12px; font-size: 12px; cursor: pointer; font-family: inherit; white-space: nowrap; text-decoration: none; }
 .dir-cta:hover { border-color: var(--accent); }

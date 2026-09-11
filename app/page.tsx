@@ -105,7 +105,9 @@ export default function Home() {
   }, []);
 
   // Builders con sitio propio, para la grilla de la sección comunidad.
-  const sites = members.filter(m => m.websiteUrl);
+  // Cortamos en 8 (misma convención que el orbit del hero): esto es un showcase,
+  // el listado completo y buscable es el CommunityDirectory de más abajo.
+  const sites = members.filter(m => m.websiteUrl).slice(0, 8);
 
   useEffect(() => {
     const handleResize = () => { if (window.innerWidth > 960) closeMob(); };
