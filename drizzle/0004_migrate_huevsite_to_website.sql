@@ -5,7 +5,7 @@ DO $$
 BEGIN
   IF EXISTS (
     SELECT 1 FROM information_schema.columns
-     WHERE table_name = 'members' AND column_name = 'huevsite_username'
+     WHERE table_schema = 'public' AND table_name = 'members' AND column_name = 'huevsite_username'
   ) THEN
     UPDATE members
        SET website_url = 'https://huevsite.io/' || huevsite_username

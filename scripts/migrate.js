@@ -1,7 +1,10 @@
 /* eslint-disable */
 // Aplica un archivo .sql de drizzle/ contra la DB de Neon.
 // Uso:  node scripts/migrate.js drizzle/0004_migrate_huevsite_to_website.sql [--dry]
-// Con --dry corre todo y hace ROLLBACK, mostrando qué habría cambiado.
+// Con --dry muestra los contadores de lo que cambiaría, sin aplicar nada.
+//   IMPORTANTE: --dry no valida la sintaxis del SQL — los errores aparecen solo al correr de verdad.
+// El archivo .sql debe contener UNA sola sentencia top-level (el driver de Neon no soporta transacciones).
+//   Múltiples sentencias se envuelven en un bloque: DO $$ ... sentencias ... END $$;
 // Requiere DATABASE_URL en .env.local (o en el env).
 
 const fs = require('fs');
