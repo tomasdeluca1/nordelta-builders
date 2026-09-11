@@ -6,15 +6,6 @@ import { ROLES } from '@/lib/profile-fields';
 import CommunityDirectory from './components/CommunityDirectory';
 import { PALETTE } from '@/lib/palette';
 
-interface HuevsiteData {
-  username: string;
-  avatar: string | null;
-  accentColor: string | null;
-  builderScore: number | null;
-  headline: string | null;
-  url: string;
-}
-
 interface Member {
   _id: string;
   name: string;
@@ -25,24 +16,16 @@ interface Member {
   companyUrl?: string;
   tags?: string[];
   colorIndex: number;
-  huevsiteUsername?: string | null;
-  huevsiteApproved?: boolean;
-  huevsiteFeatured?: boolean;
-  huevsite?: HuevsiteData | null;
+  websiteUrl?: string | null;
 }
 
 export default function Home() {
   const [isMobOpen, setIsMobOpen] = useState(false);
   const [showJoinModal, setShowJoinModal] = useState(false);
-  const [me, setMe] = useState<{ name: string; initials: string; colorIndex: number; huevsiteUsername?: string | null } | null>(null);
-  const [huevSlide, setHuevSlide] = useState(0);
-  const [huevPaused, setHuevPaused] = useState(false);
-  const [huevLoaded, setHuevLoaded] = useState<Set<string>>(new Set());
+  const [me, setMe] = useState<{ name: string; initials: string; colorIndex: number } | null>(null);
 
   const [members, setMembers] = useState<Member[]>([]);
   const [memberTotal, setMemberTotal] = useState<number | null>(null);
-  const [huevsiteUrl, setHuevsiteUrl] = useState('https://huevsite.io');
-  const [huevView, setHuevView] = useState<{ username: string; name: string } | null>(null);
 
   const [navScrolled, setNavScrolled] = useState(false);
   const [membersLoading, setMembersLoading] = useState(true);
@@ -63,7 +46,6 @@ export default function Home() {
       .then(data => {
         setMembers(data.members ?? []);
         if (typeof data.total === 'number') setMemberTotal(data.total);
-        if (typeof data.huevsiteUrl === 'string') setHuevsiteUrl(data.huevsiteUrl);
       })
       .catch(() => {})
       .finally(() => setMembersLoading(false));
@@ -85,17 +67,6 @@ export default function Home() {
     try { await fetch('/api/auth/logout', { method: 'POST' }); } catch {}
     window.location.href = '/';
   };
-
-  const goHuev = (delta: number) => setHuevSlide(s => s + delta);
-
-  // Auto-avance del carousel de huevsites (pausa al pasar el mouse). Los iframes
-  // siguientes ya están pre-renderizados, así que el cambio es instantáneo.
-  useEffect(() => {
-    const n = members.filter(m => m.huevsite).length;
-    if (n < 2 || huevPaused) return;
-    const id = setInterval(() => setHuevSlide(s => s + 1), 6000);
-    return () => clearInterval(id);
-  }, [members, huevPaused]);
 
   // Nav condenses on scroll + scroll-reveal for sections (progressive
   // enhancement: hidden state only applies once JS marks the doc ready).
@@ -133,25 +104,8 @@ export default function Home() {
     };
   }, []);
 
-  // Todos los huevsites conectados (la API ya los devuelve sin requerir aprobación).
-  const huevsites = members.filter(m => m.huevsite);
-  const huevCount = huevsites.length;
-  const activeHuev = huevCount ? huevsites[((huevSlide % huevCount) + huevCount) % huevCount] : null;
-  // Ventana de iframes montados a la vez: actual + 2 siguientes + anterior, para
-  // que los próximos ya estén cargados cuando el carousel avanza.
-  const huevWindow: { m: Member; active: boolean }[] = (() => {
-    if (!huevCount) return [];
-    const seen = new Set<string>();
-    const out: { m: Member; active: boolean }[] = [];
-    for (const off of [0, 1, 2, -1]) {
-      const m = huevsites[((huevSlide + off) % huevCount + huevCount) % huevCount];
-      const u = m.huevsite!.username;
-      if (seen.has(u)) continue;
-      seen.add(u);
-      out.push({ m, active: off === 0 });
-    }
-    return out;
-  })();
+  // Builders con sitio propio, para la grilla de la sección comunidad.
+  const sites = members.filter(m => m.websiteUrl);
 
   useEffect(() => {
     const handleResize = () => { if (window.innerWidth > 960) closeMob(); };
@@ -176,9 +130,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (isMobOpen || showJoinModal || huevView) document.body.style.overflow = 'hidden';
+    if (isMobOpen || showJoinModal) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = '';
-  }, [isMobOpen, showJoinModal, huevView]);
+  }, [isMobOpen, showJoinModal]);
 
   const handleJoinSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -336,8 +290,6 @@ export default function Home() {
                 }
                 const mem = m as Member;
                 const c = PALETTE[mem.colorIndex % PALETTE.length];
-                const accent = mem.huevsite?.accentColor || c.color;
-                const hasImg = Boolean(mem.huevsite?.avatar);
                 return (
                   <div key={mem._id} className="orbit-node" style={{ ['--a']: `${angle}deg` } as React.CSSProperties}>
                     <div className="orbit-counter">
@@ -345,14 +297,13 @@ export default function Home() {
                         className="orbit-avatar"
                         aria-label={mem.name}
                         style={{
-                          borderColor: accent,
-                          color: hasImg ? 'transparent' : accent,
-                          background: hasImg ? undefined : `${accent}1f`,
-                          backgroundImage: hasImg ? `url(${mem.huevsite!.avatar})` : undefined,
+                          borderColor: c.color,
+                          color: c.color,
+                          background: `${c.color}1f`,
                           animationDelay: `${(i * -0.8).toFixed(1)}s`,
                         }}
                       >
-                        {hasImg ? '' : mem.initials}
+                        {mem.initials}
                       </div>
                       <span className="orbit-name">{mem.name}</span>
                     </div>
@@ -463,71 +414,40 @@ export default function Home() {
           <div className="comunidad-head-main">
             <div className="eyebrow">Miembros fundadores</div>
             <h2 className="sec-title display">LA COMUNIDAD</h2>
-            <p className="sec-sub">Los primeros builders armando esto desde el día cero. Cada perfil es un huevsite vivo. Si todavía no estás, estás a un clic.</p>
+            <p className="sec-sub">Los primeros builders armando esto desde el día cero. Cada uno con lo que está construyendo. Si todavía no estás, estás a un clic.</p>
           </div>
-          <aside className="huev-badge">
-            <span className="huev-badge-label">Perfiles en vivo</span>
-            <a href={huevsiteUrl} target="_blank" rel="noopener" className="pill huev-pill">
-              <span className="pill-dot" />
-              powered by <span className="huev-wm">huev<span>site</span>.io</span>
-            </a>
-            <a href={huevsiteUrl} target="_blank" rel="noopener" className="huev-badge-cta">Armá el tuyo →</a>
-          </aside>
         </div>
 
-        {membersLoading || !activeHuev ? (
-          <div className="huev-carousel">
-            <div className="huev-car-frame"><div className="huev-car-skel" /></div>
-          </div>
-        ) : (
-          <div
-            className="huev-carousel"
-            onMouseEnter={() => setHuevPaused(true)}
-            onMouseLeave={() => setHuevPaused(false)}
-          >
-            <div className="huev-car-head">
-              <div className="huev-feat-label"><span className="pill-dot" /> Perfiles en vivo</div>
-              <div className="huev-car-meta">
-                <span className="huev-car-name">{activeHuev.name} · <span className="green">@{activeHuev.huevsite!.username}</span></span>
-                <a href={`${huevsiteUrl}/${activeHuev.huevsite!.username}`} target="_blank" rel="noopener" className="btn btn-ghost huev-car-open">Abrir ↗</a>
-              </div>
-            </div>
-            <div className="huev-car-frame">
-              {huevWindow.map(({ m, active }) => {
-                const u = m.huevsite!.username;
-                return (
-                  <iframe
-                    key={u}
-                    className={`huev-car-iframe${active ? ' is-active' : ''}${huevLoaded.has(u) ? ' is-loaded' : ''}`}
-                    src={`${huevsiteUrl}/${u}?embed=1`}
-                    title={`huevsite de ${m.name}`}
-                    loading="eager"
-                    onLoad={() => setHuevLoaded(s => { const n = new Set(s); n.add(u); return n; })}
-                  />
-                );
-              })}
-              {activeHuev && !huevLoaded.has(activeHuev.huevsite!.username) && <div className="huev-car-skel" />}
-              {huevCount > 1 && (
-                <>
-                  <button className="huev-car-arrow prev" onClick={() => goHuev(-1)} aria-label="Perfil anterior">‹</button>
-                  <button className="huev-car-arrow next" onClick={() => goHuev(1)} aria-label="Perfil siguiente">›</button>
-                </>
-              )}
-            </div>
-            {huevCount > 1 && (
-              <div className="huev-car-foot">
-                <span className="huev-car-count">{(((huevSlide % huevCount) + huevCount) % huevCount) + 1} / {huevCount}</span>
-                <span className="huev-car-hint">Pasá el mouse para pausar · ‹ › para cambiar</span>
-              </div>
-            )}
-          </div>
+        {membersLoading ? (
+          <div className="sites"><div className="dir-grid">
+            {Array.from({ length: 6 }).map((_, i) => <div className="dir-card site-skel" key={i} />)}
+          </div></div>
+        ) : sites.length > 0 && (
+          <div className="sites"><div className="dir-grid">
+            {sites.map(m => {
+              const c = PALETTE[m.colorIndex % PALETTE.length];
+              const sub = m.jobTitle && m.company ? `${m.jobTitle} @ ${m.company}` : (m.jobTitle || m.role);
+              return (
+                <div className="dir-card dir-card-t1" key={m._id}>
+                  <div className="dir-av" style={{ background: c.bg, color: c.color }}>{m.initials}</div>
+                  <div className="dir-info">
+                    <div className="dir-name">{m.name}</div>
+                    <div className="dir-sub">{sub}</div>
+                  </div>
+                  <a className="dir-cta" href={m.websiteUrl as string} target="_blank" rel="noopener">
+                    Abrir ↗
+                  </a>
+                </div>
+              );
+            })}
+          </div></div>
         )}
 
-        <CommunityDirectory onOpenHuevsite={setHuevView} />
+        <CommunityDirectory />
 
         <div className="members-join">
           {me
-            ? <a href="/dashboard" className="btn btn-outline">Conectá tu huevsite →</a>
+            ? <a href="/dashboard" className="btn btn-outline">Sumá tu sitio →</a>
             : <button onClick={() => setShowJoinModal(true)} className="btn btn-green">Sumate a la comunidad →</button>}
         </div>
       </section>
@@ -627,7 +547,7 @@ export default function Home() {
                   <div className="form-grid">
                     <div className="field">
                       <label>Empresa / Proyecto</label>
-                      <input placeholder="Ej. huevsite.io" value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} />
+                      <input placeholder="Ej. Nordelta Tech" value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} />
                     </div>
                     <div className="field">
                       <label>URL</label>
@@ -648,7 +568,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="modal-eyebrow" style={{ marginTop: 4 }}>$ tu --presentación</div>
-                  <PresentationFields value={presentation} onChange={patchPresentation} huevsiteBaseUrl={huevsiteUrl} />
+                  <PresentationFields value={presentation} onChange={patchPresentation} />
                   <button type="submit" disabled={formStatus === 'loading'} className="btn btn-green">
                     {formStatus === 'loading' ? 'Guardando...' : 'Unirme a nordelta.tech →'}
                   </button>
@@ -656,27 +576,6 @@ export default function Home() {
                 </form>
               </>
             )}
-          </div>
-        </div>
-      )}
-
-      {/* HUEVSITE IFRAME MODAL */}
-      {huevView && (
-        <div className="modal-overlay huev-modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setHuevView(null); }}>
-          <div className="huev-modal">
-            <div className="huev-modal-bar">
-              <span className="huev-modal-title">{huevView.name} · <span className="green">@{huevView.username}</span></span>
-              <div className="huev-modal-actions">
-                <a href={`${huevsiteUrl}/${huevView.username}`} target="_blank" rel="noopener" className="btn btn-ghost">Abrir ↗</a>
-                <button onClick={() => setHuevView(null)} className="modal-close huev-modal-close" aria-label="Cerrar">&times;</button>
-              </div>
-            </div>
-            <iframe
-              className="huev-iframe"
-              src={`${huevsiteUrl}/${huevView.username}?embed=1`}
-              title={`huevsite de ${huevView.name}`}
-              loading="lazy"
-            />
           </div>
         </div>
       )}
