@@ -34,6 +34,7 @@ export async function PATCH(request: Request) {
     const jobTitleRaw = typeof body.jobTitle === 'string' ? body.jobTitle.trim().slice(0, 80) : '';
     const company = typeof body.company === 'string' ? body.company.trim() : '';
     const companyUrl = normalizeUrl(typeof body.companyUrl === 'string' ? body.companyUrl : '');
+    const websiteUrl = normalizeUrl(typeof body.websiteUrl === 'string' ? body.websiteUrl : '');
     const tags: string[] | null = Array.isArray(body.tags)
       ? (Array.from(new Set((body.tags as unknown[]).map(t => String(t).trim()).filter(Boolean))).slice(0, 12) as string[])
       : null;
@@ -55,6 +56,7 @@ export async function PATCH(request: Request) {
         jobTitle,
         company: company || null,
         companyUrl,
+        websiteUrl,
         ...(tags ? { tags } : {}),
         updatedAt: new Date(),
       })
@@ -68,6 +70,7 @@ export async function PATCH(request: Request) {
         jobTitle: schema.members.jobTitle,
         company: schema.members.company,
         companyUrl: schema.members.companyUrl,
+        websiteUrl: schema.members.websiteUrl,
         tags: schema.members.tags,
         colorIndex: schema.members.colorIndex,
         mustChangePassword: schema.members.mustChangePassword,
