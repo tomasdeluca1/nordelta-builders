@@ -19,9 +19,6 @@ interface AdminMember {
   colorIndex: number;
   status: string;
   isAdmin: boolean;
-  huevsiteUsername?: string | null;
-  huevsiteApproved: boolean;
-  huevsiteFeatured: boolean;
   neighborhood?: string | null;
   bio?: string | null;
   building?: string | null;
@@ -37,7 +34,6 @@ interface AdminMember {
   updatedAt: string;
 }
 
-const HUEVSITE_URL = 'https://huevsite.io';
 const AVAILABLE_TAGS = ['AI', 'SaaS', 'Fintech', 'Web3', 'Proptech', 'Dev', 'Design', 'Marketing', 'Founder', 'Builder', 'Inversor'];
 
 const TABS: { key: string; label: string }[] = [
@@ -157,7 +153,7 @@ export default function AdminPage() {
               <table className="admin-table">
                 <thead>
                   <tr>
-                    <th>Builder</th><th>Rol</th><th>huevsite</th><th>Estado</th><th>Acciones</th>
+                    <th>Builder</th><th>Rol</th><th>Estado</th><th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -176,16 +172,6 @@ export default function AdminPage() {
                         </div>
                       </td>
                       <td>{m.jobTitle || m.role}</td>
-                      <td>
-                        {m.huevsiteUsername ? (
-                          <span className="admin-huev">
-                            @{m.huevsiteUsername}
-                            {m.huevsiteFeatured ? <span className="admin-badge badge-feat">★</span>
-                              : m.huevsiteApproved ? <span className="admin-badge badge-ok">✓</span>
-                              : <span className="admin-badge badge-pend">pend</span>}
-                          </span>
-                        ) : <span className="admin-muted">—</span>}
-                      </td>
                       <td><span className={`admin-status status-${m.status}`}>{STATUS_LABEL[m.status] ?? m.status}</span></td>
                       <td>
                         <div className="admin-actions">
@@ -237,7 +223,7 @@ export default function AdminPage() {
 }
 
 function SettingsCard({ onSaved }: { onSaved: () => void }) {
-  const [form, setForm] = useState<Record<string, string>>({ whatsapp_group_url: '', admin_notification_email: '', huevsite_url: '', reengagement_deadline: '' });
+  const [form, setForm] = useState<Record<string, string>>({ whatsapp_group_url: '', admin_notification_email: '', reengagement_deadline: '' });
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -264,9 +250,6 @@ function SettingsCard({ onSaved }: { onSaved: () => void }) {
         <label className="auth-label"><span>Email de notificación al admin</span>
           <input value={form.admin_notification_email} onChange={e => setForm({ ...form, admin_notification_email: e.target.value })} placeholder="vos@gmail.com" />
         </label>
-        <label className="auth-label"><span>URL de huevsite.io</span>
-          <input value={form.huevsite_url} onChange={e => setForm({ ...form, huevsite_url: e.target.value })} placeholder="https://huevsite.io" />
-        </label>
         <label className="auth-label"><span>Deadline de la campaña (presentaciones)</span>
           <input type="date" value={form.reengagement_deadline} onChange={e => setForm({ ...form, reengagement_deadline: e.target.value })} />
         </label>
@@ -288,9 +271,6 @@ function EditModal({ member, canManageAdmin, onClose, onSaved }: { member: Admin
     jobTitle: member.jobTitle ?? '',
     company: member.company ?? '',
     companyUrl: member.companyUrl ?? '',
-    huevsiteUsername: member.huevsiteUsername ?? '',
-    huevsiteApproved: member.huevsiteApproved,
-    huevsiteFeatured: member.huevsiteFeatured,
     isAdmin: member.isAdmin,
     neighborhood: member.neighborhood ?? '',
     bio: member.bio ?? '',
@@ -349,9 +329,6 @@ function EditModal({ member, canManageAdmin, onClose, onSaved }: { member: Admin
               <input value={f.companyUrl} onChange={e => setF({ ...f, companyUrl: e.target.value })} />
             </label>
           </div>
-          <label className="auth-label"><span>huevsite (username o URL)</span>
-            <input value={f.huevsiteUsername} onChange={e => setF({ ...f, huevsiteUsername: e.target.value })} placeholder="ada · ada.huevsite.io" />
-          </label>
           <label className="auth-label"><span>Barrio / zona</span>
             <select value={f.neighborhood} onChange={e => setF({ ...f, neighborhood: e.target.value })}>
               <option value="">—</option>
@@ -396,8 +373,6 @@ function EditModal({ member, canManageAdmin, onClose, onSaved }: { member: Admin
             </div>
           </div>
           <div className="admin-checks">
-            <label><input type="checkbox" checked={f.huevsiteApproved} onChange={e => setF({ ...f, huevsiteApproved: e.target.checked })} /> huevsite aprobado (visible en landing)</label>
-            <label><input type="checkbox" checked={f.huevsiteFeatured} onChange={e => setF({ ...f, huevsiteFeatured: e.target.checked })} /> destacado</label>
             {canManageAdmin && (
               <label><input type="checkbox" checked={f.isAdmin} onChange={e => setF({ ...f, isAdmin: e.target.checked })} /> es admin <span className="admin-badge badge-admin">solo dueño</span></label>
             )}
@@ -473,13 +448,6 @@ function DetailModal({
             {m.company ? (m.companyUrl
               ? <a href={m.companyUrl} target="_blank" rel="noopener">{m.company} ↗</a>
               : m.company) : null}
-          </DetailRow>
-          <DetailRow label="Website (huevsite)">
-            {m.huevsiteUsername ? (
-              <a href={`${HUEVSITE_URL}/${m.huevsiteUsername}`} target="_blank" rel="noopener">
-                @{m.huevsiteUsername} ↗ {m.huevsiteApproved ? '· aprobado' : '· pendiente'}
-              </a>
-            ) : null}
           </DetailRow>
           <DetailRow label="Links">
             {links.length > 0 ? (
