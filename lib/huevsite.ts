@@ -1,5 +1,3 @@
-import { getSetting } from './settings';
-
 export interface HuevsiteProfile {
   username: string;
   name: string | null;
@@ -39,8 +37,10 @@ export function parseHuevsiteUsername(input: string | null | undefined): string 
   return sanitize(v.replace(/^@/, ''));
 }
 
+// El setting configurable (huevsite_url) se borró en la Tarea 8 junto con su campo en
+// /admin; este archivo entero lo saca la Tarea 9, así que por ahora queda hardcodeado.
 export async function getHuevsiteBaseUrl(): Promise<string> {
-  return (await getSetting('huevsite_url')) || 'https://huevsite.io';
+  return 'https://huevsite.io';
 }
 
 /** Fetches a public huevsite profile via the public API. Returns null on any failure. */
