@@ -218,7 +218,7 @@ export default function DashboardPage() {
                   <input type="url" placeholder="https://…" value={profile.companyUrl} onChange={e => setProfile({ ...profile, companyUrl: e.target.value })} />
                 </label>
               </div>
-              <label className="auth-label">
+              <label className="auth-label" id="tu-sitio">
                 <span>URL de tu sitio</span>
                 <input
                   type="url"

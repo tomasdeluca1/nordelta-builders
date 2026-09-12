@@ -449,7 +449,7 @@ export default function Home() {
 
         <div className="members-join">
           {me
-            ? <a href="/dashboard" className="btn btn-outline">Sumá tu sitio →</a>
+            ? <a href="/dashboard#tu-sitio" className="btn btn-outline">Sumá tu sitio →</a>
             : <button onClick={() => setShowJoinModal(true)} className="btn btn-green">Sumate a la comunidad →</button>}
         </div>
       </section>

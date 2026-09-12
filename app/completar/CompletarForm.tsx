@@ -23,18 +23,15 @@ export interface CompletarInitial {
   linkedinUrl: string;
   twitterUrl: string;
   instagramUrl: string;
-  huevsiteUsername: string;
   websiteUrl: string;
 }
 
 export default function CompletarForm({
   token,
   initial,
-  huevsiteBaseUrl,
 }: {
   token: string;
   initial: CompletarInitial;
-  huevsiteBaseUrl: string;
 }) {
   const [identity, setIdentity] = useState({
     name: initial.name,
@@ -121,7 +118,7 @@ export default function CompletarForm({
       </div>
 
       <div className="modal-eyebrow" style={{ marginTop: 4 }}>$ tu --presentación</div>
-      <PresentationFields value={presentation} onChange={patch} huevsiteBaseUrl={huevsiteBaseUrl} />
+      <PresentationFields value={presentation} onChange={patch} />
 
       {status === 'error' && <p className="form-error">{error}</p>}
       <button type="submit" disabled={status === 'loading'} className="btn btn-green">

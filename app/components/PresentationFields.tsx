@@ -11,7 +11,6 @@ export interface PresentationState {
   linkedinUrl: string;
   twitterUrl: string;
   instagramUrl: string;
-  huevsiteUsername: string;
   websiteUrl: string;
 }
 
@@ -24,7 +23,6 @@ export const EMPTY_PRESENTATION: PresentationState = {
   linkedinUrl: '',
   twitterUrl: '',
   instagramUrl: '',
-  huevsiteUsername: '',
   websiteUrl: '',
 };
 
@@ -38,7 +36,6 @@ export function presentationFromMember(m: Partial<Record<keyof PresentationState
     linkedinUrl: (m.linkedinUrl as string) ?? '',
     twitterUrl: (m.twitterUrl as string) ?? '',
     instagramUrl: (m.instagramUrl as string) ?? '',
-    huevsiteUsername: (m.huevsiteUsername as string) ?? '',
     websiteUrl: (m.websiteUrl as string) ?? '',
   };
 }
@@ -54,7 +51,6 @@ export function presentationPayload(v: PresentationState) {
     linkedinUrl: v.linkedinUrl,
     twitterUrl: v.twitterUrl,
     instagramUrl: v.instagramUrl,
-    huevsiteUsername: v.huevsiteUsername,
     websiteUrl: v.websiteUrl,
   };
 }
@@ -62,7 +58,6 @@ export function presentationPayload(v: PresentationState) {
 interface Props {
   value: PresentationState;
   onChange: (patch: Partial<PresentationState>) => void;
-  huevsiteBaseUrl?: string;
 }
 
 /**
@@ -70,7 +65,7 @@ interface Props {
  * alta (app/page.tsx) y la página /completar. La identidad (nombre/email/rol) la
  * maneja cada página por separado.
  */
-export default function PresentationFields({ value, onChange, huevsiteBaseUrl = 'https://huevsite.io' }: Props) {
+export default function PresentationFields({ value, onChange }: Props) {
   const toggleLooking = (opt: string) =>
     onChange({
       lookingFor: value.lookingFor.includes(opt)
@@ -167,20 +162,6 @@ export default function PresentationFields({ value, onChange, huevsiteBaseUrl = 
             onChange={(e) => onChange({ instagramUrl: e.target.value })}
           />
         </div>
-      </div>
-
-      <div className="field">
-        <label>Tu huevsite <span className="opt">— recomendado (huevsite.io)</span></label>
-        <input
-          placeholder="tu-usuario · tu-usuario.huevsite.io"
-          value={value.huevsiteUsername}
-          onChange={(e) => onChange({ huevsiteUsername: e.target.value })}
-        />
-        <span className="opt" style={{ marginTop: 4, lineHeight: 1.5 }}>
-          Conectá tu perfil y aparecés en el directorio de la comunidad con tu site.
-          {' '}¿No tenés? Armalo gratis en{' '}
-          <a href={huevsiteBaseUrl} target="_blank" rel="noopener" style={{ color: 'var(--accent)' }}>huevsite.io</a>.
-        </span>
       </div>
 
       <div className="field">
