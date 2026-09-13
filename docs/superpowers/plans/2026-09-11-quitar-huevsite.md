@@ -162,13 +162,15 @@ En `package.json`, dentro de `"scripts"`, reemplazar la línea de `migrate:mongo
 
 Requiere `DATABASE_URL` en `.env.local`. **Este worktree no lo tiene** — si falta, pedírselo al usuario antes de seguir; no inventar una connection string.
 
-Run: `node scripts/migrate.js drizzle/0004_migrate_huevsite_to_website.sql --dry`
+Run: `npm run migrate -- drizzle/0004_migrate_huevsite_to_website.sql --dry`
+
+**Ojo con el `--`:** sin él, npm se come `--dry` y la migración corre de verdad creyendo que es un ensayo. `node scripts/migrate.js drizzle/0004_migrate_huevsite_to_website.sql --dry` (sin pasar por npm) es la otra forma segura.
 
 Expected: imprime los tres contadores (`con huevsite`, `se migran`, `se saltean`) sin aplicar nada. **Anotar el número de `se migran`** — se usa en la Tarea 10 para el pitch deck.
 
 - [ ] **Step 5: Aplicar de verdad**
 
-Run: `node scripts/migrate.js drizzle/0004_migrate_huevsite_to_website.sql`
+Run: `npm run migrate -- drizzle/0004_migrate_huevsite_to_website.sql`
 
 Expected: `✓ aplicada.` y `Miembros con website_url: N`, donde N ≥ el valor previo. Correrla una segunda vez debe ser un no-op (los mismos números).
 
@@ -1077,11 +1079,13 @@ Confirmar con el usuario que el deploy está hecho. **No correr el drop sin esa 
 
 - [ ] **Step 3: Aplicar**
 
-Run: `node scripts/migrate.js drizzle/0005_drop_huevsite.sql --dry`
+Run: `npm run migrate -- drizzle/0005_drop_huevsite.sql --dry`
 
-Expected: no imprime los contadores de preservación (la columna ya no se consulta para eso) y no falla.
+**Ojo con el `--`:** sin él, npm se come `--dry` y esto dropea las columnas de verdad. `node scripts/migrate.js drizzle/0005_drop_huevsite.sql --dry` (sin pasar por npm) es la otra forma segura.
 
-Run: `node scripts/migrate.js drizzle/0005_drop_huevsite.sql`
+Expected: no imprime los contadores de preservación (`scripts/migrate.js` los reserva al archivo `0004_migrate_huevsite_to_website.sql` por nombre, así que un archivo de drop nunca los muestra) y no falla.
+
+Run: `npm run migrate -- drizzle/0005_drop_huevsite.sql`
 
 Expected: `✓ aplicada.` Correrla de nuevo debe ser un no-op.
 
