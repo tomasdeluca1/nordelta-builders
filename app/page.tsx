@@ -437,7 +437,7 @@ export default function Home() {
                     <div className="dir-sub">{sub}</div>
                   </div>
                   <a className="dir-cta" href={m.websiteUrl as string} target="_blank" rel="noopener">
-                    Abrir ↗
+                    Ver sitio →
                   </a>
                 </div>
               );

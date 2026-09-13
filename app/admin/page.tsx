@@ -355,7 +355,7 @@ function EditModal({ member, canManageAdmin, onClose, onSaved }: { member: Admin
           <label className="auth-label"><span>Instagram</span>
             <input value={f.instagramUrl} onChange={e => setF({ ...f, instagramUrl: e.target.value })} />
           </label>
-          <label className="auth-label"><span>Otro website</span>
+          <label className="auth-label"><span>URL de tu sitio</span>
             <input value={f.websiteUrl} onChange={e => setF({ ...f, websiteUrl: e.target.value })} placeholder="https://…" />
           </label>
           <div className="auth-label"><span>Qué busca</span>
@@ -372,11 +372,11 @@ function EditModal({ member, canManageAdmin, onClose, onSaved }: { member: Admin
               ))}
             </div>
           </div>
-          <div className="admin-checks">
-            {canManageAdmin && (
+          {canManageAdmin && (
+            <div className="admin-checks">
               <label><input type="checkbox" checked={f.isAdmin} onChange={e => setF({ ...f, isAdmin: e.target.checked })} /> es admin <span className="admin-badge badge-admin">solo dueño</span></label>
-            )}
-          </div>
+            </div>
+          )}
           {err && <div className="auth-error">{err}</div>}
           <button type="submit" disabled={saving} className="btn btn-green auth-submit">{saving ? 'Guardando…' : 'Guardar cambios'}</button>
         </form>

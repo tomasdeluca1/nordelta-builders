@@ -165,7 +165,7 @@ export default function PresentationFields({ value, onChange }: Props) {
       </div>
 
       <div className="field">
-        <label>Otro website <span className="opt">(opcional)</span></label>
+        <label>Tu sitio <span className="opt">(opcional)</span></label>
         <input
           type="text"
           placeholder="https://tu-sitio.com"

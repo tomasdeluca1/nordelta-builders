@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ROLES } from '@/lib/profile-fields';
 import '../auth.css';
@@ -75,6 +75,18 @@ export default function DashboardPage() {
       })
       .finally(() => setLoading(false));
   }, [router]);
+
+  // El dashboard es client component: hasta que /api/auth/me resuelve, el
+  // #tu-sitio del hash no existe todavía en el DOM (se muestra "Cargando…").
+  // Una vez que el usuario cargó, si llegamos con ese hash, scrolleamos a mano.
+  const hashHandled = useRef(false);
+  useEffect(() => {
+    if (!user || hashHandled.current) return;
+    hashHandled.current = true;
+    if (window.location.hash === '#tu-sitio') {
+      document.getElementById('tu-sitio')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [user]);
 
   async function handleLogout() {
     await fetch('/api/auth/logout', { method: 'POST' });

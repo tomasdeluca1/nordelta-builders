@@ -97,7 +97,7 @@ async function main() {
   check(m1.bio === richPayload.bio, 'guardó bio');
   check(Array.isArray(m1.looking_for) && m1.looking_for.length === 2, 'guardó looking_for (chips)');
   check(m1.linkedin_url === 'https://linkedin.com/in/verify', 'normalizó la URL de LinkedIn (https://)');
-  check(m1.website_url === 'https://misitio.com', 'guardó el otro website (website_url)');
+  check(m1.website_url === 'https://misitio.com', 'guardó la URL de tu sitio (website_url)');
 
   // Ya completó → al reabrir el link se muestra el estado "completado", no el form.
   const reloadHtml = await (await fetch(`${BASE}/completar?token=${encodeURIComponent(token)}`)).text();
