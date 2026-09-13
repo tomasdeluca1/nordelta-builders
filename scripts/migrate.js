@@ -39,6 +39,26 @@ async function main() {
 
   console.log(`→ ${dry ? '[DRY RUN] ' : ''}Aplicando ${path.basename(abs)}…`);
 
+  // Contexto previo: cuántas filas tocaría la preservación de 0004. Guardado por
+  // information_schema, así que es un no-op para cualquier otra migración (y después
+  // de que 0005 borre la columna).
+  const [{ pendientes }] = await sql`
+    SELECT count(*)::int AS pendientes
+      FROM information_schema.columns
+     WHERE table_schema = 'public' AND table_name = 'members' AND column_name = 'huevsite_username'`;
+  if (pendientes) {
+    const [stats] = await sql`
+      SELECT count(*) FILTER (WHERE huevsite_username IS NOT NULL)::int AS con_huevsite,
+             count(*) FILTER (WHERE huevsite_username IS NOT NULL
+                              AND COALESCE(website_url, '') = '')::int AS a_migrar,
+             count(*) FILTER (WHERE huevsite_username IS NOT NULL
+                              AND COALESCE(website_url, '') <> '')::int AS ya_tienen_web
+        FROM members`;
+    console.log(`  · con huevsite: ${stats.con_huevsite}`);
+    console.log(`  · se migran:    ${stats.a_migrar}`);
+    console.log(`  · se saltean:   ${stats.ya_tienen_web} (ya tienen website_url)`);
+  }
+
   if (dry) {
     console.log('  [DRY RUN] no se aplicó nada.');
   } else {
