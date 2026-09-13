@@ -45,6 +45,9 @@ export const GEOGRAPHY = [
   'Tigre', 'Escobar', 'General Pacheco', 'San Fernando',
 ];
 
+// `websites` es el conteo previo a la migración: no incluye a los builders cuyo huevsite se
+// convirtió en website_url. Recontar después de correr drizzle/0005 con:
+//   SELECT count(*) FILTER (WHERE COALESCE(website_url,'') <> '')::int FROM members WHERE status='active';
 export const PLATFORM = { linkedin: 81, websites: 23 };
 
 export type TeamMember = { name: string; initials: string; role: string; photo?: string };
