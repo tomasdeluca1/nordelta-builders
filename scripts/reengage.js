@@ -92,7 +92,7 @@ async function main() {
   const wantReminder = has('--reminder');
 
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.EMAIL_FROM || 'Nordelta Tech <onboarding@huevsite.studio>';
+  const from = process.env.EMAIL_FROM || 'Nordelta Tech <onboarding@nordelta.tech>';
   const appUrl = (process.env.APP_URL || 'https://nordelta.tech').replace(/\/$/, '');
   const dbUrl = process.env.DATABASE_URL;
   const sessionPwd = process.env.SESSION_PASSWORD;

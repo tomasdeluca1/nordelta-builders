@@ -84,7 +84,7 @@ async function main() {
   const onlyEmail = onlyArg ? onlyArg.split('=')[1].toLowerCase() : null;
 
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.EMAIL_FROM || 'Nordelta Tech <onboarding@huevsite.studio>';
+  const from = process.env.EMAIL_FROM || 'Nordelta Tech <onboarding@nordelta.tech>';
   const appUrl = process.env.APP_URL || 'https://nordelta.tech';
   const dbUrl = process.env.DATABASE_URL;
   if (!apiKey || apiKey.startsWith('re_placeholder')) throw new Error('Set RESEND_API_KEY in .env.local');

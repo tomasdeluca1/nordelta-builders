@@ -1,7 +1,7 @@
 /* eslint-disable */
 // Aplica un archivo .sql de drizzle/ contra la DB de Neon.
 // Uso:  node scripts/migrate.js drizzle/0004_migrate_huevsite_to_website.sql [--dry]
-// Con --dry muestra los contadores de lo que cambiaría, sin aplicar nada.
+// Con --dry no aplica el archivo (el resto de los chequeos igual corre contra la DB).
 //   IMPORTANTE: --dry no valida la sintaxis del SQL — los errores aparecen solo al correr de verdad.
 // El archivo .sql debe contener UNA sola sentencia top-level (el driver de Neon no soporta transacciones).
 //   Múltiples sentencias se envuelven en un bloque: DO $$ ... sentencias ... END $$;
@@ -38,24 +38,6 @@ async function main() {
   const sql = neon(dbUrl);
 
   console.log(`→ ${dry ? '[DRY RUN] ' : ''}Aplicando ${path.basename(abs)}…`);
-
-  // Contexto previo: cuántas filas tocaría la preservación.
-  const [{ pendientes }] = await sql`
-    SELECT count(*)::int AS pendientes
-      FROM information_schema.columns c
-     WHERE c.table_name = 'members' AND c.column_name = 'huevsite_username'`;
-  if (pendientes) {
-    const [stats] = await sql`
-      SELECT count(*) FILTER (WHERE huevsite_username IS NOT NULL)::int AS con_huevsite,
-             count(*) FILTER (WHERE huevsite_username IS NOT NULL
-                              AND COALESCE(website_url, '') = '')::int AS a_migrar,
-             count(*) FILTER (WHERE huevsite_username IS NOT NULL
-                              AND COALESCE(website_url, '') <> '')::int AS ya_tienen_web
-        FROM members`;
-    console.log(`  · con huevsite: ${stats.con_huevsite}`);
-    console.log(`  · se migran:    ${stats.a_migrar}`);
-    console.log(`  · se saltean:   ${stats.ya_tienen_web} (ya tienen website_url)`);
-  }
 
   if (dry) {
     console.log('  [DRY RUN] no se aplicó nada.');

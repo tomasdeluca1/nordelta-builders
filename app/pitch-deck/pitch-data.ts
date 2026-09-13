@@ -45,7 +45,7 @@ export const GEOGRAPHY = [
   'Tigre', 'Escobar', 'General Pacheco', 'San Fernando',
 ];
 
-export const PLATFORM = { huevsites: 28, linkedin: 81, websites: 23 };
+export const PLATFORM = { linkedin: 81, websites: 23 };
 
 export type TeamMember = { name: string; initials: string; role: string; photo?: string };
 export const TEAM: TeamMember[] = [
