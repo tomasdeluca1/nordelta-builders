@@ -1,5 +1,6 @@
 -- Quitar huevsite.io (2/2): borra las columnas y el setting.
 -- Corre DESPUÉS de deployar el código que ya no las lee. Idempotente.
+-- REQUISITO: drizzle/0004 debe haber corrido antes, o los handles se pierden sin recuperación.
 --
 -- Va todo en un solo bloque DO porque scripts/migrate.js usa sql.query(), que
 -- pasa por el protocolo parametrizado de Postgres: una sentencia top-level por

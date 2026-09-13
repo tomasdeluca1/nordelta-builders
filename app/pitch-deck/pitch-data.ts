@@ -46,7 +46,7 @@ export const GEOGRAPHY = [
 ];
 
 // `websites` es el conteo previo a la migración: no incluye a los builders cuyo huevsite se
-// convirtió en website_url. Recontar después de correr drizzle/0005 con:
+// convirtió en website_url. Recontar después de correr drizzle/0004 con:
 //   SELECT count(*) FILTER (WHERE COALESCE(website_url,'') <> '')::int FROM members WHERE status='active';
 export const PLATFORM = { linkedin: 81, websites: 23 };
 
