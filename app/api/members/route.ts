@@ -27,7 +27,7 @@ export async function GET() {
         .where(eq(schema.members.status, 'active'))
         // Primero los que tienen sitio propio, después por antigüedad.
         .orderBy(
-          desc(sql`${schema.members.websiteUrl} IS NOT NULL`),
+          desc(sql`COALESCE(${schema.members.websiteUrl}, '') <> ''`),
           asc(schema.members.createdAt),
         )
         .limit(60),

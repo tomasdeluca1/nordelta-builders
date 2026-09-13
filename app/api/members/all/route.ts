@@ -33,11 +33,14 @@ export async function GET() {
       .where(eq(schema.members.status, 'active'))
       .orderBy(asc(schema.members.name));
 
-    // Escalonado: sitio propio → web de empresa → resto. La query ya viene
-    // alfabética, así que dentro de cada tier se respeta ese orden.
+    // Escalonado: sitio propio → web de empresa → resto, con desempate alfabético
+    // explícito en español dentro de cada tier. El ORDER BY name de Postgres ya
+    // ordena alfabéticamente, pero su resultado depende del collation de la base
+    // (con collation C/POSIX, Á/Ñ caen después de la Z) y la estabilidad del sort
+    // no alcanza sola para garantizar ese orden tras reordenar por tier.
     const members = rows
       .map((r) => ({ ...r, _id: String(r.id), tier: tierOf(r) }))
-      .sort((a, b) => a.tier - b.tier)
+      .sort((a, b) => a.tier - b.tier || a.name.localeCompare(b.name, 'es'))
       .map(({ createdAt, ...pub }) => pub);
 
     return NextResponse.json({ members, total: members.length });
