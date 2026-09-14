@@ -23,12 +23,11 @@ export async function GET() {
       jobTitle: schema.members.jobTitle,
       company: schema.members.company,
       companyUrl: schema.members.companyUrl,
+      websiteUrl: schema.members.websiteUrl,
       tags: schema.members.tags,
       colorIndex: schema.members.colorIndex,
       mustChangePassword: schema.members.mustChangePassword,
       isAdmin: schema.members.isAdmin,
-      huevsiteUsername: schema.members.huevsiteUsername,
-      huevsiteApproved: schema.members.huevsiteApproved,
       createdAt: schema.members.createdAt,
     })
     .from(schema.members)

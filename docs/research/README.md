@@ -14,7 +14,7 @@ generado acá es PII y NO se commitea** (ver `.gitignore`).
    (rankeado, con evidencia y confianza). **Gate humano**: el usuario cura a mano
    quiénes entran al deck.
 4. **Showcase**: con la curación, se escribe `lib/builder-ranking.ts` (sólo el
-   subconjunto elegido: nombre/rol/empresa/huevsite, sin scores) y se agrega el
+   subconjunto elegido: nombre/rol/empresa/sitio, sin scores) y se agrega el
    slide "Los builders" al deck.
 
 Detalle completo en `docs/superpowers/plans/2026-06-23-builder-research-ranking.md`.

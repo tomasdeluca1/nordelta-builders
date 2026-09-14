@@ -18,9 +18,6 @@ export const members = pgTable(
     // 'pending' (awaiting review) → 'active' | 'rejected' | 'inactive' | 'lapsed'
     status: varchar('status', { length: 20 }).notNull().default('active'),
     isAdmin: boolean('is_admin').notNull().default(false),
-    huevsiteUsername: varchar('huevsite_username', { length: 80 }),
-    huevsiteApproved: boolean('huevsite_approved').notNull().default(false),
-    huevsiteFeatured: boolean('huevsite_featured').notNull().default(false),
     // Presentación rica (completada antes de la revisión del admin).
     neighborhood: varchar('neighborhood', { length: 100 }),
     bio: text('bio'),
@@ -47,7 +44,7 @@ export type Member = typeof members.$inferSelect;
 export type NewMember = typeof members.$inferInsert;
 
 // Key/value config editable from the admin panel (WhatsApp invite, notification
-// email, huevsite base URL, …). Read with a fallback in lib/settings.ts.
+// email, …). Read with a fallback in lib/settings.ts.
 export const appSettings = pgTable('app_settings', {
   key: varchar('key', { length: 80 }).primaryKey(),
   value: text('value'),

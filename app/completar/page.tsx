@@ -1,7 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { getDb, schema } from '@/lib/db';
 import { readProfileToken } from '@/lib/magic-link';
-import { getSetting } from '@/lib/settings';
 import CompletarForm from './CompletarForm';
 
 export const runtime = 'nodejs';
@@ -93,8 +92,6 @@ export default async function CompletarPage({ searchParams }: { searchParams: { 
     );
   }
 
-  const huevsiteBaseUrl = await getSetting('huevsite_url');
-
   const initial = {
     name: member.name,
     email: member.email,
@@ -110,7 +107,6 @@ export default async function CompletarPage({ searchParams }: { searchParams: { 
     linkedinUrl: member.linkedinUrl ?? '',
     twitterUrl: member.twitterUrl ?? '',
     instagramUrl: member.instagramUrl ?? '',
-    huevsiteUsername: member.huevsiteUsername ?? '',
     websiteUrl: member.websiteUrl ?? '',
   };
 
@@ -123,7 +119,7 @@ export default async function CompletarPage({ searchParams }: { searchParams: { 
         Hola, {member.name.split(' ')[0]}. Contanos quién sos, dónde vivís y qué construís. Un admin la revisa y, si te acepta,
         te llega el acceso y la invitación al grupo de WhatsApp.
       </p>
-      <CompletarForm token={token as string} initial={initial} huevsiteBaseUrl={huevsiteBaseUrl} />
+      <CompletarForm token={token as string} initial={initial} />
     </Shell>
   );
 }

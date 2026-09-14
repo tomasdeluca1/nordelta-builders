@@ -71,8 +71,6 @@ async function main() {
 
   const [plat] = await sql`
     SELECT
-      count(*) FILTER (WHERE huevsite_username IS NOT NULL)::int AS huevsites,
-      count(*) FILTER (WHERE huevsite_approved)::int AS huevsites_approved,
       count(*) FILTER (WHERE linkedin_url IS NOT NULL)::int AS linkedin,
       count(*) FILTER (WHERE website_url IS NOT NULL)::int AS websites
     FROM members WHERE status='active'`;
@@ -99,7 +97,7 @@ async function main() {
     total, totalNonAdmin: totalna,
     growth, roles, verticals, lookingFor,
     geography: geography.map(([label, n]) => ({ label, n })),
-    platform: { huevsites: plat.huevsites, huevsitesApproved: plat.huevsites_approved, linkedin: plat.linkedin, websites: plat.websites },
+    platform: { linkedin: plat.linkedin, websites: plat.websites },
   };
 
   if (json) { console.log(JSON.stringify(out, null, 2)); return; }
@@ -110,7 +108,7 @@ async function main() {
   console.log('\nVerticales (sin tags de identidad):'); verticals.slice(0, 12).forEach((r) => console.log(`  ${String(r.n).padStart(3)}  ${r.label}`));
   console.log('\nQué buscan:'); lookingFor.forEach((r) => console.log(`  ${String(r.n).padStart(3)}  ${r.label}`));
   console.log('\nGeografía (por área):'); out.geography.forEach((r) => console.log(`  ${String(r.n).padStart(3)}  ${r.label}`));
-  console.log(`\nPlataforma: huevsites=${plat.huevsites} (aprobados ${plat.huevsites_approved}) · linkedin=${plat.linkedin} · websites=${plat.websites}\n`);
+  console.log(`\nPlataforma: linkedin=${plat.linkedin} · websites=${plat.websites}\n`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

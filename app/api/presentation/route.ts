@@ -3,7 +3,6 @@ import { eq } from 'drizzle-orm';
 import { getDb, schema } from '@/lib/db';
 import { readProfileToken } from '@/lib/magic-link';
 import { parsePresentationFields, normalizeUrl } from '@/lib/presentation';
-import { parseHuevsiteUsername } from '@/lib/huevsite';
 import { ROLES, ROLE_TITLE } from '@/lib/profile-fields';
 import { sendPresentationReceivedEmail, sendAdminPresentationCompletedEmail } from '@/lib/email';
 
@@ -42,11 +41,8 @@ export async function POST(request: Request) {
   if (!presentation.linkedinUrl) {
     return NextResponse.json({ error: 'El LinkedIn es requerido' }, { status: 400 });
   }
-  const huevsiteUsername = parseHuevsiteUsername(body.huevsiteUsername);
-
   const set: Record<string, unknown> = {
     ...presentation,
-    huevsiteUsername,
     profileSubmittedAt: new Date(),
     status: 'pending', // un lapsed que completa vuelve a la cola de revisión
     updatedAt: new Date(),

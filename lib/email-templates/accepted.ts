@@ -40,7 +40,7 @@ export function acceptedEmailHtml(params: {
       <div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#7a8f9e;margin-bottom:12px;">¿Qué sigue?</div>
       <ul style="margin:0;padding-left:20px;color:#a9b6c0;font-size:14px;line-height:1.7;">
         <li>Entrá al dashboard y cambiá tu contraseña</li>
-        <li>Completá tu perfil y conectá tu huevsite.io</li>
+        <li>Completá tu perfil y sumá tu sitio</li>
         <li>Sumate al grupo de WhatsApp</li>
       </ul>
     </td></tr>

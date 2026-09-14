@@ -5,7 +5,7 @@
 // comunidad para mostrarle a sponsors/inversores — no un ranking público: no
 // lleva scores ni orden de "top N". El research interno queda en el reporte.
 //
-// Avatar = iniciales en estilo de marca (ninguno tiene huevsite aprobado hoy).
+// Avatar = iniciales en estilo de marca.
 
 export interface ShowcaseBuilder {
   name: string;

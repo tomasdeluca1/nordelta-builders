@@ -59,11 +59,9 @@
 .admin-name { color: #dde4ea; font-weight: 600; display: flex; align-items: center; gap: 6px; }
 .admin-email { color: #7a8f9e; font-size: 0.78rem; }
 .admin-muted { color: #52626e; }
-.admin-huev { color: #a9b6c0; font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 6px; }
 
 .admin-badge { font-size: 0.62rem; padding: 1px 6px; border-radius: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
 .badge-admin { background: rgba(156, 39, 176, 0.16); color: #ce93d8; }
-.badge-feat { background: rgba(255, 193, 7, 0.16); color: #ffc107; }
 .badge-ok { background: rgba(0, 229, 160, 0.14); color: #00e5a0; }
 .badge-pend { background: rgba(122, 143, 158, 0.16); color: #a9b6c0; }
 

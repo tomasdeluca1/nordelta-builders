@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { getDb, schema } from '@/lib/db';
 import { requireAdmin, isOwner } from '@/lib/admin';
-import { parseHuevsiteUsername } from '@/lib/huevsite';
 import { parsePresentationFields } from '@/lib/presentation';
 import { ROLES } from '@/lib/profile-fields';
 
@@ -47,9 +46,6 @@ export async function PATCH(request: Request, { params }: { params: { id: string
   if (Array.isArray(body.tags)) {
     set.tags = Array.from(new Set(body.tags.map((t: unknown) => String(t).trim()).filter(Boolean))).slice(0, 12);
   }
-  if ('huevsiteUsername' in body) set.huevsiteUsername = parseHuevsiteUsername(body.huevsiteUsername);
-  if (typeof body.huevsiteApproved === 'boolean') set.huevsiteApproved = body.huevsiteApproved;
-  if (typeof body.huevsiteFeatured === 'boolean') set.huevsiteFeatured = body.huevsiteFeatured;
   // Solo el dueño puede otorgar/quitar admin.
   if (typeof body.isAdmin === 'boolean') {
     if (!isOwner(admin)) {

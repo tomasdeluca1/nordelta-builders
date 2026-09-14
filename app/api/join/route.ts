@@ -4,7 +4,6 @@ import { getDb, schema } from '@/lib/db';
 import { defaultPasswordFor, hashPassword } from '@/lib/password';
 import { sendWelcomeEmail, sendAdminNewRegistrationEmail } from '@/lib/email';
 import { parsePresentationFields, normalizeUrl } from '@/lib/presentation';
-import { parseHuevsiteUsername } from '@/lib/huevsite';
 import { ROLES, ROLE_TITLE, ROLE_TAGS } from '@/lib/profile-fields';
 
 export const runtime = 'nodejs';
@@ -56,8 +55,6 @@ export async function POST(request: Request) {
     if (!presentation.linkedinUrl) {
       return NextResponse.json({ error: 'El LinkedIn es requerido' }, { status: 400 });
     }
-    const huevsiteUsername = parseHuevsiteUsername(body.huevsiteUsername);
-
     const [inserted] = await db.insert(schema.members).values({
       name,
       email,
@@ -72,7 +69,6 @@ export async function POST(request: Request) {
       colorIndex: count % 8,
       status: 'active',
       ...presentation,
-      huevsiteUsername,
       profileSubmittedAt: new Date(),
     }).returning({ id: schema.members.id });
 

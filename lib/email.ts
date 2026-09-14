@@ -18,7 +18,7 @@ function getResend(): Resend {
 }
 
 function getFromAddress(): string {
-  return process.env.EMAIL_FROM?.trim() || 'Nordelta Tech <onboarding@huevsite.studio>';
+  return process.env.EMAIL_FROM?.trim() || 'Nordelta Tech <onboarding@nordelta.tech>';
 }
 
 function getAppUrl(): string {
