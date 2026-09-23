@@ -1,6 +1,6 @@
-# Nordelta Tech · nordelta.tech
+# Norte Tech · bsasnortetech.vercel.app
 
-Comunidad de founders, devs y makers de Nordelta y zona norte (Buenos Aires).
+Comunidad de founders, devs y makers de la Zona Norte (Buenos Aires).
 Next.js 14 (App Router) · Neon Postgres + Drizzle · Iron Session + bcrypt · Resend · `@vercel/og`.
 
 ## Stack
@@ -89,4 +89,4 @@ scripts/{seed.js, migrate-from-mongo.js}
 
 ## Domain
 
-Production: **https://nordelta.tech**. All metadata, OG, and emails use this host (override via `APP_URL`).
+Production: **https://bsasnortetech.vercel.app**. All metadata, OG, and emails use this host (override via `APP_URL`).

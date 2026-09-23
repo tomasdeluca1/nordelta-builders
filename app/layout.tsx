@@ -2,36 +2,36 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
 
-const siteUrl = process.env.APP_URL?.trim() || 'https://nordelta.tech';
+const siteUrl = process.env.APP_URL?.trim() || 'https://bsasnortetech.vercel.app';
 
-const TITLE = 'Nordelta Tech · Comunidad de founders, devs y makers';
+const TITLE = 'Norte Tech · Comunidad de founders, devs y makers';
 const DESCRIPTION =
-  'Comunidad tech de Nordelta y Zona Norte BA: founders, devs y makers construyendo startups, compartiendo conocimiento y armando red. Eventos y dashboard.';
+  'Comunidad tech de la Zona Norte de Buenos Aires: founders, devs y makers construyendo startups, compartiendo conocimiento y armando red. Eventos y dashboard.';
 const OG_DESCRIPTION =
-  'Founders, devs y makers de Nordelta y Zona Norte construyendo el ecosistema tech desde el agua. Sumate al kick-off, conocé a los builders y empezá a buildear.';
+  'Founders, devs y makers de la Zona Norte construyendo el ecosistema tech desde el agua. Sumate al kick-off, conocé a los builders y empezá a buildear.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: TITLE,
   description: DESCRIPTION,
   keywords:
-    'Nordelta, Tech, Comunidad, Startups, Builders, Founders, Developers, Makers, Buenos Aires, Zona Norte, nordelta.tech',
-  authors: [{ name: 'Nordelta Tech' }],
+    'Norte Tech, Zona Norte, Nordelta, San Isidro, Vicente López, Comunidad, Startups, Builders, Founders, Developers, Makers, Buenos Aires, bsasnortetech.vercel.app',
+  authors: [{ name: 'Norte Tech' }],
   alternates: { canonical: siteUrl },
   openGraph: {
-    title: 'Nordelta Tech · Comunidad de founders, devs y makers',
+    title: 'Norte Tech · Comunidad de founders, devs y makers',
     description: OG_DESCRIPTION,
     url: siteUrl,
-    siteName: 'Nordelta Tech',
+    siteName: 'Norte Tech',
     images: [
-      { url: '/og.png', width: 1200, height: 630, alt: 'Nordelta Tech · nordelta.tech', type: 'image/png' },
+      { url: '/og.png', width: 1200, height: 630, alt: 'Norte Tech · bsasnortetech.vercel.app', type: 'image/png' },
     ],
     type: 'website',
     locale: 'es_AR',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nordelta Tech · Comunidad de founders, devs y makers',
+    title: 'Norte Tech · Comunidad de founders, devs y makers',
     description: OG_DESCRIPTION,
     images: ['/og.png'],
   },

@@ -16,7 +16,7 @@
 export const meta = {
   name: 'builder-research',
   description: 'Research web por builder: startup, puesto y qué tan parado está. Ranking con evidencia.',
-  whenToUse: 'Subsistema B de Nordelta Tech: evaluar la base activa para el pitch deck. Pasar el JSON de active-members como args.',
+  whenToUse: 'Subsistema B de Norte Tech: evaluar la base activa para el pitch deck. Pasar el JSON de active-members como args.',
   phases: [{ title: 'Research', detail: 'un agente de web research por builder' }],
 }
 
@@ -69,7 +69,7 @@ function promptFor(p) {
     p.bio ? `Bio: ${p.bio}` : null,
   ].filter(Boolean).join('\n')
 
-  return `Sos un analista evaluando el perfil profesional de un miembro de Nordelta Tech (comunidad tech de zona norte, Buenos Aires) para un pitch deck a sponsors/inversores.
+  return `Sos un analista evaluando el perfil profesional de un miembro de Norte Tech (comunidad tech de zona norte, Buenos Aires) para un pitch deck a sponsors/inversores.
 
 Builder a evaluar (id ${p.id}): ${p.name}
 ${known || '(sin datos declarados más allá del nombre)'}

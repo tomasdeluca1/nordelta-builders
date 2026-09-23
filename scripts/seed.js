@@ -29,7 +29,7 @@ function slugifyName(name) {
 }
 function defaultPasswordFor(name) {
   const slug = slugifyName(name) || 'builder';
-  return `${slug}.nordelta.tech`;
+  return `${slug}.bsasnortetech.vercel.app`;
 }
 
 const MEMBERS = [
@@ -39,8 +39,8 @@ const MEMBERS = [
     initials: 'TD',
     role: 'Negocio / Fundación',
     jobTitle: 'Founder',
-    company: 'Nordelta Tech',
-    companyUrl: 'https://nordelta.tech',
+    company: 'Norte Tech',
+    companyUrl: 'https://bsasnortetech.vercel.app',
     tags: ['Founder', 'Builder'],
     colorIndex: 0,
   },

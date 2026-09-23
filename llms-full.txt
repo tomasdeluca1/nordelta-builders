@@ -1,7 +1,7 @@
-# Nordelta Build - Full Context
+# Norte Tech - Full Context
 
-## What is Nordelta Build?
-Nordelta Build is a community of builders, developers (devs), founders, and makers that live and work in Nordelta and the Northern Zone of Greater Buenos Aires, Argentina. The initiative started in 2025 with the objective of constructing a strong technological ecosystem in the area from scratch.
+## What is Norte Tech?
+Norte Tech is a community of builders, developers (devs), founders, and makers that live and work in the Northern Zone (Zona Norte) of Greater Buenos Aires, Argentina. The initiative started in 2025 with the objective of constructing a strong technological ecosystem in the area from scratch.
 
 ## Core Mission
 - Foster connections among founders, early hires, and first-time users.
@@ -24,13 +24,13 @@ The community welcomes individuals involved in various tech fields, including:
 
 ## Events Outline
 The community organizes several formats of events to keep participants engaged:
-1. **Kick-off Nordelta Build**: The foundational event where members meet, share their projects, and define the future direction of the community.
+1. **Kick-off Norte Tech**: The foundational event where members meet, share their projects, and define the future direction of the community.
 2. **Build with AI**: A practical workshop focused on "vibe coding" - taking an idea to an MVP in a few hours.
-3. **Nordelta Hack #1**: The first hackathon organized by the community, encouraging fast-paced building and problem-solving.
+3. **Norte Hack #1**: The first hackathon organized by the community, encouraging fast-paced building and problem-solving.
 
 ## Contact Information
 - **WhatsApp**: +54 11 2508-5500
-- **Location**: Nordelta, Provincia de Buenos Aires, Argentina
+- **Location**: Zona Norte, Provincia de Buenos Aires, Argentina
 - **Founding Year**: 2025
 - **Members**: ~40 founding members at launch.
 

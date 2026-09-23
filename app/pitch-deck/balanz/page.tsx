@@ -3,8 +3,8 @@ import PitchDeck from '../PitchDeck';
 import { BALANZ } from '../pitch-data';
 
 export const metadata: Metadata = {
-  title: 'Nordelta Tech × Balanz · Propuesta',
-  description: 'Propuesta para que Balanz sea el sponsor principal de Nordelta Tech.',
+  title: 'Norte Tech × Balanz · Propuesta',
+  description: 'Propuesta para que Balanz sea el sponsor principal de Norte Tech.',
   robots: { index: false, follow: false },
 };
 

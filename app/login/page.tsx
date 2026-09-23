@@ -82,9 +82,9 @@ export default function LoginPage() {
       <div className="auth-card">
         <a href="/" className="auth-logo">
           <img src="/assets/logo.png" alt="" width={28} height={28} />
-          NORDELTA<em> TECH</em>
+          NORTE<em> TECH</em>
         </a>
-        <div className="auth-eyebrow">nordelta.tech</div>
+        <div className="auth-eyebrow">bsasnortetech.vercel.app</div>
 
         {mode === 'login' ? (
           <>

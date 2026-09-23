@@ -7,7 +7,7 @@ export function registrationReceivedHtml(params: { name: string; appUrl: string 
   const body = `
     ${headingRow(`HOLA, ${escapeHtml(firstName.toUpperCase())} 👋`)}
     ${paragraphRow(
-      `Recibimos tu registro en <strong style="color:#00e5a0;">Nordelta Tech</strong>, la comunidad de founders, devs y makers de Nordelta y zona norte. 🙌`,
+      `Recibimos tu registro en <strong style="color:#00e5a0;">Norte Tech</strong>, la comunidad de founders, devs y makers de la Zona Norte. 🙌`,
     )}
     ${paragraphRow(
       `Ahora un admin va a revisar tu solicitud. <strong style="color:#dde4ea;">Cuando te aceptemos te llega otro email con tu acceso al dashboard y la invitación al grupo de WhatsApp.</strong>`,

@@ -83,13 +83,13 @@ export const TIERS = [
     perks: [
       'Tu marca al frente de los eventos',
       'Espacio para hablar en los encuentros',
-      'Presencia en nordelta.tech',
+      'Presencia en bsasnortetech.vercel.app',
       'Línea directa con la comunidad',
     ],
   },
 ];
 
-export const CONTACT = { emails: ['tomasdelucaa@gmail.com', 'patricio@mateandbuild.com.ar'], site: 'nordelta.tech' };
+export const CONTACT = { emails: ['tomasdelucaa@gmail.com', 'patricio@mateandbuild.com.ar'], site: 'bsasnortetech.vercel.app' };
 
 // ── Perfil de sponsor (opcional) ─────────────────────────────────────────────
 // Cuando se pasa a buildSlides(), el deck se personaliza para ese sponsor: cover

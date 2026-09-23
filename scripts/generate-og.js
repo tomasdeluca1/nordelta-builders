@@ -79,7 +79,7 @@ async function main() {
                   style: { display: 'flex', alignItems: 'center', gap: 14, fontFamily: 'Space Mono', fontSize: 18, letterSpacing: '0.28em', color: MUTED },
                   children: [
                     { type: 'div', props: { style: { width: 8, height: 8, borderRadius: 4, background: ACCENT, boxShadow: `0 0 12px ${ACCENT}` } } },
-                    'NORDELTA TECH',
+                    'NORTE TECH',
                   ],
                 },
               },
@@ -89,7 +89,7 @@ async function main() {
                   style: { fontFamily: 'Space Mono', fontSize: 18, letterSpacing: '0.16em', color: MUTED, display: 'flex' },
                   children: [
                     { type: 'span', props: { style: { color: ACCENT, marginRight: 8 }, children: '$' } },
-                    'cd ~/nordelta.tech',
+                    'cd ~/nortetech',
                   ],
                 },
               },
@@ -139,13 +139,13 @@ async function main() {
                       props: {
                         style: {
                           fontFamily: 'Bebas Neue',
-                          fontSize: 152,
+                          fontSize: 140,
                           lineHeight: 0.92,
                           letterSpacing: '0.02em',
                           color: TEXT,
                           display: 'flex',
                         },
-                        children: 'BUILD THE',
+                        children: 'MEJOR CRECER',
                       },
                     },
                     {
@@ -153,7 +153,7 @@ async function main() {
                       props: {
                         style: {
                           fontFamily: 'Bebas Neue',
-                          fontSize: 152,
+                          fontSize: 140,
                           lineHeight: 0.92,
                           letterSpacing: '0.02em',
                           color: ACCENT,
@@ -161,7 +161,7 @@ async function main() {
                           marginTop: 4,
                           textShadow: `0 0 40px rgba(0,229,160,0.45)`,
                         },
-                        children: 'FUTURE.',
+                        children: 'EN COMUNIDAD.',
                       },
                     },
                     {
@@ -176,7 +176,7 @@ async function main() {
                           lineHeight: 1.4,
                           maxWidth: 640,
                         },
-                        children: 'Comunidad tech de Nordelta y Zona Norte BA. Founders, devs y makers buildeando en serio.',
+                        children: 'Norte Tech · Comunidad tech de founders, devs y makers de la Zona Norte de Buenos Aires.',
                       },
                     },
                   ],
@@ -209,7 +209,7 @@ async function main() {
                   },
                   children: [
                     { type: 'div', props: { style: { width: 8, height: 8, borderRadius: 4, background: ACCENT, boxShadow: `0 0 10px ${ACCENT}` } } },
-                    'NORDELTA.TECH',
+                    'BSASNORTETECH.VERCEL.APP',
                   ],
                 },
               },

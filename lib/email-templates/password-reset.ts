@@ -12,7 +12,7 @@ export function passwordResetHtml(params: {
 
   const body = `
     ${headingRow(`RECUPERÁ TU ACCESO, ${escapeHtml(firstName.toUpperCase())} 🔑`)}
-    ${paragraphRow(`Pediste recuperar tu contraseña de <strong style="color:#00e5a0;">Nordelta Tech</strong>. Generamos una nueva contraseña temporal para que puedas entrar.`)}
+    ${paragraphRow(`Pediste recuperar tu contraseña de <strong style="color:#00e5a0;">Norte Tech</strong>. Generamos una nueva contraseña temporal para que puedas entrar.`)}
     <tr><td style="padding:24px 40px 0 40px;">
       <div style="background:#131920;border:1px solid #252e35;border-radius:12px;padding:20px 24px;">
         <div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#7a8f9e;margin-bottom:12px;">Tu nuevo acceso</div>
@@ -25,5 +25,5 @@ export function passwordResetHtml(params: {
     ${paragraphRow(`Si no pediste esto, podés ignorar este email — tu contraseña anterior ya no funciona, pero nadie más tiene la nueva.`)}
   `;
 
-  return emailShell({ appUrl, bodyHtml: body, footerNote: 'Recibís este email porque se solicitó recuperar el acceso a tu cuenta en nordelta.tech.' });
+  return emailShell({ appUrl, bodyHtml: body, footerNote: 'Recibís este email porque se solicitó recuperar el acceso a tu cuenta en bsasnortetech.vercel.app.' });
 }

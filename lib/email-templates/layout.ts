@@ -10,7 +10,7 @@ export function escapeHtml(s: string): string {
 export const escapeAttr = escapeHtml;
 
 /**
- * Shared dark-themed email shell (Nordelta Tech brand). `bodyHtml` is injected
+ * Shared dark-themed email shell (Norte Tech brand). `bodyHtml` is injected
  * between the logo header and the footer; it should be a sequence of <tr> rows
  * built with the helpers below.
  */
@@ -18,7 +18,7 @@ export function emailShell(params: { appUrl: string; bodyHtml: string; footerNot
   const { appUrl, bodyHtml } = params;
   const footerNote =
     params.footerNote ??
-    `Recibís este email porque te sumaste a Nordelta Tech en <a href="${escapeAttr(appUrl)}" style="color:#00e5a0;text-decoration:none;">nordelta.tech</a>.`;
+    `Recibís este email porque te sumaste a Norte Tech en <a href="${escapeAttr(appUrl)}" style="color:#00e5a0;text-decoration:none;">bsasnortetech.vercel.app</a>.`;
   const year = new Date().getFullYear();
   return `<!DOCTYPE html>
 <html lang="es">
@@ -27,7 +27,7 @@ export function emailShell(params: { appUrl: string; bodyHtml: string; footerNot
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
     <meta name="supported-color-schemes" content="dark" />
-    <title>Nordelta Tech</title>
+    <title>Norte Tech</title>
   </head>
   <body style="margin:0;padding:0;background:#080b0d;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#dde4ea;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#080b0d;padding:40px 16px;">
@@ -39,8 +39,8 @@ export function emailShell(params: { appUrl: string; bodyHtml: string; footerNot
                 <table cellpadding="0" cellspacing="0" border="0" role="presentation"><tr>
                   <td style="padding-right:12px;vertical-align:middle;"><img src="${appUrl}/assets/logo.png" width="40" height="40" alt="" style="display:block;border:0;outline:0;text-decoration:none;"/></td>
                   <td style="vertical-align:middle;">
-                    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:28px;letter-spacing:0.06em;color:#00e5a0;line-height:1;">NORDELTA <span style="color:#dde4ea;">TECH</span></div>
-                    <div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#7a8f9e;margin-top:4px;">nordelta.tech</div>
+                    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:28px;letter-spacing:0.06em;color:#00e5a0;line-height:1;">NORTE <span style="color:#dde4ea;">TECH</span></div>
+                    <div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#7a8f9e;margin-top:4px;">bsasnortetech.vercel.app</div>
                   </td>
                 </tr></table>
               </td>
@@ -55,7 +55,7 @@ export function emailShell(params: { appUrl: string; bodyHtml: string; footerNot
             </tr>
           </table>
           <div style="margin-top:16px;font-size:11px;color:#52626e;letter-spacing:0.12em;text-transform:uppercase;">
-            © ${year} Nordelta Tech · nordelta.tech
+            © ${year} Norte Tech · bsasnortetech.vercel.app
           </div>
         </td>
       </tr>

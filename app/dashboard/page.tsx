@@ -164,11 +164,11 @@ export default function DashboardPage() {
       <nav className="dash-nav">
         <a href="/" className="nav-logo">
           <img src="/assets/logo.png" alt="" width={28} height={28} />
-          NORDELTA<em> TECH</em>
+          NORTE<em> TECH</em>
         </a>
         <div className="dash-nav-right">
           {user.isAdmin && <a href="/admin" className="btn btn-ghost dash-logout">Admin</a>}
-          <span className="dash-domain">nordelta.tech</span>
+          <span className="dash-domain">bsasnortetech.vercel.app</span>
           <button onClick={handleLogout} className="btn btn-ghost dash-logout">Salir</button>
         </div>
       </nav>
@@ -223,7 +223,7 @@ export default function DashboardPage() {
               <div className="auth-row">
                 <label className="auth-label">
                   <span>Empresa</span>
-                  <input placeholder="Ej. Nordelta Tech" value={profile.company} onChange={e => setProfile({ ...profile, company: e.target.value })} />
+                  <input placeholder="Ej. Norte Tech" value={profile.company} onChange={e => setProfile({ ...profile, company: e.target.value })} />
                 </label>
                 <label className="auth-label">
                   <span>URL</span>

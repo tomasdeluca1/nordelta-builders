@@ -60,20 +60,20 @@ function buildHtml({ firstName, magicLink, deadlineLabel, appUrl }) {
 <table cellpadding="0" cellspacing="0" border="0" role="presentation"><tr>
 <td style="padding-right:12px;vertical-align:middle;"><img src="${appUrl}/assets/logo.png" width="40" height="40" alt="" style="display:block;border:0;"/></td>
 <td style="vertical-align:middle;">
-<div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:28px;letter-spacing:0.06em;color:#00e5a0;line-height:1;">NORDELTA <span style="color:#dde4ea;">TECH</span></div>
-<div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#7a8f9e;margin-top:4px;">nordelta.tech</div>
+<div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:28px;letter-spacing:0.06em;color:#00e5a0;line-height:1;">NORTE <span style="color:#dde4ea;">TECH</span></div>
+<div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#7a8f9e;margin-top:4px;">bsasnortetech.vercel.app</div>
 </td></tr></table></td></tr>
 <tr><td style="padding:32px 40px 8px 40px;">
 <h1 style="margin:0;font-family:'Bebas Neue',Impact,sans-serif;font-size:42px;line-height:1.05;letter-spacing:0.02em;color:#ffffff;">${esc(firstName.toUpperCase())}, FALTA TU PRESENTACIÓN 🙌</h1>
-<p style="margin:16px 0 0 0;font-size:16px;line-height:1.6;color:#a9b6c0;">Estás en la lista de <strong style="color:#00e5a0;">Nordelta Tech</strong>. Estamos integrando a la comunidad de a poco y, para sumarte al grupo de WhatsApp, queremos conocerte un poco más.</p>
+<p style="margin:16px 0 0 0;font-size:16px;line-height:1.6;color:#a9b6c0;">Estás en la lista de <strong style="color:#00e5a0;">Norte Tech</strong>. Estamos integrando a la comunidad de a poco y, para sumarte al grupo de WhatsApp, queremos conocerte un poco más.</p>
 <p style="margin:14px 0 0 0;font-size:16px;line-height:1.6;color:#a9b6c0;">Completá tu <strong style="color:#dde4ea;">presentación</strong> —dónde vivís, qué construís, qué buscás— y, si querés, conectá tu website. Un admin la revisa y te damos el acceso.</p>
 </td></tr>
 <tr><td align="center" style="padding:28px 40px 0 40px;"><a href="${esc(magicLink)}" style="display:inline-block;background:#00e5a0;color:#000000;text-decoration:none;font-weight:700;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;padding:14px 32px;border-radius:6px;">Completar mi presentación &rarr;</a></td></tr>
 ${deadlineBlock}
 <tr><td style="padding:24px 40px 0 40px;"><p style="margin:0;font-size:13px;color:#7a8f9e;line-height:1.6;">Este link es personal y te deja entrar sin contraseña. Si no fuiste vos quien se registró, ignorá este email.</p></td></tr>
-<tr><td style="padding:32px 40px 32px 40px;"><div style="border-top:1px solid #1c2328;padding-top:20px;font-size:12px;color:#52626e;line-height:1.6;">Recibís este email porque te registraste en Nordelta Tech. Cualquier duda, respondé a este mismo mail.</div></td></tr>
+<tr><td style="padding:32px 40px 32px 40px;"><div style="border-top:1px solid #1c2328;padding-top:20px;font-size:12px;color:#52626e;line-height:1.6;">Recibís este email porque te registraste en Norte Tech. Cualquier duda, respondé a este mismo mail.</div></td></tr>
 </table>
-<div style="margin-top:16px;font-size:11px;color:#52626e;letter-spacing:0.12em;text-transform:uppercase;">© ${year} Nordelta Tech · nordelta.tech</div>
+<div style="margin-top:16px;font-size:11px;color:#52626e;letter-spacing:0.12em;text-transform:uppercase;">© ${year} Norte Tech · bsasnortetech.vercel.app</div>
 </td></tr></table></body></html>`;
 }
 
@@ -92,8 +92,8 @@ async function main() {
   const wantReminder = has('--reminder');
 
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.EMAIL_FROM || 'Nordelta Tech <onboarding@nordelta.tech>';
-  const appUrl = (process.env.APP_URL || 'https://nordelta.tech').replace(/\/$/, '');
+  const from = process.env.EMAIL_FROM || 'Norte Tech <onboarding@resend.dev>';
+  const appUrl = (process.env.APP_URL || 'https://bsasnortetech.vercel.app').replace(/\/$/, '');
   const dbUrl = process.env.DATABASE_URL;
   const sessionPwd = process.env.SESSION_PASSWORD;
   if (!dbUrl) throw new Error('Falta DATABASE_URL en .env.local');
@@ -134,7 +134,7 @@ async function main() {
     const res = await resend.emails.send({
       from,
       to: testEmail,
-      subject: `[PRUEBA] Completá tu presentación — Nordelta Tech`,
+      subject: `[PRUEBA] Completá tu presentación — Norte Tech`,
       html,
     });
     if (res.error) console.log(`✗ ${testEmail}: ${JSON.stringify(res.error)}`);
@@ -193,7 +193,7 @@ async function main() {
       const res = await resend.emails.send({
         from,
         to: r.email,
-        subject: `${firstName}, completá tu presentación para entrar a Nordelta Tech`,
+        subject: `${firstName}, completá tu presentación para entrar a Norte Tech`,
         html,
       });
       if (res.error) {

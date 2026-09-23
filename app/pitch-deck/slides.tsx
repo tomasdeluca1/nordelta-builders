@@ -30,7 +30,7 @@ const COWORKS: { venue: string; img?: string }[] = [
 
 const SPONSOR_WINS = [
   { t: 'Una audiencia que construye', d: 'Founders y devs AI-first de Zona Norte, en un solo lugar.' },
-  { t: 'Tu marca donde pasa', d: 'Presencia en los eventos y en nordelta.tech.' },
+  { t: 'Tu marca donde pasa', d: 'Presencia en los eventos y en bsasnortetech.vercel.app.' },
   { t: 'Acceso a talento', d: 'Gente que ya está buscando equipo y proyectos.' },
   { t: 'Las startups de la zona, de cerca', d: 'Ves qué se está construyendo antes que nadie.' },
 ];
@@ -50,14 +50,14 @@ export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.React
     <React.Fragment key="cover">
       <div className="s-eyebrow">{sponsor ? sponsor.coverEyebrow : 'Pitch para sponsors · 2026'}</div>
       <h1 className="s-title">BUILD<br />THE FUTURE</h1>
-      <p className="s-lead">La comunidad tech de founders, devs y makers de Nordelta y Zona Norte.</p>
+      <p className="s-lead">La comunidad tech de founders, devs y makers de la Zona Norte.</p>
       {sponsor && (
         <div className="sponsor-lockup">
           <span className="sl-label">Sponsor principal</span>
           <img className="sl-logo" src={sponsor.logoSrc} alt={sponsor.name} />
         </div>
       )}
-      <div className="deck-foot"><span className="big">{memberTotal}+ builders</span>nordelta.tech</div>
+      <div className="deck-foot"><span className="big">{memberTotal}+ builders</span>bsasnortetech.vercel.app</div>
     </React.Fragment>,
 
     // 2 — La oportunidad
@@ -72,8 +72,8 @@ export function buildSlides(memberTotal: number, sponsor?: Sponsor): React.React
 
     // 3 — Qué es
     <React.Fragment key="quees">
-      <div className="s-eyebrow">Qué es Nordelta Tech</div>
-      <h1 className="s-title">TECH NACE<br />EN NORDELTA</h1>
+      <div className="s-eyebrow">Qué es Norte Tech</div>
+      <h1 className="s-title">TECH NACE<br />EN ZONA NORTE</h1>
       <p className="s-lead">
         Una comunidad de builders que vive y trabaja en la zona. Nos juntamos a construir,
         no a hacer networking de tarjetita.

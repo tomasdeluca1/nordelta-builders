@@ -1,9 +1,9 @@
-# Nordelta Tech — Launch en Instagram + X
+# Norte Tech — Launch en Instagram + X
 
 > Lanzamiento **always-on** (sin fecha fija). Es una secuencia de arranque de ~2 semanas + un ritmo continuo. Empezás cuando quieras: el Día 1 es el día que publicás el primer post.
 
-**Producto:** Comunidad tech presencial de founders, devs y makers de Nordelta y zona norte BA.
-**Web:** https://nordelta.tech · **Tagline:** `BUILD THE FUTURE.`
+**Producto:** Comunidad tech presencial de founders, devs y makers de la Zona Norte de Buenos Aires.
+**Web:** https://bsasnortetech.vercel.app · **Tagline:** `BUILD THE FUTURE.`
 **Estado:** v0.1 beta · 40+ founding members · 2025
 **Voz:** español es-AR, tech-native, directo, sin humo. Mezcla inglés tech + español ("buildear", "shippear", "desde el agua"). Estética terminal/programador.
 **Color marca:** verde neón `#00E5A0` sobre fondo oscuro `#05070A`. Fuentes: Bebas Neue (títulos) · Space Mono (mono/tags) · DM Sans (texto).
@@ -17,38 +17,38 @@ Usá **el mismo handle en ambas plataformas** para que sea fácil de recordar y 
 
 | Plataforma | Handle 1ª opción | Si está tomado |
 |---|---|---|
-| X (Twitter) | `@nordeltatech` | `@nordelta_tech`, `@ndtech_`, `@nordeltatech_` |
-| Instagram | `@nordeltatech` | `@nordelta.tech`, `@nordelta_tech`, `@nordeltatech.ar` |
+| X (Twitter) | `@nortetech` | `@norte_tech`, `@ndtech_`, `@nortetech_` |
+| Instagram | `@nortetech` | `@nortetech.ar`, `@norte_tech`, `@nortetech.ar` |
 
-- **Display name (ambas):** `Nordelta Tech`
-- **IG name field** (el campo buscable, separado del @): `Nordelta Tech · Founders & Devs`
+- **Display name (ambas):** `Norte Tech`
+- **IG name field** (el campo buscable, separado del @): `Norte Tech · Founders & Devs`
 
 ### Bio para X (máx. 160 caracteres)
 ```
-Comunidad tech de founders, devs y makers de Nordelta + Zona Norte. Construimos startups desde el agua 🌊 No es otro grupo de WhatsApp ⚡
+Comunidad tech de founders, devs y makers de la Zona Norte. Construimos startups desde el agua 🌊 No es otro grupo de WhatsApp ⚡
 ```
-- **Ubicación:** Nordelta, Buenos Aires
-- **Website field:** `nordelta.tech`
+- **Ubicación:** Zona Norte, Buenos Aires
+- **Website field:** `bsasnortetech.vercel.app`
 
 ### Bio para Instagram (máx. 150 caracteres, permite saltos de línea)
 ```
-🌊 Comunidad tech de Nordelta + Zona Norte BA
+🌊 Comunidad tech de la Zona Norte de Buenos Aires
 ⚡ Founders · Devs · Makers
 🚀 Construimos startups desde el agua
 👇 Sumate gratis
 ```
-- **Link en bio:** `nordelta.tech` (directo a la landing, que ya convierte). Opcional más adelante: un mini link-hub con "Sumarme · WhatsApp · Próximo evento".
+- **Link en bio:** `bsasnortetech.vercel.app` (directo a la landing, que ya convierte). Opcional más adelante: un mini link-hub con "Sumarme · WhatsApp · Próximo evento".
 - **Categoría de cuenta:** Community / Education (cuenta profesional gratis → da analytics).
 
 ### Foto de perfil y portada
 - **Avatar (ambas):** el logo geométrico circular sobre fondo `#05070A` (el mismo de la web, con el glow verde). Que se lea bien en 32px.
-- **X header (1500×500):** "BUILD THE FUTURE." en Bebas Neue + `nordelta.tech` + tags `FOUNDERS / DEVS / MAKERS`. Reusá el lenguaje visual del `og.png`.
+- **X header (1500×500):** "BUILD THE FUTURE." en Bebas Neue + `bsasnortetech.vercel.app` + tags `FOUNDERS / DEVS / MAKERS`. Reusá el lenguaje visual del `og.png`.
 - **Verificá** que el avatar y el header usen exactamente `#00E5A0` sobre `#05070A` para mantener consistencia con la web.
 
 ### Conectar a Typefully
-1. Creá `@nordeltatech` en X.
-2. En Typefully: **Add account** → conectá la cuenta de X de Nordelta (queda como un nuevo *social set*).
-3. Avisame y muevo/recreo los drafts `[NORDELTA.TECH]` (hoy staged en tu cuenta personal `_huevsite`) al social set correcto, listos para programar.
+1. Creá `@nortetech` en X.
+2. En Typefully: **Add account** → conectá la cuenta de X de Norte Tech (queda como un nuevo *social set*).
+3. Avisame y muevo/recreo los drafts `[NORTE TECH]` (hoy staged en tu cuenta personal `_huevsite`) al social set correcto, listos para programar.
 
 ---
 
@@ -58,11 +58,11 @@ Todo lo de redes (canal **rented**) tiene un único objetivo: empujar a la web y
 
 | Canal | Rol | Qué hacemos |
 |---|---|---|
-| **Owned** | Conversión y retención | `nordelta.tech` (signup) + grupo de WhatsApp + email de bienvenida (Resend). Todo post termina acá. |
+| **Owned** | Conversión y retención | `bsasnortetech.vercel.app` (signup) + grupo de WhatsApp + email de bienvenida (Resend). Todo post termina acá. |
 | **Rented** | Visibilidad / awareness | X (audiencia dev/founder, formato thread) + Instagram (audiencia local zona norte, formato visual). |
 | **Borrowed** | Atajo de credibilidad | Founders/empresas tech conocidas de zona norte, medios de Nordelta, comunidades de startups AR. Que reposteen / etiqueten. |
 
-**Regla de oro:** el link a `nordelta.tech` va en la bio y en el último post del thread/carrusel, NO al principio (los algoritmos penalizan links tempranos). En IG, "link en bio".
+**Regla de oro:** el link a `bsasnortetech.vercel.app` va en la bio y en el último post del thread/carrusel, NO al principio (los algoritmos penalizan links tempranos). En IG, "link en bio".
 
 ### Estrategia founder-led (importante)
 Una cuenta de marca arranca con 0 seguidores. Tu cuenta personal (`@_huevsite` / Tomi) ya tiene audiencia y cara real. **Lanzá en paralelo:**
@@ -92,7 +92,7 @@ Cadencia objetivo: **X 1–2 posts/día**, **IG 4–5 posts + Stories** en las 2
 |---|---|---|
 | **1** | `X1` Thread de lanzamiento (📌 fijar) | `IG1` Carrusel de lanzamiento + Stories |
 | **2** | `X2` Manifiesto | `IG` Story: "ya estamos en IG, seguinos" + repost de IG1 |
-| **3** | `X5` Thread founder *(personal)* | `IG3` Reel "Qué es Nordelta Tech en 30s" |
+| **3** | `X5` Thread founder *(personal)* | `IG3` Reel "Qué es Norte Tech en 30s" |
 | **4** | `X3` Hot take "no es otro grupo de WhatsApp" | Stories: encuesta "¿en qué estás buildeando?" |
 | **5** | `X4` Thread de los 4 pilares | `IG2` Carrusel de los 4 pilares |
 | **6** | `X7` Build in public (status terminal) | `IG4` Spotlight de miembro #1 |
@@ -108,15 +108,15 @@ Después del Día 14 → ritmo sostenido (sección 8).
 
 ## 4. Contenido para X (Twitter)
 
-> Estos están creados como **drafts en Typefully** (prefijo `[NORDELTA.TECH]`). Cada `—` separa los tweets de un thread.
+> Estos están creados como **drafts en Typefully** (prefijo `[NORTE TECH]`). Cada `—` separa los tweets de un thread.
 
 ### X1 · Thread de lanzamiento (FIJAR en el perfil)
 ```
-Nordelta tiene torres, lagos, y ahora algo nuevo:
+Zona Norte tiene torres, lagos, y ahora algo nuevo:
 
 una comunidad tech de founders, devs y makers que construyen en serio.
 
-Se llama Nordelta Tech. Ya somos 40+ buildeando desde el agua 🌊
+Se llama Norte Tech. Ya somos 40+ buildeando desde el agua 🌊
 
 Te cuento qué es 🧵
 —
@@ -139,9 +139,9 @@ Arrancamos con un kick-off (fecha que confirmamos pronto) y seguimos con worksho
 
 La meta: que el ecosistema tech de zona norte deje de ser invisible y empiece a shippear junto.
 —
-Si sos founder, dev, maker o inversor de Nordelta o zona norte:
+Si sos founder, dev, maker o inversor de la Zona Norte:
 
-Sumate gratis → nordelta.tech
+Sumate gratis → bsasnortetech.vercel.app
 
 Conocé a los builders, completá tu perfil y empezá a buildear.
 
@@ -150,7 +150,7 @@ RT para que llegue a quien tiene que llegar 🚀
 
 ### X2 · Manifiesto (single post)
 ```
-Manifiesto Nordelta Tech:
+Manifiesto Norte Tech:
 
 Las mejores cosas se construyen cerca.
 El talento de zona norte no le envidia nada a nadie.
@@ -159,7 +159,7 @@ Charlar está bien. Shippear está mejor.
 No es otro grupo de WhatsApp.
 Es donde se construye el futuro.
 
-nordelta.tech
+bsasnortetech.vercel.app
 ```
 
 ### X3 · Hot take (contrarian)
@@ -168,14 +168,14 @@ Hot take: el 90% de las "comunidades tech" son grupos de WhatsApp muertos.
 
 200 personas, 3 hablan, 0 construyen.
 
-Nordelta Tech es lo contrario: chica, presencial y obsesionada con hacer cosas reales.
+Norte Tech es lo contrario: chica, presencial y obsesionada con hacer cosas reales.
 
 Calidad > cantidad.
 ```
 
 ### X4 · Thread de los 4 pilares
 ```
-4 razones para entrar a Nordelta Tech si estás en zona norte 🧵
+4 razones para entrar a Norte Tech si estás en zona norte 🧵
 —
 1. Startups & proyectos 🚀
 
@@ -199,7 +199,7 @@ Las puertas que sola/o tardás años en abrir, acá se abren en un asado.
 
 No es otro grupo de WhatsApp. Construimos cosas juntos.
 
-Sumate gratis → nordelta.tech
+Sumate gratis → bsasnortetech.vercel.app
 ```
 
 ### X5 · Thread founder *(cuenta personal)*
@@ -210,9 +210,9 @@ había talento tech increíble alrededor, pero nadie se conocía. Cada uno build
 
 Así que armé algo para cambiar eso 🧵
 —
-Se llama Nordelta Tech.
+Se llama Norte Tech.
 
-Una comunidad de founders, devs y makers de Nordelta y zona norte. Presencial, real, sin humo.
+Una comunidad de founders, devs y makers de la Zona Norte. Presencial, real, sin humo.
 
 Empezamos siendo 40 y ya se está moviendo.
 —
@@ -222,7 +222,7 @@ Quiero que de acá salgan startups, contrataciones, sociedades. Las cosas que pa
 —
 Si estás en zona norte y construís (o querés construir) algo:
 
-→ nordelta.tech
+→ bsasnortetech.vercel.app
 
 Es gratis. 2 minutos, completás tu perfil y ya sos parte. Nos vemos en el kick-off 🚀
 ```
@@ -238,13 +238,13 @@ Pregunta para los que están en tech en zona norte:
 — inversión
 — gente que entienda lo que hacés
 
-Respondé 👇 (armamos nordelta.tech justo para esto)
+Respondé 👇 (armamos bsasnortetech.vercel.app justo para esto)
 ```
 > Tip: convertilo en **encuesta nativa de X** con esas 4 opciones para más alcance.
 
 ### X7 · Build in public (estética terminal)
 ```
-$ cat nordelta.tech/status
+$ cat bsasnortetech.vercel.app/status
 
 {
   members: "40+",
@@ -255,7 +255,7 @@ $ cat nordelta.tech/status
 Construyendo la comunidad tech de zona norte en público.
 Cada semana sumamos builders.
 
-¿Te sumás? → nordelta.tech
+¿Te sumás? → bsasnortetech.vercel.app
 ```
 
 ### X8 · Social proof / recap
@@ -268,18 +268,18 @@ En poco tiempo:
 
 Esto recién empieza.
 
-Si querés construir el futuro desde el agua 🌊 → nordelta.tech
+Si querés construir el futuro desde el agua 🌊 → bsasnortetech.vercel.app
 ```
 
 ### Plantilla X · Spotlight de miembro (reusable)
 ```
-Builder de la semana en Nordelta Tech 👇
+Builder de la semana en Norte Tech 👇
 
 [Nombre] — [rol] en [empresa/proyecto]
 Construyendo: [qué hace en 1 línea]
 Busca: [co-founder / early hires / usuarios / feedback]
 
-Así es la gente que vas a encontrar adentro → nordelta.tech
+Así es la gente que vas a encontrar adentro → bsasnortetech.vercel.app
 ```
 
 ---
@@ -289,28 +289,28 @@ Así es la gente que vas a encontrar adentro → nordelta.tech
 > IG es visual: el copy de cada slide va DISEÑADO sobre fondo `#05070A` con texto `#E6EDF3` y acentos en verde `#00E5A0`. Títulos en Bebas Neue, tags/labels en Space Mono.
 
 ### IG1 · Carrusel de lanzamiento (6 slides) — Día 1
-- **Slide 1:** `BUILD THE FUTURE.` (Bebas Neue gigante, verde neón) · abajo chiquito `nordelta.tech`
-- **Slide 2:** "Nordelta tiene torres, lagos... y ahora una comunidad tech."
+- **Slide 1:** `BUILD THE FUTURE.` (Bebas Neue gigante, verde neón) · abajo chiquito `bsasnortetech.vercel.app`
+- **Slide 2:** "Zona Norte tiene torres, lagos... y ahora una comunidad tech."
 - **Slide 3:** "Founders. Devs. Makers. Buildeando desde el agua 🌊"
 - **Slide 4:** "No es otro grupo de WhatsApp. Es donde se construye en serio."
 - **Slide 5:** "Ya somos 40+. Y esto recién arranca."
-- **Slide 6 (CTA):** "Sumate gratis → link en bio · nordelta.tech"
+- **Slide 6 (CTA):** "Sumate gratis → link en bio · bsasnortetech.vercel.app"
 
 **Caption:**
 ```
-Arrancó Nordelta Tech 🌊⚡
+Arrancó Norte Tech 🌊⚡
 
-La comunidad tech de founders, devs y makers de Nordelta y zona norte. Construimos startups, compartimos conocimiento y hacemos crecer el ecosistema —en serio, no en otro grupo de WhatsApp.
+La comunidad tech de founders, devs y makers de la Zona Norte. Construimos startups, compartimos conocimiento y hacemos crecer el ecosistema —en serio, no en otro grupo de WhatsApp.
 
 Ya somos 40+ builders. Si estás en zona norte y construís (o querés construir) algo, esto es para vos.
 
-Sumate gratis 👉 link en bio · nordelta.tech
+Sumate gratis 👉 link en bio · bsasnortetech.vercel.app
 
-#NordeltaTech #Nordelta #ZonaNorte #TechArgentina #StartupsArgentina #Founders #Devs #Makers #BuildInPublic #ComunidadTech #EmprendedoresAR #BuenosAires
+#NorteTech #Nordelta #ZonaNorte #TechArgentina #StartupsArgentina #Founders #Devs #Makers #BuildInPublic #ComunidadTech #EmprendedoresAR #BuenosAires
 ```
 
 ### IG2 · Carrusel de los 4 pilares (6 slides) — Día 5
-- **Slide 1:** "¿Qué es Nordelta Tech?"
+- **Slide 1:** "¿Qué es Norte Tech?"
 - **Slide 2:** "🚀 Startups & Proyectos — co-founders, early hires y primeros usuarios"
 - **Slide 3:** "🧠 Conocimiento — workshops técnicos y talks de founders"
 - **Slide 4:** "🤝 Red de contactos — inversores y mentores de zona norte"
@@ -319,7 +319,7 @@ Sumate gratis 👉 link en bio · nordelta.tech
 
 **Caption:**
 ```
-4 cosas que vas a encontrar en Nordelta Tech 👇
+4 cosas que vas a encontrar en Norte Tech 👇
 
 🚀 Conexiones reales para tu startup
 🧠 Conocimiento de gente que ya lo hizo
@@ -330,25 +330,25 @@ Todo presencial + online, acá en zona norte.
 
 Link en bio para sumarte gratis 🌊
 
-#NordeltaTech #ZonaNorte #StartupsArgentina #TechArgentina #Founders #ComunidadTech #Emprendedores #Nordelta
+#NorteTech #ZonaNorte #StartupsArgentina #TechArgentina #Founders #ComunidadTech #Emprendedores #Nordelta
 ```
 
-### IG3 · Reel "Qué es Nordelta Tech en 30s" — Día 3
+### IG3 · Reel "Qué es Norte Tech en 30s" — Día 3
 Formato 9:16, subtítulos siempre, hook en el primer segundo.
 ```
 [0-3s]  HOOK · texto en pantalla: "Vivís en zona norte y estás en tech? Esto es para vos."
         (visual: drone/timelapse de Nordelta o pantalla con código + el logo)
-[3-10s] "Nordelta Tech es la comunidad de founders, devs y makers de la zona."
+[3-10s] "Norte Tech es la comunidad de founders, devs y makers de la zona."
 [10-18s] "No es otro grupo de WhatsApp. Conectamos gente que construye en serio:
          co-founders, early hires, inversores, mentores."
 [18-25s] "Workshops, talks, un kick-off y un hackathon en camino."
-[25-30s] CTA en pantalla: "Sumate gratis → nordelta.tech (link en bio)" + logo con glow
+[25-30s] CTA en pantalla: "Sumate gratis → bsasnortetech.vercel.app (link en bio)" + logo con glow
 ```
-**Caption:** `Qué es Nordelta Tech en 30 segundos 🌊 Sumate gratis, link en bio. #NordeltaTech #ZonaNorte #TechArgentina #Startups #BuildInPublic`
+**Caption:** `Qué es Norte Tech en 30 segundos 🌊 Sumate gratis, link en bio. #NorteTech #ZonaNorte #TechArgentina #Startups #BuildInPublic`
 **Audio:** trending sound tech/energético o beat suave; lo importante son los subtítulos.
 
 ### IG4 · Carrusel Spotlight de miembro (plantilla reusable) — Días 6, 9, ...
-- **Slide 1:** Foto del miembro + "BUILDER · Nordelta Tech" (label Space Mono)
+- **Slide 1:** Foto del miembro + "BUILDER · Norte Tech" (label Space Mono)
 - **Slide 2:** "[Nombre] — [rol] @ [empresa/proyecto]"
 - **Slide 3:** "Construye: [qué hace]" + "Busca: [co-founder/hires/usuarios]"
 - **Slide 4:** Quote del miembro (1 frase potente)
@@ -356,13 +356,13 @@ Formato 9:16, subtítulos siempre, hook en el primer segundo.
 
 **Caption:**
 ```
-Conocé a los builders de Nordelta Tech 👇
+Conocé a los builders de Norte Tech 👇
 
 [Nombre] está construyendo [proyecto] y busca [X]. Este es exactamente el tipo de gente que vas a encontrar adentro.
 
 ¿Querés aparecer acá? Sumate gratis, link en bio.
 
-#NordeltaTech #ZonaNorte #Founders #Startups #ComunidadTech
+#NorteTech #ZonaNorte #Founders #Startups #ComunidadTech
 ```
 
 ### IG5 · Reel build-in-public — Día 8
@@ -370,9 +370,9 @@ Conocé a los builders de Nordelta Tech 👇
 [0-3s]  HOOK: "Estamos armando una comunidad tech en zona norte. Día [X]."
 [3-20s] Detrás de escena: pantalla de la web (member grid creciendo), mensajes del grupo,
         preparando el kick-off. Texto: "40+ builders y subiendo."
-[20-30s] CTA: "Querés ser parte? nordelta.tech · link en bio"
+[20-30s] CTA: "Querés ser parte? bsasnortetech.vercel.app · link en bio"
 ```
-**Caption:** `Construyendo la comunidad tech de zona norte, en público 🛠️ #BuildInPublic #NordeltaTech #ZonaNorte #Startups`
+**Caption:** `Construyendo la comunidad tech de zona norte, en público 🛠️ #BuildInPublic #NorteTech #ZonaNorte #Startups`
 
 ### IG · Stories (diarias durante el arranque)
 Secuencia sugerida para el Día 1–2:
@@ -381,7 +381,7 @@ Secuencia sugerida para el Día 1–2:
 3. Encuesta: "¿Estás en tech en zona norte?" (Sí / Todavía no)
 4. Pregunta abierta: "¿En qué estás buildeando?" (caja de preguntas)
 5. Countdown sticker para el kick-off (cuando haya fecha)
-6. Link sticker → nordelta.tech
+6. Link sticker → bsasnortetech.vercel.app
 
 **Highlights a crear (destacados):** `QUÉ ES` · `EVENTOS` · `BUILDERS` · `SUMARME`
 
@@ -389,10 +389,10 @@ Secuencia sugerida para el Día 1–2:
 
 ## 6. Banco de hashtags
 
-**X:** usá 0–2 por post (más perjudica). Rotá: `#NordeltaTech` · `#BuildInPublic` · `#TechArgentina`
+**X:** usá 0–2 por post (más perjudica). Rotá: `#NorteTech` · `#BuildInPublic` · `#TechArgentina`
 
 **Instagram (mezclá 8–12 por post):**
-- Marca/nicho: `#NordeltaTech` `#ComunidadTech` `#BuildInPublic`
+- Marca/nicho: `#NorteTech` `#ComunidadTech` `#BuildInPublic`
 - Geo: `#Nordelta` `#ZonaNorte` `#BuenosAires` `#TigrePilar` `#ArgentinaTech`
 - Audiencia: `#Founders` `#Devs` `#Makers` `#Emprendedores` `#Startups`
 - Amplios: `#StartupsArgentina` `#TechArgentina` `#Programacion` `#Emprendedurismo`
@@ -401,7 +401,7 @@ Secuencia sugerida para el Día 1–2:
 
 ## 6b. Piezas gráficas generadas (`public/marketing/assets/`)
 
-> **Panel en vivo:** https://nordelta.tech/marketing/launch.html — para revisar todo, copiar textos y exportar las imágenes desde el navegador.
+> **Panel en vivo:** https://bsasnortetech.vercel.app/marketing/launch.html — para revisar todo, copiar textos y exportar las imágenes desde el navegador.
 
 Renderizadas con tus fuentes y colores reales (HTML/CSS → PNG, todas a 2x para máxima nitidez). **No usan IA de imágenes** → matchean la web 1:1. Viven en `public/` para que Next.js/Vercel las sirva en prod.
 
@@ -450,7 +450,7 @@ No es un evento de un día. Mantené momentum:
 
 - **Awareness:** seguidores (tasa de crecimiento), impresiones, alcance de Reels.
 - **Engagement:** guardados y compartidos (valen más que likes), comentarios, respuestas a Stories.
-- **Conversión (lo que importa):** clicks al link en bio, **signups en nordelta.tech**, ingresos al grupo de WhatsApp.
+- **Conversión (lo que importa):** clicks al link en bio, **signups en bsasnortetech.vercel.app**, ingresos al grupo de WhatsApp.
 - Revisá semanal: top 3 posts (por qué funcionaron) y replicá el patrón.
 
 ---
@@ -458,10 +458,10 @@ No es un evento de un día. Mantené momentum:
 ## 10. Checklist de lanzamiento
 
 **Pre (Día 0)**
-- [ ] Crear `@nordeltatech` en X e Instagram
+- [ ] Crear `@nortetech` en X e Instagram
 - [ ] Avatar + header + bios cargadas (sección 0)
-- [ ] Link en bio → nordelta.tech
-- [ ] Conectar X de Nordelta a Typefully → avisarme para mover los drafts
+- [ ] Link en bio → bsasnortetech.vercel.app
+- [ ] Conectar X de Norte Tech a Typefully → avisarme para mover los drafts
 - [ ] Armar plantillas de carrusel/Reel/Story en Canva/Figma
 - [ ] Crear los Highlights vacíos (QUÉ ES / EVENTOS / BUILDERS / SUMARME)
 

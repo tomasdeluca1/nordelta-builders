@@ -1,4 +1,4 @@
-// Nordelta Tech — generador de piezas gráficas para redes
+// Norte Tech — generador de piezas gráficas para redes
 // HTML/CSS con fuentes de marca embebidas -> PNG vía Chrome headless.
 // Uso: node marketing/assets-generator/build.mjs
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
@@ -80,7 +80,7 @@ function igFrame({ counter, content, swipe = "DESLIZÁ →", logo = 40 }) {
   return `<div class="stage" style="width:1080px;height:1350px;--logo:${logo}px;">
     <div class="frame" style="padding:84px;">
       <div class="top">
-        <div class="brand"><img src="data:image/png;base64,${LOGO}"/><span class="wm">nordelta.tech</span></div>
+        <div class="brand"><img src="data:image/png;base64,${LOGO}"/><span class="wm">bsasnortetech.vercel.app</span></div>
         <span class="counter">${counter}</span>
       </div>
       <div class="content">${content}</div>
@@ -105,13 +105,13 @@ const ig1 = [
     content: `
       <span class="kick">v0.1 — comunidad tech</span>
       <h1 class="title" style="font-size:230px;margin-top:34px;">BUILD<br>THE <span class="g">FUTURE.</span></h1>
-      <p class="sub" style="font-size:34px;margin-top:40px;max-width:760px;">Founders, devs y makers de Nordelta y zona norte. Ahora en <span style="color:var(--text)">nordelta.tech</span></p>`,
+      <p class="sub" style="font-size:34px;margin-top:40px;max-width:760px;">Founders, devs y makers de la Zona Norte. Ahora en <span style="color:var(--text)">bsasnortetech.vercel.app</span></p>`,
   }),
   igFrame({
     counter: num(2, 6),
     content: `
       <span class="kick">whoami</span>
-      <h1 class="title" style="font-size:120px;margin-top:40px;">NORDELTA TIENE TORRES, LAGOS…</h1>
+      <h1 class="title" style="font-size:120px;margin-top:40px;">ZONA NORTE TIENE TORRES, LAGOS…</h1>
       <h1 class="title" style="font-size:120px;margin-top:14px;">Y AHORA UNA <span class="g">COMUNIDAD TECH.</span></h1>`,
   }),
   igFrame({
@@ -146,7 +146,7 @@ const ig1 = [
       <h1 class="title" style="font-size:170px;margin-top:34px;">¿LISTO PARA <span class="g">CONSTRUIR?</span></h1>
       <div style="margin-top:54px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <span class="ctaBtn" style="font-size:40px;padding:26px 44px;">SUMATE GRATIS →</span>
-        <span class="sub" style="font-size:34px;">nordelta.tech</span>
+        <span class="sub" style="font-size:34px;">bsasnortetech.vercel.app</span>
       </div>`,
   }),
 ];
@@ -170,7 +170,7 @@ const ig2 = [
     logo: 44,
     content: `
       <span class="kick">manifiesto</span>
-      <h1 class="title" style="font-size:188px;margin-top:36px;">¿QUÉ ES <span class="g">NORDELTA TECH?</span></h1>
+      <h1 class="title" style="font-size:188px;margin-top:36px;">¿QUÉ ES <span class="g">NORTE TECH?</span></h1>
       <p class="sub" style="font-size:38px;margin-top:42px;max-width:820px;">4 cosas que vas a encontrar adentro. Deslizá →</p>`,
   }),
   pillarSlide(1, "startups & proyectos", "STARTUPS &amp; PROYECTOS", "Conectamos founders con co-founders, early hires y primeros usuarios. Tu próximo socio puede vivir a 5 minutos."),
@@ -185,7 +185,7 @@ const ig2 = [
       <h1 class="title" style="font-size:160px;margin-top:34px;">CONSTRUÍ EL FUTURO <span class="g">DESDE EL AGUA.</span></h1>
       <div style="margin-top:54px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <span class="ctaBtn" style="font-size:40px;padding:26px 44px;">SUMATE GRATIS →</span>
-        <span class="sub" style="font-size:34px;">nordelta.tech</span>
+        <span class="sub" style="font-size:34px;">bsasnortetech.vercel.app</span>
       </div>`,
   }),
 ];
@@ -196,7 +196,7 @@ const xHeader = `<div class="stage" style="width:1500px;height:500px;--logo:104p
     <div>
       <span class="kick" style="font-size:22px;">comunidad tech · zona norte ba</span>
       <h1 class="title" style="font-size:124px;margin-top:18px;">BUILD THE <span class="g">FUTURE.</span></h1>
-      <span class="wm" style="font-family:'Mono';font-weight:700;color:var(--muted);font-size:30px;letter-spacing:1px;">nordelta.tech</span>
+      <span class="wm" style="font-family:'Mono';font-weight:700;color:var(--muted);font-size:30px;letter-spacing:1px;">bsasnortetech.vercel.app</span>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:26px;">
       <img src="data:image/png;base64,${LOGO}" style="height:160px;width:160px;filter:drop-shadow(0 0 22px rgba(0,229,160,.5));"/>
@@ -211,7 +211,7 @@ const xHeader = `<div class="stage" style="width:1500px;height:500px;--logo:104p
 const story = `<div class="stage" style="width:1080px;height:1920px;--logo:64px;">
   <div class="frame" style="padding:120px 90px;">
     <div class="top">
-      <div class="brand"><img src="data:image/png;base64,${LOGO}"/><span class="wm" style="font-size:30px;">nordelta.tech</span></div>
+      <div class="brand"><img src="data:image/png;base64,${LOGO}"/><span class="wm" style="font-size:30px;">bsasnortetech.vercel.app</span></div>
     </div>
     <div class="content">
       <span class="kick" style="font-size:30px;">comunidad tech · zona norte</span>
@@ -222,7 +222,7 @@ const story = `<div class="stage" style="width:1080px;height:1920px;--logo:64px;
     <div>
       <div class="rule"></div>
       <div class="bot" style="margin-top:30px;">
-        <span class="tagline" style="font-size:26px;">nordelta.tech</span>
+        <span class="tagline" style="font-size:26px;">bsasnortetech.vercel.app</span>
         <span class="swipe" style="font-size:30px;">DESLIZÁ ↑</span>
       </div>
     </div>

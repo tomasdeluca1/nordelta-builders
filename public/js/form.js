@@ -1,5 +1,5 @@
 /**
- * Nordelta Builders - Form Logic
+ * Norte Tech - Form Logic
  * Handles the registration form submission to Google Sheets
  */
 

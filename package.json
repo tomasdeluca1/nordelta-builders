@@ -1,7 +1,7 @@
 {
-  "name": "nordelta-builders",
+  "name": "norte-tech",
   "version": "1.0.0",
-  "description": "Nordelta Tech — community site (Next.js + Neon + Resend)",
+  "description": "Norte Tech — community site (Next.js + Neon + Resend)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

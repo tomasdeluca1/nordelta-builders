@@ -32,6 +32,9 @@ function slugifyName(name) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
 }
+// Patrón legacy, NO renombrar con el rebrand: tiene que coincidir con
+// scripts/send-access-emails.js, que le manda esta misma contraseña a los
+// miembros migrados desde Mongo. Las altas nuevas usan lib/password.ts.
 function defaultPasswordFor(name) {
   const slug = slugifyName(name) || 'builder';
   return `${slug}.nordelta.tech`;

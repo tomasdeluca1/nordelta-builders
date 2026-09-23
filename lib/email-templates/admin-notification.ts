@@ -27,6 +27,6 @@ export function adminNewRegistrationHtml(params: {
   return emailShell({
     appUrl,
     bodyHtml: body,
-    footerNote: 'Notificación interna de administración de nordelta.tech.',
+    footerNote: 'Notificación interna de administración de bsasnortetech.vercel.app.',
   });
 }

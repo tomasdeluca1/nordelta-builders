@@ -18,11 +18,11 @@ function getResend(): Resend {
 }
 
 function getFromAddress(): string {
-  return process.env.EMAIL_FROM?.trim() || 'Nordelta Tech <onboarding@nordelta.tech>';
+  return process.env.EMAIL_FROM?.trim() || 'Norte Tech <onboarding@resend.dev>';
 }
 
 function getAppUrl(): string {
-  return process.env.APP_URL?.trim() || 'https://nordelta.tech';
+  return process.env.APP_URL?.trim() || 'https://bsasnortetech.vercel.app';
 }
 
 /** Builder se registró → "recibimos tu registro" (sin credenciales). */
@@ -31,7 +31,7 @@ export async function sendRegistrationReceivedEmail(params: { to: string; name: 
   await getResend().emails.send({
     from: getFromAddress(),
     to: params.to,
-    subject: 'Recibimos tu registro en Nordelta Tech ⏳',
+    subject: 'Recibimos tu registro en Norte Tech ⏳',
     html: registrationReceivedHtml({ name: params.name, appUrl }),
   });
 }
@@ -49,7 +49,7 @@ export async function sendAdminNewRegistrationEmail(params: {
   await getResend().emails.send({
     from: getFromAddress(),
     to,
-    subject: `🛎️ Nuevo builder en Nordelta Tech: ${params.name}`,
+    subject: `🛎️ Nuevo builder en Norte Tech: ${params.name}`,
     html: adminNewRegistrationHtml({
       name: params.name,
       email: params.email,
@@ -67,7 +67,7 @@ export async function sendPresentationReceivedEmail(params: { to: string; name: 
   await getResend().emails.send({
     from: getFromAddress(),
     to: params.to,
-    subject: 'Recibimos tu presentación en Nordelta Tech ✅',
+    subject: 'Recibimos tu presentación en Norte Tech ✅',
     html: presentationReceivedHtml({ name: params.name, appUrl }),
   });
 }
@@ -108,7 +108,7 @@ export async function sendAcceptedEmail(params: {
   await getResend().emails.send({
     from: getFromAddress(),
     to: params.to,
-    subject: '¡Entraste a Nordelta Tech! 🚀',
+    subject: '¡Entraste a Norte Tech! 🚀',
     html: acceptedEmailHtml({
       name: params.name,
       email: params.to,
@@ -132,7 +132,7 @@ export async function sendWelcomeEmail(params: {
   await getResend().emails.send({
     from: getFromAddress(),
     to: params.to,
-    subject: '¡Entraste a Nordelta Tech! 🚀',
+    subject: '¡Entraste a Norte Tech! 🚀',
     html: welcomeEmailHtml({
       name: params.name,
       email: params.to,
@@ -155,7 +155,7 @@ export async function sendPasswordResetEmail(params: {
   await getResend().emails.send({
     from: getFromAddress(),
     to: params.to,
-    subject: 'Recuperá tu acceso a Nordelta Tech 🔑',
+    subject: 'Recuperá tu acceso a Norte Tech 🔑',
     html: passwordResetHtml({
       name: params.name,
       email: params.to,
@@ -172,7 +172,7 @@ export async function sendRejectedEmail(params: { to: string; name: string }): P
   await getResend().emails.send({
     from: getFromAddress(),
     to: params.to,
-    subject: 'Sobre tu registro en Nordelta Tech',
+    subject: 'Sobre tu registro en Norte Tech',
     html: rejectedEmailHtml({ name: params.name, appUrl }),
   });
 }

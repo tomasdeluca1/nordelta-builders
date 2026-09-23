@@ -165,7 +165,7 @@ export default function Home() {
       <nav className={navScrolled ? 'scrolled' : ''}>
         <a href="#" className="nav-logo">
           <img src="/assets/logo.png" alt="" width={32} height={32} />
-          Nordelta<em> Tech</em>
+          Norte<em> Tech</em>
         </a>
         <ul className="nav-center">
           <li><a href="#sobre">Sobre</a></li>
@@ -222,7 +222,7 @@ export default function Home() {
         <div className="hero-left container" style={{ maxWidth: 'none' }}>
           <div className="pill">
             <span className="pill-dot"></span>
-            nordelta.tech
+            bsasnortetech.vercel.app
             <span className="pill-sep">/</span>
             Zona Norte BA
             <span className="pill-sep">/</span>
@@ -234,9 +234,9 @@ export default function Home() {
             <span className="stroke">FUTURE.</span>
           </h1>
           <p className="hero-sub">
-            La comunidad tech de founders, devs y makers de Nordelta y zona norte.
+            La comunidad tech de founders, devs y makers de la Zona Norte del Gran Buenos Aires.
             Construimos startups, compartimos conocimiento y hacemos crecer el ecosistema
-            desde el agua. Ahora en <span className="domain">nordelta.tech</span>.
+            desde el agua. Ahora en <span className="domain">bsasnortetech.vercel.app</span>.
           </p>
           <div className="hero-actions">
             <button onClick={() => setShowJoinModal(true)} className="btn btn-green">
@@ -337,9 +337,9 @@ export default function Home() {
         <div className="about-grid">
           <div>
             <div className="eyebrow">¿Qué es esto?</div>
-            <h2 className="sec-title display">TECH NACE<br />EN NORDELTA</h2>
+            <h2 className="sec-title display">TECH NACE<br />EN ZONA NORTE</h2>
             <p className="sec-sub">
-              Somos un grupo de builders que vive y trabaja en Nordelta y zona norte del Gran Buenos Aires.
+              Somos un grupo de builders que vive y trabaja en la Zona Norte del Gran Buenos Aires.
               Arrancamos en 2025 con ganas de construir el ecosistema tech de la zona — desde cero, sin humo.
             </p>
             <div className="feat-grid">
@@ -353,21 +353,21 @@ export default function Home() {
             <div className="terminal">
               <div className="t-bar">
                 <div className="td"></div><div className="td"></div><div className="td"></div>
-                <span>~/nordelta.tech</span>
+                <span>~/nortetech</span>
               </div>
               <div className="t-body mono">
                 <div><span className="pr">$</span> <span className="cm">whoami</span></div>
                 <div><span className="ou">→ builders, devs, founders, makers</span></div>
                 <div>&nbsp;</div>
                 <div><span className="pr">$</span> <span className="cm">cat ./manifest.json</span></div>
-                <div><span className="ou">{`{ "domain": "nordelta.tech",`}</span></div>
+                <div><span className="ou">{`{ "domain": "bsasnortetech.vercel.app",`}</span></div>
                 <div><span className="ou">&nbsp;&nbsp;{`"members": ${memberTotal ?? 163},`}</span></div>
                 <div><span className="ou">&nbsp;&nbsp;{`"year": 2025,`}</span></div>
                 <div><span className="ou">&nbsp;&nbsp;{`"status": "shipping" }`}</span></div>
                 <div>&nbsp;</div>
                 <div><span className="pr">$</span> <span className="cm">next-event</span></div>
                 <div><span className="ou">→ Kick-off — fecha por confirmar</span></div>
-                <div><span className="ou">→ Nordelta, zona norte BA</span></div>
+                <div><span className="ou">→ Zona Norte, Buenos Aires</span></div>
                 <div>&nbsp;</div>
                 <div><span className="pr">$</span> <span className="cm">join<span className="cursor"></span></span></div>
               </div>
@@ -388,10 +388,10 @@ export default function Home() {
           <div className="events-grid">
             <div className="ev-card ev-featured">
               <div className="ev-badge badge-star">★ Evento fundacional</div>
-              <h3>Kick-off Nordelta Tech</h3>
-              <p>El primer encuentro de la comunidad. Nos juntamos para conocernos, contar en qué estamos construyendo y definir juntos el rumbo de Nordelta Tech. Lugar y fecha a confirmar — anotate para que te avisemos en cuanto esté todo listo.</p>
+              <h3>Kick-off Norte Tech</h3>
+              <p>El primer encuentro de la comunidad. Nos juntamos para conocernos, contar en qué estamos construyendo y definir juntos el rumbo de Norte Tech. Lugar y fecha a confirmar — anotate para que te avisemos en cuanto esté todo listo.</p>
               <div className="ev-meta">
-                <span className="ev-date">Fecha a confirmar · Nordelta</span>
+                <span className="ev-date">Fecha a confirmar · Zona Norte</span>
                 <button onClick={() => setShowJoinModal(true)} className="ev-link" style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit' }}>Avisame cuando sea →</button>
               </div>
             </div>
@@ -399,13 +399,13 @@ export default function Home() {
               <div className="ev-badge badge-ws">Workshop</div>
               <h3>Build with AI — TBD</h3>
               <p>Sesión práctica de vibe coding: de idea a MVP en pocas horas. Fecha a definir por la comunidad.</p>
-              <div className="ev-meta"><span className="ev-date">Próximamente</span><span>Nordelta</span></div>
+              <div className="ev-meta"><span className="ev-date">Próximamente</span><span>Zona Norte</span></div>
             </div>
             <div className="ev-card ev-dim">
               <div className="ev-badge badge-hack">Hackathon</div>
-              <h3>Nordelta Hack #1 — TBD</h3>
+              <h3>Norte Hack #1 — TBD</h3>
               <p>El primer hackathon de la comunidad. Track y fecha a definir. ¿Tenés idea de tema? Sugerila.</p>
-              <div className="ev-meta"><span className="ev-date">Próximamente</span><span>Nordelta</span></div>
+              <div className="ev-meta"><span className="ev-date">Próximamente</span><span>Zona Norte</span></div>
             </div>
           </div>
         </section>
@@ -458,7 +458,7 @@ export default function Home() {
         <div className="cta-inner">
           <div>
             <h2 className="display">¿LISTO PARA<br />CONSTRUIR?</h2>
-            <p>Sumate a Nordelta Tech. Es gratis, es local y es real. Nos vemos en nordelta.tech.</p>
+            <p>Sumate a Norte Tech. Es gratis, es local y es real. Nos vemos en bsasnortetech.vercel.app.</p>
           </div>
           <button onClick={() => setShowJoinModal(true)} className="btn btn-dark" style={{ fontSize: '.9rem', padding: '16px 36px' }}>
             Unirse al grupo
@@ -472,10 +472,10 @@ export default function Home() {
             <div className="f-brand">
               <div className="logo">
                 <img src="/assets/logo.png" alt="" width={40} height={40} />
-                Nordelta Tech
+                Norte Tech
               </div>
-              <div className="domain-tag">→ nordelta.tech</div>
-              <p>Comunidad tech de Nordelta y zona norte del Gran Buenos Aires. Construimos juntos desde cero.</p>
+              <div className="domain-tag">→ bsasnortetech.vercel.app</div>
+              <p>Comunidad tech de la Zona Norte del Gran Buenos Aires. Construimos juntos desde cero.</p>
             </div>
             <div className="f-col">
               <h5>Comunidad</h5>
@@ -488,11 +488,11 @@ export default function Home() {
               <h5>Contacto</h5>
               <a href="#" onClick={(e) => { e.preventDefault(); setShowJoinModal(true); }}>Unirse a la comunidad</a>
               <a href="tel:+541125085500">+54 11 2508-5500</a>
-              <a href="https://nordelta.tech" target="_blank">nordelta.tech</a>
+              <a href="https://bsasnortetech.vercel.app" target="_blank">bsasnortetech.vercel.app</a>
             </div>
           </div>
           <div className="footer-bottom">
-            <p>© 2025 Nordelta Tech · nordelta.tech · Nordelta, Pcia. de Buenos Aires</p>
+            <p>© 2025 Norte Tech · bsasnortetech.vercel.app · Zona Norte, Pcia. de Buenos Aires</p>
             <a href="#" onClick={(e) => { e.preventDefault(); setShowJoinModal(true); }} className="f-wa">
               Unirse a la comunidad
             </a>
@@ -509,7 +509,7 @@ export default function Home() {
               <div className="modal-success">
                 <div className="success-badge">✓</div>
                 <h3 className="success-title">¡Estás <span style={{ color: 'var(--accent)' }}>adentro</span>!</h3>
-                <p className="success-text">Ya sos parte de nordelta.tech.</p>
+                <p className="success-text">Ya sos parte de Norte Tech.</p>
                 <div className="success-note">
                   <strong>$ status --ok</strong><br />
                   Te mandamos un mail con tu <strong>acceso al dashboard</strong> y la <strong>invitación al grupo de WhatsApp</strong>. Revisá el inbox (y el spam, por las dudas).
@@ -521,7 +521,7 @@ export default function Home() {
             ) : (
               <>
                 <div className="modal-eyebrow">$ join --community</div>
-                <h3 className="modal-title">Sumate a <span className="green">nordelta.tech</span></h3>
+                <h3 className="modal-title">Sumate a <span className="green">Norte Tech</span></h3>
                 <p className="modal-sub">Contanos quién sos, dónde vivís y qué construís. Entrás al toque: te llega un mail con tu acceso y la invitación al grupo de WhatsApp.</p>
 
                 <form onSubmit={handleJoinSubmit} className="modal-form">
@@ -549,7 +549,7 @@ export default function Home() {
                   <div className="form-grid">
                     <div className="field">
                       <label>Empresa / Proyecto</label>
-                      <input placeholder="Ej. Nordelta Tech" value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} />
+                      <input placeholder="Ej. Norte Tech" value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} />
                     </div>
                     <div className="field">
                       <label>URL</label>
@@ -572,7 +572,7 @@ export default function Home() {
                   <div className="modal-eyebrow" style={{ marginTop: 4 }}>$ tu --presentación</div>
                   <PresentationFields value={presentation} onChange={patchPresentation} />
                   <button type="submit" disabled={formStatus === 'loading'} className="btn btn-green">
-                    {formStatus === 'loading' ? 'Guardando...' : 'Unirme a nordelta.tech →'}
+                    {formStatus === 'loading' ? 'Guardando...' : 'Unirme a Norte Tech →'}
                   </button>
                   {formStatus === 'error' && <p className="form-error">Hubo un error al guardar. Intentá de nuevo.</p>}
                 </form>

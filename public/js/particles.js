@@ -1,5 +1,5 @@
 /**
- * Nordelta Builders - Particles Effect
+ * Norte Tech - Particles Effect
  * Optional advanced particles or hover interactions
  */
 

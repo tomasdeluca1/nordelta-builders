@@ -24,7 +24,7 @@ export function acceptedEmailHtml(params: {
   const body = `
     ${headingRow(`¡ENTRASTE, ${escapeHtml(firstName.toUpperCase())}! 🎉`)}
     ${paragraphRow(
-      `Tu solicitud fue <strong style="color:#00e5a0;">aceptada</strong>. Ya sos parte de <strong style="color:#00e5a0;">Nordelta Tech</strong>, la comunidad de founders, devs y makers de la zona norte.`,
+      `Tu solicitud fue <strong style="color:#00e5a0;">aceptada</strong>. Ya sos parte de <strong style="color:#00e5a0;">Norte Tech</strong>, la comunidad de founders, devs y makers de la zona norte.`,
     )}
     <tr><td style="padding:24px 40px 0 40px;">
       <div style="background:#131920;border:1px solid #252e35;border-radius:12px;padding:20px 24px;">
