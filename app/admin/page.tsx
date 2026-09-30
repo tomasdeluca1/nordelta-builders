@@ -112,8 +112,7 @@ export default function AdminPage() {
     <main className="dash-shell">
       <nav className="dash-nav">
         <a href="/" className="nav-logo">
-          <img src="/assets/logo.png" alt="" width={28} height={28} />
-          NORTE<em> TECH</em>
+          <img src="/brand/norte-tech-horizontal.svg" alt="Norte Tech" />
         </a>
         <div className="dash-nav-right">
           <span className="dash-domain">admin</span>

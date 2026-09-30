@@ -1,0 +1,25 @@
+{
+  "name": "norte-tech-hero-video",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Video del hero de Norte Tech (Remotion)",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render:hero": "remotion render src/index.ts Hero out/hero.mp4 --muted",
+    "render:social": "remotion render src/index.ts Social out/norte-tech-social.mp4",
+    "render:vertical": "remotion render src/index.ts Vertical out/norte-tech-vertical.mp4",
+    "music": "node scripts/make-music.mjs",
+    "logo": "node scripts/build-logo.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.530",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.530"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "opentype.js": "^2.0.0",
+    "typescript": "^7.0.2"
+  }
+}

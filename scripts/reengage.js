@@ -53,25 +53,24 @@ function buildHtml({ firstName, magicLink, deadlineLabel, appUrl }) {
     ? `<tr><td style="padding:20px 40px 0 40px;"><div style="background:rgba(255,176,32,0.08);border:1px solid rgba(255,176,32,0.35);border-radius:12px;padding:16px 22px;font-size:14px;color:#a9b6c0;line-height:1.6;">⏳ Tenés tiempo hasta <strong style="color:#ffb020;">${esc(deadlineLabel)}</strong>. Después liberamos los lugares que queden sin completar.</div></td></tr>`
     : '';
   return `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="color-scheme" content="dark"/><title>Completá tu presentación</title></head>
-<body style="margin:0;padding:0;background:#080b0d;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#dde4ea;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#080b0d;padding:40px 16px;"><tr><td align="center">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="560" style="max-width:560px;width:100%;background:#0e1215;border:1px solid #1c2328;border-radius:16px;overflow:hidden;">
+<body style="margin:0;padding:0;background:#0a0f24;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#dde4ea;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#0a0f24;padding:40px 16px;"><tr><td align="center">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="560" style="max-width:560px;width:100%;background:#111935;border:1px solid #1f2a52;border-radius:16px;overflow:hidden;">
 <tr><td style="padding:32px 40px 0 40px;">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation"><tr>
-<td style="padding-right:12px;vertical-align:middle;"><img src="${appUrl}/assets/logo.png" width="40" height="40" alt="" style="display:block;border:0;"/></td>
 <td style="vertical-align:middle;">
-<div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:28px;letter-spacing:0.06em;color:#00e5a0;line-height:1;">NORTE <span style="color:#dde4ea;">TECH</span></div>
-<div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#7a8f9e;margin-top:4px;">bsasnortetech.vercel.app</div>
+                    <img src="${appUrl}/brand/norte-tech-horizontal.png" width="180" alt="Norte Tech" style="display:block;border:0;outline:0;text-decoration:none;width:180px;height:auto;"/>
+<div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#95a0c2;margin-top:4px;">bsasnortetech.vercel.app</div>
 </td></tr></table></td></tr>
 <tr><td style="padding:32px 40px 8px 40px;">
-<h1 style="margin:0;font-family:'Bebas Neue',Impact,sans-serif;font-size:42px;line-height:1.05;letter-spacing:0.02em;color:#ffffff;">${esc(firstName.toUpperCase())}, FALTA TU PRESENTACIÓN 🙌</h1>
-<p style="margin:16px 0 0 0;font-size:16px;line-height:1.6;color:#a9b6c0;">Estás en la lista de <strong style="color:#00e5a0;">Norte Tech</strong>. Estamos integrando a la comunidad de a poco y, para sumarte al grupo de WhatsApp, queremos conocerte un poco más.</p>
+<h1 style="margin:0;font-family:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:34px;font-weight:700;line-height:1.08;letter-spacing:-0.02em;color:#ffffff;">${esc(firstName.toUpperCase())}, FALTA TU PRESENTACIÓN 🙌</h1>
+<p style="margin:16px 0 0 0;font-size:16px;line-height:1.6;color:#a9b6c0;">Estás en la lista de <strong style="color:#a9b7f3;">Norte Tech</strong>. Estamos integrando a la comunidad de a poco y, para sumarte al grupo de WhatsApp, queremos conocerte un poco más.</p>
 <p style="margin:14px 0 0 0;font-size:16px;line-height:1.6;color:#a9b6c0;">Completá tu <strong style="color:#dde4ea;">presentación</strong> —dónde vivís, qué construís, qué buscás— y, si querés, conectá tu website. Un admin la revisa y te damos el acceso.</p>
 </td></tr>
-<tr><td align="center" style="padding:28px 40px 0 40px;"><a href="${esc(magicLink)}" style="display:inline-block;background:#00e5a0;color:#000000;text-decoration:none;font-weight:700;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;padding:14px 32px;border-radius:6px;">Completar mi presentación &rarr;</a></td></tr>
+<tr><td align="center" style="padding:28px 40px 0 40px;"><a href="${esc(magicLink)}" style="display:inline-block;background:#a9b7f3;color:#000000;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;">Completar mi presentación &rarr;</a></td></tr>
 ${deadlineBlock}
-<tr><td style="padding:24px 40px 0 40px;"><p style="margin:0;font-size:13px;color:#7a8f9e;line-height:1.6;">Este link es personal y te deja entrar sin contraseña. Si no fuiste vos quien se registró, ignorá este email.</p></td></tr>
-<tr><td style="padding:32px 40px 32px 40px;"><div style="border-top:1px solid #1c2328;padding-top:20px;font-size:12px;color:#52626e;line-height:1.6;">Recibís este email porque te registraste en Norte Tech. Cualquier duda, respondé a este mismo mail.</div></td></tr>
+<tr><td style="padding:24px 40px 0 40px;"><p style="margin:0;font-size:13px;color:#95a0c2;line-height:1.6;">Este link es personal y te deja entrar sin contraseña. Si no fuiste vos quien se registró, ignorá este email.</p></td></tr>
+<tr><td style="padding:32px 40px 32px 40px;"><div style="border-top:1px solid #1f2a52;padding-top:20px;font-size:12px;color:#52626e;line-height:1.6;">Recibís este email porque te registraste en Norte Tech. Cualquier duda, respondé a este mismo mail.</div></td></tr>
 </table>
 <div style="margin-top:16px;font-size:11px;color:#52626e;letter-spacing:0.12em;text-transform:uppercase;">© ${year} Norte Tech · bsasnortetech.vercel.app</div>
 </td></tr></table></body></html>`;

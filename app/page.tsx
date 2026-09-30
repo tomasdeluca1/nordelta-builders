@@ -105,7 +105,7 @@ export default function Home() {
   }, []);
 
   // Builders con sitio propio, para la grilla de la sección comunidad.
-  // Cortamos en 8 (misma convención que el orbit del hero): esto es un showcase,
+  // Cortamos en 8: esto es un showcase,
   // el listado completo y buscable es el CommunityDirectory de más abajo.
   const sites = members.filter(m => m.websiteUrl).slice(0, 8);
 
@@ -113,22 +113,7 @@ export default function Home() {
     const handleResize = () => { if (window.innerWidth > 960) closeMob(); };
     window.addEventListener('resize', handleResize);
 
-    // Particles parallax effect
-    const orbs = document.querySelectorAll('.orb') as NodeListOf<HTMLElement>;
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
-      orbs.forEach((orb, index) => {
-        const factor = (index + 1) * 0.8;
-        orb.style.transform = `translate(calc(-50% + ${x * factor}px), calc(-50% + ${y * factor}px))`;
-      });
-    };
-    document.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
@@ -163,9 +148,8 @@ export default function Home() {
   return (
     <>
       <nav className={navScrolled ? 'scrolled' : ''}>
-        <a href="#" className="nav-logo">
-          <img src="/assets/logo.png" alt="" width={32} height={32} />
-          Norte<em> Tech</em>
+        <a href="#" className="nav-logo" aria-label="Norte Tech, inicio">
+          <img src="/brand/norte-tech-horizontal.svg" alt="Norte Tech" />
         </a>
         <ul className="nav-center">
           <li><a href="#sobre">Sobre</a></li>
@@ -222,21 +206,16 @@ export default function Home() {
         <div className="hero-left container" style={{ maxWidth: 'none' }}>
           <div className="pill">
             <span className="pill-dot"></span>
-            bsasnortetech.vercel.app
+            Comunidad tech
             <span className="pill-sep">/</span>
-            Zona Norte BA
-            <span className="pill-sep">/</span>
-            v0.1 beta
+            Buenos Aires
           </div>
           <h1 className="hero-h1 display">
-            BUILD<br />
-            <span className="green">THE</span><br />
-            <span className="stroke">FUTURE.</span>
+            Founders, capital y talento.<br /><span className="serif-hl">En la misma sala.</span>
           </h1>
           <p className="hero-sub">
-            La comunidad tech de founders, devs y makers de la Zona Norte del Gran Buenos Aires.
-            Construimos startups, compartimos conocimiento y hacemos crecer el ecosistema
-            desde el agua. Ahora en <span className="domain">bsasnortetech.vercel.app</span>.
+            La comunidad de founders, devs e inversores de la Zona Norte de Buenos Aires.
+            Nos juntamos a construir startups, mostrar lo que hacemos y conectar.
           </p>
           <div className="hero-actions">
             <button onClick={() => setShowJoinModal(true)} className="btn btn-green">
@@ -261,58 +240,11 @@ export default function Home() {
         </div>
 
         <div className="hero-right">
-          <div className="hero-orbit">
-            <div className="orb orb-1"></div>
-            <div className="orb orb-2"></div>
-            <div className="orb orb-3"></div>
-            <div className="ring ring-2"></div>
-            <div className="ring ring-1"></div>
-            <div className={`orbit-core${membersLoading ? ' is-loading' : ''}`}>
-              <span className="orbit-core-pulse" />
-              {membersLoading ? (
-                <span className="orbit-core-spinner" aria-label="Cargando" />
-              ) : (
-                <>
-                  <span className="orbit-core-val">{memberTotal ?? '—'}</span>
-                  <span className="orbit-core-lbl">builders</span>
-                </>
-              )}
-            </div>
-            <div className={`orbit-spin${membersLoading ? ' is-loading' : ''}`}>
-              {(membersLoading ? Array.from({ length: 8 }) : members.slice(0, 8)).map((m: unknown, i: number, arr: unknown[]) => {
-                const angle = (360 / Math.max(arr.length, 1)) * i;
-                if (membersLoading) {
-                  return (
-                    <div key={`sk-${i}`} className="orbit-node" style={{ ['--a']: `${angle}deg` } as React.CSSProperties}>
-                      <div className="orbit-counter">
-                        <div className="orbit-avatar orbit-avatar-skel" style={{ animationDelay: `${(i * -0.15).toFixed(2)}s` }} />
-                      </div>
-                    </div>
-                  );
-                }
-                const mem = m as Member;
-                const c = PALETTE[mem.colorIndex % PALETTE.length];
-                return (
-                  <div key={mem._id} className="orbit-node" style={{ ['--a']: `${angle}deg` } as React.CSSProperties}>
-                    <div className="orbit-counter">
-                      <div
-                        className="orbit-avatar"
-                        aria-label={mem.name}
-                        style={{
-                          borderColor: c.color,
-                          color: c.color,
-                          background: `${c.color}1f`,
-                          animationDelay: `${(i * -0.8).toFixed(1)}s`,
-                        }}
-                      >
-                        {mem.initials}
-                      </div>
-                      <span className="orbit-name">{mem.name}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          <div className="hero-video">
+            <video autoPlay muted loop playsInline preload="metadata" poster="/video/norte-tech-hero-poster.jpg" aria-label="Video de presentación de Norte Tech">
+              <source src="/video/norte-tech-hero.webm" type="video/webm" />
+              <source src="/video/norte-tech-hero.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
 
@@ -471,8 +403,7 @@ export default function Home() {
           <div className="footer-top">
             <div className="f-brand">
               <div className="logo">
-                <img src="/assets/logo.png" alt="" width={40} height={40} />
-                Norte Tech
+                <img src="/brand/norte-tech-horizontal.svg" alt="Norte Tech" />
               </div>
               <div className="domain-tag">→ bsasnortetech.vercel.app</div>
               <p>Comunidad tech de la Zona Norte del Gran Buenos Aires. Construimos juntos desde cero.</p>
@@ -521,7 +452,7 @@ export default function Home() {
             ) : (
               <>
                 <div className="modal-eyebrow">$ join --community</div>
-                <h3 className="modal-title">Sumate a <span className="green">Norte Tech</span></h3>
+                <h3 className="modal-title">Sumate a <span className="serif-hl">Norte Tech</span></h3>
                 <p className="modal-sub">Contanos quién sos, dónde vivís y qué construís. Entrás al toque: te llega un mail con tu acceso y la invitación al grupo de WhatsApp.</p>
 
                 <form onSubmit={handleJoinSubmit} className="modal-form">

@@ -1,6 +1,6 @@
 // Colores de avatar por colorIndex (compartidos por la home y el directorio).
 export const PALETTE = [
-  { bg: 'rgba(0,229,160,.1)',  color: '#00e5a0' },
+  { bg: 'rgba(169,183,243,.1)', color: '#a9b7f3' },
   { bg: 'rgba(33,150,243,.1)', color: '#2196f3' },
   { bg: 'rgba(255,152,0,.1)',  color: '#ff9800' },
   { bg: 'rgba(156,39,176,.1)', color: '#9c27b0' },

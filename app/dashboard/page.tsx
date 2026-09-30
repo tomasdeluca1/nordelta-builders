@@ -23,7 +23,7 @@ interface User {
 }
 
 const PALETTE = [
-  { bg: 'rgba(0,229,160,.12)',  color: '#00e5a0' },
+  { bg: 'rgba(169,183,243,.12)', color: '#a9b7f3' },
   { bg: 'rgba(33,150,243,.12)', color: '#2196f3' },
   { bg: 'rgba(255,152,0,.12)',  color: '#ff9800' },
   { bg: 'rgba(156,39,176,.12)', color: '#9c27b0' },
@@ -163,8 +163,7 @@ export default function DashboardPage() {
     <main className="dash-shell">
       <nav className="dash-nav">
         <a href="/" className="nav-logo">
-          <img src="/assets/logo.png" alt="" width={28} height={28} />
-          NORTE<em> TECH</em>
+          <img src="/brand/norte-tech-horizontal.svg" alt="Norte Tech" />
         </a>
         <div className="dash-nav-right">
           {user.isAdmin && <a href="/admin" className="btn btn-ghost dash-logout">Admin</a>}

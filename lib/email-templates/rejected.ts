@@ -7,7 +7,7 @@ export function rejectedEmailHtml(params: { name: string; appUrl: string }): str
   const body = `
     ${headingRow(`HOLA, ${escapeHtml(firstName.toUpperCase())}`)}
     ${paragraphRow(
-      `Gracias por tu interés en sumarte a <strong style="color:#00e5a0;">Norte Tech</strong>. 🙏`,
+      `Gracias por tu interés en sumarte a <strong style="color:#a9b7f3;">Norte Tech</strong>. 🙏`,
     )}
     ${paragraphRow(
       `Por ahora no vamos a poder darte el alta en la comunidad. Estamos arrancando de a poco y cuidando mucho el grupo, así que no es algo personal.`,

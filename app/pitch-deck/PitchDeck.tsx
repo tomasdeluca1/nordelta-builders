@@ -46,7 +46,7 @@ export default function PitchDeck({ sponsor }: { sponsor?: Sponsor }) {
 
   return (
     <div className="deck">
-      <a className="deck-home" href="/">NORTE <b>TECH</b></a>
+      <a className="deck-home" href="/" aria-label="Norte Tech, inicio"><img src="/brand/norte-tech-horizontal.svg" alt="Norte Tech" /></a>
       {sponsor && (
         <div className="deck-cobrand">
           <span className="cb-label">Sponsor principal</span>
