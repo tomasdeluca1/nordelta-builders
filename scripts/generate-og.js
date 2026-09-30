@@ -1,8 +1,8 @@
 /* eslint-disable */
-// Generates a static 1200x630 OG image at public/og.png using brand fonts.
-//   • Bebas Neue (display)  · headlines
-//   • Space Mono (mono)     · stamps, pills
-//   • DM Sans (body)        · subtitle
+// Generates a static 1200x630 OG image at public/og.png using the Norte Tech brand:
+//   • Outfit (display + body) · headline, subtitle
+//   • Instrument Serif italic · palabra destacada con el degradado del logo
+//   • JetBrains Mono          · URL y tags
 //
 // Layout respects the 1000x540 safe zone (centered).
 // Run: node scripts/generate-og.js
@@ -14,236 +14,94 @@ const { Resvg } = require('@resvg/resvg-js');
 
 const W = 1200;
 const H = 630;
-const ACCENT = '#00E5A0';
-const BG = '#080B0D';
-const SURF = '#0E1215';
-const BORDER = '#1C2328';
-const MUTED = '#7A8F9E';
-const TEXT = '#E6EDF3';
-const DIM = '#52626E';
+const BG = '#0A0F24';
+const SURF = '#111935';
+const BORDER = '#28355F';
+const MUTED = '#95A0C2';
+const TEXT = '#EEF1FA';
+const G1 = '#5A8FDA';
+const G2 = '#8E6BAE';
+const G3 = '#F4C2A8';
 
 const root = path.join(__dirname, '..');
 const fontsDir = path.join(root, 'public', 'assets', 'fonts');
-const logoPath = path.join(root, 'public', 'assets', 'logo.png');
+const logoSvgPath = path.join(root, 'public', 'brand', 'norte-tech-horizontal.svg');
 const outPath = path.join(root, 'public', 'og.png');
 
-function loadFont(name) {
-  return fs.readFileSync(path.join(fontsDir, name));
-}
+const loadFont = name => fs.readFileSync(path.join(fontsDir, name));
 
 async function main() {
-  const bebas = loadFont('BebasNeue-Regular.ttf');
-  const monoR = loadFont('SpaceMono-Regular.ttf');
-  const monoB = loadFont('SpaceMono-Bold.ttf');
-  const dmSans = loadFont('DMSans-Regular.ttf');
-  const logoB64 = fs.readFileSync(logoPath).toString('base64');
-  const logoDataUri = `data:image/png;base64,${logoB64}`;
+  const logoPng = new Resvg(fs.readFileSync(logoSvgPath, 'utf8'), { fitTo: { mode: 'width', value: 760 } }).render().asPng();
+  const logoDataUri = `data:image/png;base64,${logoPng.toString('base64')}`;
+  const [, vbW, vbH] = fs.readFileSync(logoSvgPath, 'utf8').match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/).map(Number);
+  const logoW = 380, logoH = Math.round(logoW * vbH / vbW);
 
   const node = {
     type: 'div',
     props: {
       style: {
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'relative',
-        background: `radial-gradient(60% 50% at 78% 20%, rgba(0,229,160,0.18) 0%, transparent 60%), radial-gradient(60% 50% at 12% 88%, rgba(33,150,243,0.12) 0%, transparent 60%), linear-gradient(135deg, ${BG} 0%, #0a1014 100%)`,
-        fontFamily: 'DM Sans',
-        color: TEXT,
+        width: '100%', height: '100%', display: 'flex', flexDirection: 'column',
+        justifyContent: 'space-between', padding: '70px 100px',
+        background: `radial-gradient(55% 60% at 88% 10%, rgba(142,107,174,0.35) 0%, transparent 60%), radial-gradient(50% 50% at 8% 100%, rgba(90,143,218,0.22) 0%, transparent 60%), radial-gradient(40% 40% at 95% 100%, rgba(244,194,168,0.14) 0%, transparent 60%), ${BG}`,
+        fontFamily: 'Outfit', color: TEXT,
       },
       children: [
-        // Top scanline
+        { type: 'img', props: { src: logoDataUri, width: logoW, height: logoH, style: { display: 'block' } } },
         {
           type: 'div',
           props: {
-            style: {
-              position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-              background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`,
-              opacity: 0.5,
-            },
-          },
-        },
-        // Top bar
-        {
-          type: 'div',
-          props: {
-            style: {
-              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-              padding: '56px 80px 0 80px',
-            },
+            style: { display: 'flex', flexDirection: 'column' },
             children: [
               {
                 type: 'div',
                 props: {
-                  style: { display: 'flex', alignItems: 'center', gap: 14, fontFamily: 'Space Mono', fontSize: 18, letterSpacing: '0.28em', color: MUTED },
-                  children: [
-                    { type: 'div', props: { style: { width: 8, height: 8, borderRadius: 4, background: ACCENT, boxShadow: `0 0 12px ${ACCENT}` } } },
-                    'NORTE TECH',
-                  ],
+                  style: { fontSize: 76, fontWeight: 700, letterSpacing: '-0.045em', lineHeight: 1.02, display: 'flex' },
+                  children: 'Founders, capital y talento.',
                 },
               },
               {
                 type: 'div',
                 props: {
-                  style: { fontFamily: 'Space Mono', fontSize: 18, letterSpacing: '0.16em', color: MUTED, display: 'flex' },
-                  children: [
-                    { type: 'span', props: { style: { color: ACCENT, marginRight: 8 }, children: '$' } },
-                    'cd ~/nortetech',
-                  ],
+                  style: {
+                    fontFamily: 'Instrument Serif', fontStyle: 'italic', fontSize: 92, lineHeight: 1.05, display: 'flex',
+                    backgroundImage: `linear-gradient(95deg, ${G1}, ${G2} 50%, ${G3})`, backgroundClip: 'text', color: 'transparent',
+                    paddingRight: 12,
+                  },
+                  children: 'En la misma sala.',
                 },
               },
             ],
           },
         },
-        // Hero row
         {
           type: 'div',
           props: {
-            style: {
-              flex: 1,
-              display: 'flex',
-              alignItems: 'center',
-              padding: '0 80px',
-              gap: 56,
-            },
+            style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
             children: [
-              // Logo card
               {
                 type: 'div',
                 props: {
-                  style: {
-                    width: 240, height: 240,
-                    background: SURF,
-                    border: `1px solid ${BORDER}`,
-                    borderRadius: 32,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    boxShadow: `0 30px 80px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(0,229,160,0.05)`,
-                  },
+                  style: { display: 'flex', alignItems: 'center', gap: 12, fontFamily: 'JetBrains Mono', fontSize: 20, color: TEXT },
                   children: [
-                    { type: 'img', props: { src: logoDataUri, width: 200, height: 200, style: { display: 'block' } } },
+                    { type: 'div', props: { style: { width: 9, height: 9, borderRadius: 5, background: G3 } } },
+                    'bsasnortetech.vercel.app',
                   ],
                 },
               },
-              // Text block
-              {
-                type: 'div',
-                props: {
-                  style: { display: 'flex', flexDirection: 'column', flex: 1 },
-                  children: [
-                    {
-                      type: 'div',
-                      props: {
-                        style: {
-                          fontFamily: 'Bebas Neue',
-                          fontSize: 140,
-                          lineHeight: 0.92,
-                          letterSpacing: '0.02em',
-                          color: TEXT,
-                          display: 'flex',
-                        },
-                        children: 'MEJOR CRECER',
-                      },
-                    },
-                    {
-                      type: 'div',
-                      props: {
-                        style: {
-                          fontFamily: 'Bebas Neue',
-                          fontSize: 140,
-                          lineHeight: 0.92,
-                          letterSpacing: '0.02em',
-                          color: ACCENT,
-                          display: 'flex',
-                          marginTop: 4,
-                          textShadow: `0 0 40px rgba(0,229,160,0.45)`,
-                        },
-                        children: 'EN COMUNIDAD.',
-                      },
-                    },
-                    {
-                      type: 'div',
-                      props: {
-                        style: {
-                          fontFamily: 'DM Sans',
-                          fontSize: 22,
-                          color: MUTED,
-                          marginTop: 18,
-                          display: 'flex',
-                          lineHeight: 1.4,
-                          maxWidth: 640,
-                        },
-                        children: 'Norte Tech · Comunidad tech de founders, devs y makers de la Zona Norte de Buenos Aires.',
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-        },
-        // Bottom row
-        {
-          type: 'div',
-          props: {
-            style: {
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '0 80px 56px 80px',
-            },
-            children: [
-              // Domain pill
-              {
-                type: 'div',
-                props: {
-                  style: {
-                    display: 'flex', alignItems: 'center', gap: 12,
-                    padding: '10px 22px',
-                    borderRadius: 100,
-                    background: 'rgba(0,229,160,0.10)',
-                    border: `1px solid rgba(0,229,160,0.45)`,
-                    fontFamily: 'Space Mono', fontWeight: 700,
-                    fontSize: 16, letterSpacing: '0.22em', color: ACCENT,
-                  },
-                  children: [
-                    { type: 'div', props: { style: { width: 8, height: 8, borderRadius: 4, background: ACCENT, boxShadow: `0 0 10px ${ACCENT}` } } },
-                    'BSASNORTETECH.VERCEL.APP',
-                  ],
-                },
-              },
-              // Tag pills
               {
                 type: 'div',
                 props: {
                   style: { display: 'flex', gap: 10 },
-                  children: ['FOUNDERS', 'DEVS', 'MAKERS'].map(t => ({
+                  children: ['Founders', 'Devs', 'Inversores'].map(t => ({
                     type: 'div',
                     props: {
-                      style: {
-                        padding: '10px 20px', borderRadius: 100,
-                        background: SURF, border: `1px solid ${BORDER}`,
-                        fontFamily: 'Space Mono', fontSize: 15,
-                        letterSpacing: '0.22em', color: TEXT,
-                      },
+                      style: { padding: '9px 18px', borderRadius: 100, background: SURF, border: `1px solid ${BORDER}`, fontFamily: 'JetBrains Mono', fontSize: 16, color: MUTED },
                       children: t,
                     },
                   })),
                 },
               },
             ],
-          },
-        },
-        // Bottom scanline
-        {
-          type: 'div',
-          props: {
-            style: {
-              position: 'absolute', bottom: 0, left: 0, right: 0, height: 1,
-              background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)`,
-              opacity: 0.3,
-            },
           },
         },
       ],
@@ -254,10 +112,10 @@ async function main() {
     width: W,
     height: H,
     fonts: [
-      { name: 'Bebas Neue', data: bebas, weight: 400, style: 'normal' },
-      { name: 'Space Mono', data: monoR, weight: 400, style: 'normal' },
-      { name: 'Space Mono', data: monoB, weight: 700, style: 'normal' },
-      { name: 'DM Sans',    data: dmSans, weight: 400, style: 'normal' },
+      { name: 'Outfit', data: loadFont('Outfit-Regular.woff'), weight: 400, style: 'normal' },
+      { name: 'Outfit', data: loadFont('Outfit-Bold.woff'), weight: 700, style: 'normal' },
+      { name: 'Instrument Serif', data: loadFont('InstrumentSerif-Italic.woff'), weight: 400, style: 'italic' },
+      { name: 'JetBrains Mono', data: loadFont('JetBrainsMono-Regular.woff'), weight: 400, style: 'normal' },
     ],
   });
 

@@ -8,7 +8,7 @@ const TITLE = 'Norte Tech · Comunidad de founders, devs y makers';
 const DESCRIPTION =
   'Comunidad tech de la Zona Norte de Buenos Aires: founders, devs y makers construyendo startups, compartiendo conocimiento y armando red. Eventos y dashboard.';
 const OG_DESCRIPTION =
-  'Founders, devs y makers de la Zona Norte construyendo el ecosistema tech desde el agua. Sumate al kick-off, conocé a los builders y empezá a buildear.';
+  'Founders, capital y talento en la misma sala. La comunidad de founders, devs e inversores de la Zona Norte de Buenos Aires.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
       </head>

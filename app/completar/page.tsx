@@ -113,7 +113,7 @@ export default async function CompletarPage({ searchParams }: { searchParams: { 
   return (
     <Shell>
       <h3 className="modal-title" style={{ marginTop: 8 }}>
-        Completá tu <span className="green">presentación</span>
+        Completá tu <span className="serif-hl">presentación</span>
       </h3>
       <p className="modal-sub">
         Hola, {member.name.split(' ')[0]}. Contanos quién sos, dónde vivís y qué construís. Un admin la revisa y, si te acepta,
